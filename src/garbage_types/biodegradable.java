@@ -1,6 +1,6 @@
 package src.garbage_types;
 
-public class biodegradable implements Garbage{
+public class Biodegradable implements Garbage{
 
     public void setGarbageName(String garbage_name) {
         
@@ -10,11 +10,15 @@ public class biodegradable implements Garbage{
         return "";
     }
 
+    public void printGarbageName() {
+        System.out.println("Biodegradable");
+    }
+
     public String getRecyclingInfo() {
         return "";
     }
 
     public void printRecyclingInfo() {
-
+        System.out.println("Biodegrable Recycling");
     }      
 }

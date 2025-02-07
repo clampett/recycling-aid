@@ -1,6 +1,6 @@
 package src.garbage_types;
 
-public class electronic implements Garbage{
+public class Electronic implements Garbage{
 
     public void setGarbageName(String garbage_name) {
         
@@ -10,11 +10,15 @@ public class electronic implements Garbage{
         return "";
     }
 
+    public void printGarbageName() {
+        System.out.println("Electronic");
+    }
+
     public String getRecyclingInfo() {
         return "";
     }
 
     public void printRecyclingInfo() {
-
-    }      
+        System.out.println("Electronic Recycling");
+    }
 }
