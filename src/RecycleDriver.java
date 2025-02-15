@@ -1,10 +1,12 @@
 package src;
 
-import src.garbage_types.*;
+import src.garbage_types.info.GarbageInfo;
 
 public class RecycleDriver {
     public static void main(String[] args) {
-        Info_Garbage a = new Info_Garbage("electronics");
-        a.printRecyclingInfo();
+        GarbageInfo a = new GarbageInfo("biodegradables");
+        a.printGarbageName();
+        System.out.println(a.getRecyclingInfo()[2]);
+        System.out.println(a.getGarbageImagePath());
     }
 }

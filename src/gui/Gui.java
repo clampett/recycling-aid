@@ -9,8 +9,6 @@ import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 import javafx.geometry.*;
 import javafx.stage.*;
-import java.util.*;
-import src.garbage_types.*;
 
 public class Gui extends Application {
     private final double app_height = 750;
@@ -76,7 +74,6 @@ public class Gui extends Application {
         //Button Actions
         gameButton.setOnAction(e -> mainStage.setScene(gameScene));
         infoButton.setOnAction(e -> {
-            createInfoObjects();
             mainStage.setScene(infoSceneI);
         });
         creditButton.setOnAction(e -> mainStage.setScene(creditScene));
@@ -223,19 +220,5 @@ public class Gui extends Application {
         );
         
         creditScene = new Scene(creditPane);
-    }
-
-    private List<Garbage> createInfoObjects() {
-        List<Garbage> info_garbage_objects = new ArrayList<>(13);
-
-        info_garbage_objects.add(new Info_Garbage("biodegradables"));
-        info_garbage_objects.add(new Info_Garbage("electronics"));
-        info_garbage_objects.add(new Info_Garbage("hazardous"));
-        info_garbage_objects.add(new Info_Garbage("recyclables"));
-        info_garbage_objects.add(new Info_Garbage("donatables"));
-
-        
-
-        return info_garbage_objects;
     }
 }

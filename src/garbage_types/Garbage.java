@@ -1,38 +1,49 @@
 package src.garbage_types;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
+public class Garbage implements GarbageInterface {
+    private String garbageName, garbageImagePath;
 
-public interface Garbage {
-    public String getGarbageName();
-    public void setGarbageName(String garbage_name);
-    public void printGarbageName();
-    public void setGarbageIndex();
-    public String getGarbageImagePath();
-    public void setGarbageImagePath();
+    public Garbage(String garbageName) {
+        this.garbageName = garbageName;
+        setGarbageImagePath();
+    }
 
-    public default List<String> loader(String file_path) {
-        try {
-            File data = new File(file_path);
-            Scanner scan = new Scanner(data);
-            String dataString = "";
+    public String getGarbageName() {
+        return this.garbageName;
+    }
 
-            while(scan.hasNextLine()) {
-                dataString += scan.nextLine();
-            } scan.close();
+    public void printGarbageName() {
+        System.out.println(this.garbageName);
+    }
 
-            List<String> dataList = new ArrayList<>(Arrays.asList(dataString.split("~")));
+    public String getGarbageImagePath() {
+        return this.garbageImagePath;
+    }
 
-            return dataList;
-        } catch(FileNotFoundException e) {
-            System.out.println("Error");
-            e.printStackTrace();
+    public void setGarbageImagePath() {
+        String path = "src/data/images/";
+        
+        switch(garbageName) {
+            case "biodegradables":
+                path += "biodegradables.png";
+                break;
+            case "electronics":
+                path += "electronic.png";
+                break;
+            case "hazardous":
+                path += "hazardous.png";
+                break;
+            case "recyclables":
+                path += "recyclable.png";
+                break;
+            case "donatables":
+                path += "donatable.png";
+                break;
+            default:
+                System.out.println("Invalid Garbage Name - Could not get image path");
+                path += "error.png";
         }
-
-        return null;
+        
+        this.garbageImagePath = path;
     }
 }
