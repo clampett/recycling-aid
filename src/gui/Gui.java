@@ -24,6 +24,9 @@ public class Gui extends Application {
                                             + "-fx-border-color: #000000;"
                                             + "-fx-border-width: 3;";
 
+    private final String titleFont = "Comic Sans MS";
+    private final String bodyFont = "Comic Sans MS";
+
     private Scene titleScene, gameScene, infoSceneI, creditScene;
 
     public static void main(String[] args) {
@@ -114,7 +117,7 @@ public class Gui extends Application {
         Text infoTitle = new Text("How to Recycle?");
 
         //Text Style
-        infoTitle.setFont(Font.font("Comic Sans MS", 45));
+        infoTitle.setFont(Font.font(titleFont, 45));
 
 
         //Images & ImageView
@@ -164,9 +167,9 @@ public class Gui extends Application {
         Text creditInfo = new Text("Rowan University\t\tHonors OOPDA\t\tSpring 2025");
 
         //Text Style
-        creditTitle.setFont(Font.font("Comic Sans MS", 45));
-        creditList.setFont(Font.font("Comic Sans MS", 25));
-        creditInfo.setFont(Font.font("Comic Sans MS", 15));
+        creditTitle.setFont(Font.font(titleFont, 45));
+        creditList.setFont(Font.font(bodyFont, 25));
+        creditInfo.setFont(Font.font(bodyFont, 15));
         creditTitle.setFill(Color.WHITE);
         creditTitle.setStroke(Color.BLACK);
         creditTitle.setStrokeWidth(2);
