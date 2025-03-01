@@ -11,21 +11,21 @@ import javafx.geometry.*;
 import javafx.stage.*;
 
 public class Gui extends Application {
-    private final double app_height = 750;
-    private final double app_width = 500;
-    private final String app_CSS = "-fx-background-color: #00b400;";
+    public static final double app_height = 750;
+    public static final double app_width = 500;
+    public static final String app_CSS = "-fx-background-color: #00b400;";
 
-    private final double button_height = 50;
-    private final double button_width = 75;
-    private final double back_button_height = 30;
-    private final double back_button_width = 50;
-    private final String button_CSS = "-fx-background-color: #FFFFFF;" 
+    public static final double button_height = 50;
+    public static final double button_width = 75;
+    public static final double back_button_height = 30;
+    public static final double back_button_width = 50;
+    public static final String button_CSS = "-fx-background-color: #FFFFFF;" 
                                             + "-fx-font-size: 15;"
                                             + "-fx-border-color: #000000;"
                                             + "-fx-border-width: 3;";
 
-    private final String titleFont = "Comic Sans MS";
-    private final String bodyFont = "Comic Sans MS";
+    public static final String titleFont = "Comic Sans MS";
+    public static final String bodyFont = "Comic Sans MS";
 
     private Scene titleScene, gameScene, infoSceneI, creditScene;
 
