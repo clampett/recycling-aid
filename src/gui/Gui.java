@@ -10,49 +10,57 @@ import javafx.scene.paint.Color;
 import javafx.geometry.*;
 import javafx.stage.*;
 
-public class Gui extends Application {
-    public static final double app_height = 750;
-    public static final double app_width = 500;
-    public static final String app_CSS = "-fx-background-color: #00b400;";
+import java.util.logging.*;
 
-    public static final double button_height = 50;
-    public static final double button_width = 75;
-    public static final double back_button_height = 30;
-    public static final double back_button_width = 50;
-    public static final String button_CSS = "-fx-background-color: #FFFFFF;" 
+public class Gui extends Application {
+    protected static final double APP_HEIGHT = 1200;
+    protected static final double APP_WIDTH = 1000;
+    protected static final String APP_CSS = "-fx-background-color: #00b400;";
+
+    protected static final double BUTTON_HEIGHT = 35;
+    protected static final double BUTTON_WIDTH = 75;
+    protected static final double BACK_BUTTON_HEIGHT = 20;
+    protected static final double BACK_BUTTON_WIDTH = 50;
+    protected static final String BACK_BUTTON_TEXT = "↩";
+    protected static final String BUTTON_CSS = "-fx-background-color: #FFFFFF;" 
                                             + "-fx-font-size: 15;"
                                             + "-fx-border-color: #000000;"
                                             + "-fx-border-width: 3;";
 
-    public static final String titleFont = "Comic Sans MS";
-    public static final String bodyFont = "Comic Sans MS";
+    protected static final String TITLE_FONT = "Impact";
+    protected static final String BODY_FONT = "Comic Sans MS";
 
-    private Scene titleScene, gameScene, infoSceneI, creditScene;
+    protected static Scene titleScene, gameScene, infoScene, creditScene;
+
+    public static final Logger L = Logger.getLogger(Gui.class.getName());
 
     public static void main(String[] args) {
+        L.setLevel(Level.ALL);
         launch(args);
     }
 
     @Override
     public void start(Stage mainStage) {
-        VBox root = setUpTitleScene(mainStage);
-        setUpGameScene(mainStage);
-        setUpInfoSceneI(mainStage);
-        setUpCreditScene(mainStage);
+        L.info("Setting up GUI");
 
-        titleScene = new Scene(root);
+        titleScene = setUpTitleScene(mainStage);
+        creditScene = setUpCreditScene(mainStage);
+        gameScene = Gui_Game.setUpGameScene(mainStage);
+        infoScene = Gui_Info.setUpInfoScene(mainStage);
+
         mainStage.setScene(titleScene);
         mainStage.setTitle("Recycling Aid");
         mainStage.getIcons().add(new Image("src/data/images/recycling_arrow.png"));
         mainStage.show();
     }
 
-    private VBox setUpTitleScene(Stage mainStage) {
+    private Scene setUpTitleScene(Stage mainStage) {
+        L.info("Setting up title scene");
         //Text
         Text titleText = new Text(150, 100, "Recycling Aid");
 
         //Text Style
-        titleText.setFont(Font.font("Impact", 60));
+        titleText.setFont(Font.font(TITLE_FONT, 60));
         titleText.setFill(Color.WHITE);
         titleText.setStroke(Color.BLACK);
         titleText.setStrokeWidth(2);
@@ -69,159 +77,106 @@ public class Gui extends Application {
 
 
         //Buttons
+        Button calculatorButton = new Button("Calculate Your Impact");
         Button gameButton = new Button("Game");
         Button infoButton = new Button("Info");
         Button creditButton = new Button("Credits");
-        Button[] buttonArr = {gameButton, infoButton, creditButton};
+        Button[] buttonArr = {calculatorButton, gameButton, infoButton, creditButton};
 
         //Button Actions
         gameButton.setOnAction(e -> mainStage.setScene(gameScene));
-        infoButton.setOnAction(e -> {
-            mainStage.setScene(infoSceneI);
-        });
+        infoButton.setOnAction(e -> mainStage.setScene(infoScene));
         creditButton.setOnAction(e -> mainStage.setScene(creditScene));
         
         //Button Size & Style
         for(Button b : buttonArr) {
-            b.setPrefSize(button_width, button_height);
-            b.setStyle(button_CSS);
+            b.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+            b.setStyle(BUTTON_CSS);
         }
 
+        calculatorButton.setPrefWidth(BUTTON_WIDTH * 3);
 
         //VBox
         VBox titleBox = new VBox(20);
 
         //VBox Setting
-        titleBox.setPrefSize(app_height, app_width);
+        titleBox.setPrefSize(APP_HEIGHT, APP_WIDTH);
         titleBox.setAlignment(Pos.CENTER);
-        titleBox.setStyle(app_CSS);
+        titleBox.setStyle(APP_CSS);
+
+        HBox topButtons = new HBox(10);
+
+        topButtons.setAlignment(Pos.CENTER);
+        topButtons.setStyle(APP_CSS);
+
+        topButtons.getChildren().addAll(gameButton, infoButton);
 
         //Add nodes to VBox
         titleBox.getChildren().addAll(
             titleText,
             titleImageView,
-            gameButton,
-            infoButton,
+            calculatorButton,
+            topButtons,
             creditButton
         );   
 
-        return titleBox;
+        Scene titleScene = new Scene(titleBox);
+
+        return titleScene;
     }
 
-    private void setUpGameScene(Stage mainStage) {
-        System.out.println("Game scene created");
-    }
+    private Scene setUpCreditScene(Stage mainStage) {
+        L.info("Setting up credit scene");
 
-    private void setUpInfoSceneI(Stage mainStage) {
-        //Text
-        Text infoTitle = new Text("How to Recycle?");
-
-        //Text Style
-        infoTitle.setFont(Font.font(titleFont, 45));
-
-
-        //Images & ImageView
-
-
-        //Layout Managers
-        //HBox
-        HBox infoTitleBox = new HBox();
-
-        //HBox Style
-        infoTitleBox.setAlignment(Pos.CENTER);
-
-        //Add Nodes to HBox
-        infoTitleBox.getChildren().addAll(
-            infoTitle
-        );
-
-
-        //GridPane
-        GridPane infoPaneI = new GridPane();
-
-        //GridPane Style
-
-        //Add Nodes to GridPane
-
-
-        //Pane
-        Pane mainPane = new Pane();
-
-        //Pane Style
-        mainPane.setStyle(app_CSS);
-        mainPane.setPrefSize(app_height, app_width);
-
-        //Add Nodes to Pane
-        mainPane.getChildren().addAll(
-            infoTitleBox,
-            infoPaneI
-        );
-
-        infoSceneI = new Scene(mainPane);
-    }
-
-    private void setUpCreditScene(Stage mainStage) {
         //Text
         Text creditTitle = new Text("CREDITS:");
         Text creditList = new Text("•Andrew Casey\n\n•Saadat Emilbekova\n\n•Dylan Jablonski\n\n•Jason Mele\n\n•Will Zakroff");
         Text creditInfo = new Text("Rowan University\t\tHonors OOPDA\t\tSpring 2025");
 
         //Text Style
-        creditTitle.setFont(Font.font(titleFont, 45));
-        creditList.setFont(Font.font(bodyFont, 25));
-        creditInfo.setFont(Font.font(bodyFont, 15));
+        creditTitle.setFont(Font.font(TITLE_FONT, 45));
+        creditList.setFont(Font.font(BODY_FONT, 25));
+        creditInfo.setFont(Font.font(BODY_FONT, 15));
         creditTitle.setFill(Color.WHITE);
         creditTitle.setStroke(Color.BLACK);
         creditTitle.setStrokeWidth(2);
 
 
         //Buttons
-        Button creditBackButton = new Button("↩");
+        Button creditBackButton = new Button(BACK_BUTTON_TEXT);
 
         //Button Actions
         creditBackButton.setOnAction(e -> mainStage.setScene(titleScene));
 
         //Button Style
-        creditBackButton.setPrefSize(back_button_width, back_button_height);
-        creditBackButton.setStyle(button_CSS);
+        creditBackButton.setPrefSize(BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
+        creditBackButton.setStyle(BUTTON_CSS);
 
+        creditBackButton.setLayoutX(50);
+        creditBackButton.setLayoutY(50);
 
-        //AnchorPane
-        AnchorPane creditPane = new AnchorPane();
+        //Layouts
+        VBox mainBox = new VBox();
 
-        //AnchorPane Setting
-        creditPane.setStyle(app_CSS);
-        creditPane.setPrefSize(app_height, app_width);
+        Region leftSpacer = new Region();
+        Region rightSpacer = new Region();
+        HBox.setHgrow(leftSpacer, Priority.ALWAYS);
+        HBox.setHgrow(rightSpacer, Priority.ALWAYS);
 
-        //Add Nodes to Pane
-        //Button
-        AnchorPane.setTopAnchor(creditBackButton, 10.0);
-        AnchorPane.setLeftAnchor(creditBackButton, 10.0);
+        HBox creditTopBox = new HBox(creditBackButton, leftSpacer, creditTitle, rightSpacer);
+        HBox creditListBox = new HBox(creditList);
+        HBox creditBottomBox = new HBox(creditInfo);
         
-        //Title
-        HBox titleBox = new HBox(creditTitle);
-        titleBox.setAlignment(Pos.CENTER);
-        AnchorPane.setTopAnchor(titleBox, 10.0);
-        AnchorPane.setLeftAnchor(titleBox, app_width/2);
-
-        //Credit List
-        VBox listBox = new VBox(creditList);
-        listBox.setAlignment(Pos.CENTER);
-        AnchorPane.setTopAnchor(listBox, app_height/7);
-        AnchorPane.setLeftAnchor(listBox, app_width/2);
-
-        //Credit Info
-        AnchorPane.setRightAnchor(creditInfo, 10.0);
-        AnchorPane.setBottomAnchor(creditInfo, 10.0);
-
-        //Add All Nodes to AnchorPane
-        creditPane.getChildren().addAll(
-            creditBackButton,
-            titleBox,
-            listBox,
-            creditInfo
+        mainBox.getChildren().addAll(
+            creditTopBox,
+            creditListBox,
+            creditBottomBox
         );
-        
-        creditScene = new Scene(creditPane);
+
+        mainBox.setPrefSize(APP_HEIGHT, APP_WIDTH);
+        mainBox.setStyle(APP_CSS);
+
+        Scene creditScene = new Scene(mainBox);
+        return creditScene;
     }
 }
