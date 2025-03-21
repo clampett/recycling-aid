@@ -9,8 +9,12 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.stage.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import src.Loader;
+import src.recycling_types.Material;
 
 /**
  * {@link Gui_Info} is apart of the Recycling Aid's {@link Gui}. It creates and 
@@ -20,16 +24,15 @@ import src.Loader;
  * @version 3/19/2025
  */
 public class Gui_Info {
-    private static final double IMAGE_HEIGHT = 200;
-    private static final double IMAGE_WIDTH = 150;
-
     private static Scene materialInfoScene = null;
 
     /**
-     * Setup 
+     * Sets up the first recycling categories info scene. Reycling categories 
+     * are based on interfaces found at {@link src.recycling_types.categories}. 
+     * Data is loaded by createCategoryRows() with data from categories.csv.
      * 
-     * @param mainStage the main stage from Gui
-     * @return 
+     * @param mainStage the main stage from {@link Gui}
+     * @return Info {@code Scene} for recycling categories
      */
     protected static Scene setUpInfoScene(Stage mainStage) {
         Gui.L.info("Setting up categories info scene");
@@ -88,6 +91,15 @@ public class Gui_Info {
         return infoScene;
     }
 
+    /**
+     * Sets up the recycling material info scene. Recycling materials are based on
+     * classes found at {@link src.recycling_types.materials} and are all subclasses of
+     * {@link src.recycling_types.Material Material}. Data is gotten from each class and
+     * put in a {@code TableView}, which is created by createMaterialRow().
+     * 
+     * @param mainStage the main stage from {@link Gui}
+     * @return Info {@code Scene} for recycling materials
+     */
     private static Scene setUpInfoSceneII(Stage mainStage) {
         Gui.L.info("Setting up material info scene");
 
@@ -123,6 +135,12 @@ public class Gui_Info {
         return infoSceneII;
     }
 
+    /**
+     * Gets data from categories.csv and puts it in a {@code HBox} to display. 
+     * Data includes a picture, a name and info.
+     * 
+     * @return {@code HBox} array of recycling category data
+     */
     private static HBox[] createCategoryRows() {
         String[][] defaultCategories = Loader.load_csv("src/data/text/categories.csv", Gui.L);
         HBox[] rows = new HBox[defaultCategories.length];
@@ -133,8 +151,8 @@ public class Gui_Info {
             Text info = new Text(defaultCategories[i][2]);
             rows[i] = new HBox(30);
 
-            im.setFitHeight(IMAGE_HEIGHT);
-            im.setFitWidth(IMAGE_WIDTH);
+            im.setFitHeight(200);
+            im.setFitWidth(150);
             im.setPreserveRatio(true);
 
             name.setFont(new Font(Gui.BODY_FONT, 30));
@@ -147,10 +165,16 @@ public class Gui_Info {
         return rows;
     }
 
+    /**
+     * Gets data from createMaterialData() and puts it in a {@code TableView<String[]>} to display.
+     * Data can be found at {@link src.recycling_types.Material Material} variable DISPLAY_HEADERS.
+     * 
+     * @return {@code TableView<String[]>} of recycling material data
+     */
     private static TableView<String[]> createMaterialTable() {
         TableView<String[]> materialTable = new TableView<>();
         ObservableList<String[]> data = FXCollections.observableArrayList();
-        String[][] defaultMaterials = Loader.load_csv("src/data/text/materials.csv", Gui.L);
+        String[][] defaultMaterials = createMaterialData();
 
         for(int i = 0; i < defaultMaterials[0].length; i++) {
             final int columnIndex = i;
@@ -172,6 +196,32 @@ public class Gui_Info {
 
         return materialTable;
     }
-    
 
+    /**
+     * Creates every possible recycling material and returns a 2D array containing all of its information.
+     * This information is sent and used to display using a {@code TableView} in 
+     * method createMaterialTable(). This is then displayed in materialInfoScene variable.
+     * 
+     * @return 2D array containing all of relevant information about recycling materials.
+     */
+    private static String[][] createMaterialData() {
+        List<String[]> data = new ArrayList<>();
+        List<Material> materials = Material.ALL_MATERIALS;
+
+        data.add(Material.DISPLAY_HEADERS);;
+
+        for(Material material : materials) {
+            String[] row = 
+                {   material.getName(), 
+                    Arrays.toString(material.getCategories()), 
+                    String.valueOf(material.getImpactScore()), 
+                    material.getSpecial(),
+                    Arrays.toString(material.getPossibleItems())
+                };
+
+            data.add(row);
+        }
+
+        return data.toArray(new String[0][]);
+    }
 }
