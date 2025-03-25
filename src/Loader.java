@@ -43,45 +43,28 @@ public class Loader {
     }
 
     /**
-     * Opens a folder and returns an array of all files inside.
+     * Gets the Uniform Resource Identifier (URI) from a file.
      * 
-     * @param dir_path Path to the folder
-     * @param extensions True - remove extensions; False - include extensions
+     * @param file_path path to file
      * @param log JUL logger; pass null if you don't want to use
-     * @return String array of all files inside a given folder
+     * @return Supplied file's URI as a String
      */
-    public static String[] load_folder(String dir_path, boolean extensions, Logger log) {
-        String[] directoryList = null;
-        File dir = new File(dir_path);
+    public static String getURI(String file_path, Logger log) {
+        File videoFile = new File(file_path);
+        String URI = "";
         boolean hasLogger = (log != null);
 
-        if(hasLogger)
-            log.info("Opening " + dir_path);
+        if(videoFile.exists() && videoFile.isFile()) {
+            URI = videoFile.toURI().toString();
 
-        if(dir.exists()) {
-            if(dir.isDirectory()) {
-                directoryList = dir.list();
-
-                //remove extensions
-                if(extensions && directoryList != null) {
-                    for(int i = 0; i < directoryList.length; i++)
-                        directoryList[i] = directoryList[i].replaceFirst("\\.[^.]+$", "");
-                }
-            }
-            else {
-                if(hasLogger)
-                    log.severe("File path is not a directory");
-                else
-                    System.err.println("File path is not a directory");
-            }
-        }
-        else {
             if(hasLogger)
-                log.severe("Directory does not exist");
-            else
-                System.err.println("Directory does not exist");
+                log.info("Got URI from: " + videoFile);
         }
+        else if(hasLogger && !videoFile.exists())
+            log.severe(file_path + " Does NOT Exist");
+        else if(hasLogger && !videoFile.isFile())
+            log.severe(file_path + " is NOT a File");
 
-        return directoryList;
+        return URI;
     }
 }

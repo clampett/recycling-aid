@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import src.recycling_types.materials.*;
-import src.Loader;
 
 /**
  * 
@@ -59,14 +58,20 @@ public abstract class Material {
         return categories;
     }
 
-    private static List<Material> createAllMaterials() {
-        List<Material> materials = new ArrayList<>();
+    /**
+     * Creates all Material subclasses, minus Nuclear_Waste & Evidence. Used in
+     * {@link src.gui.Gui_Info Gui_Info} to display material variables.
+     * 
+     * @return {@code List<Material>} of all Material subclasses
+     */
+    private static List<Class<? extends Material>> createAllMaterials() {
+        List<Class<? extends Material>> materials = new ArrayList<>();
 
-        materials.add(new Cardboard());
-        materials.add(new Electronic(false));
-        materials.add(new Fabric());
-        materials.add(new Food_Waste());
-        materials.add(new Glass());
+        materials.add(Cardboard.class);
+        materials.add(Electronic.class);
+        materials.add(Fabric.class);
+        materials.add(Food_Waste.class);
+        materials.add(Glass.class);
         materials.add(new Metal());
         materials.add(new Paper("Rectangle"));
         materials.add(new Plastic(1));

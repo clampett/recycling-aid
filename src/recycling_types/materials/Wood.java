@@ -13,7 +13,7 @@ import src.recycling_types.categories.Compostable;
 public class Wood extends Material implements Compostable{
     private boolean manufactured;
 
-    private static final String[] possibleItems = {"Logs", "Furniture", "Popsicle Sticks", "Chopsticks", "Pencils"};
+    private static final String[] possibleItems = {"log", "furniture", "Popsicle Sticks", "Chopsticks", "Pencils"};
 
     public Wood(boolean manufactured) {
         super(0.1, possibleItems);

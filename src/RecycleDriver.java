@@ -6,6 +6,11 @@ import src.recycling_types.materials.*;
 
 public class RecycleDriver {
     public static void main(String[] args) {
-        System.out.println(Material.ALL_MATERIALS);
+        String[][] a = Loader.load_csv("src/data/text/recyclingCenters.csv", Gui.L);
+
+        for(String[] b : a) {
+            for(String c : b)
+                System.out.println(c);
+        }
     }
 }

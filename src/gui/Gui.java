@@ -13,12 +13,14 @@ import javafx.stage.*;
 import java.util.logging.*;
 
 public class Gui extends Application {
-    protected static final double APP_HEIGHT = 1200;
-    protected static final double APP_WIDTH = 1000;
+    //Gui constants
+    protected static final double APP_HEIGHT = 500;
+    protected static final double APP_WIDTH = 400;
     protected static final String APP_CSS = "-fx-background-color: #00b400;";
 
     protected static final double BUTTON_HEIGHT = 35;
     protected static final double BUTTON_WIDTH = 75;
+    protected static final double BIGGER_BUTTON_WIDTH = BUTTON_WIDTH * 2;
     protected static final double BACK_BUTTON_HEIGHT = 20;
     protected static final double BACK_BUTTON_WIDTH = 50;
     protected static final String BACK_BUTTON_TEXT = "↩";
@@ -30,15 +32,29 @@ public class Gui extends Application {
     protected static final String TITLE_FONT = "Impact";
     protected static final String BODY_FONT = "Comic Sans MS";
 
-    protected static Scene titleScene, gameScene, infoScene, creditScene;
+    //Scenes
+    protected static Scene titleScene, gameScene, infoScene, calculatorScene;
+    private Scene creditScene;
 
+    /**Logger used throughout the application.*/
     public static final Logger L = Logger.getLogger(Gui.class.getName());
 
+    /**
+     * Same as start(), but with standard Java main().
+     * 
+     * @param args CLI arguments
+     */
     public static void main(String[] args) {
         L.setLevel(Level.ALL);
         launch(args);
     }
 
+    /**
+     * Start up method for the application. Creates all of the main {@code Scenes}
+     * and loads the title {@code Scene}. Also sets the application title and icon.
+     * 
+     * @param mainStage main stage supplied at runtime
+     */
     @Override
     public void start(Stage mainStage) {
         L.info("Setting up GUI");
@@ -54,6 +70,13 @@ public class Gui extends Application {
         mainStage.show();
     }
 
+    /**
+     * Sets up the Gui's title scene. Includes a title, an image, and buttons to
+     * move between the different scenes in the Gui.
+     * 
+     * @param mainStage the main stage from start()
+     * @return Setup title {@code Scene}
+     */
     private Scene setUpTitleScene(Stage mainStage) {
         L.info("Setting up title scene");
         //Text
@@ -94,7 +117,7 @@ public class Gui extends Application {
             b.setStyle(BUTTON_CSS);
         }
 
-        calculatorButton.setPrefWidth(BUTTON_WIDTH * 3);
+        calculatorButton.setPrefWidth(BIGGER_BUTTON_WIDTH * 1.5);
 
         //VBox
         VBox titleBox = new VBox(20);
@@ -125,6 +148,14 @@ public class Gui extends Application {
         return titleScene;
     }
 
+    /**
+     * Sets up the Gui's credit scene. Includes credit for the authors of this
+     * application. Since it is completely self-contained (only 1 method to set up),
+     * it is included in the main {@link Gui} class.
+     * 
+     * @param mainStage the main stage from start()
+     * @return Setup credit {@code Scene}
+     */
     private Scene setUpCreditScene(Stage mainStage) {
         L.info("Setting up credit scene");
 
@@ -143,17 +174,10 @@ public class Gui extends Application {
 
 
         //Buttons
-        Button creditBackButton = new Button(BACK_BUTTON_TEXT);
+        Button creditBackButton = createBackButton();
 
         //Button Actions
         creditBackButton.setOnAction(e -> mainStage.setScene(titleScene));
-
-        //Button Style
-        creditBackButton.setPrefSize(BACK_BUTTON_WIDTH, BACK_BUTTON_HEIGHT);
-        creditBackButton.setStyle(BUTTON_CSS);
-
-        creditBackButton.setLayoutX(50);
-        creditBackButton.setLayoutY(50);
 
         //Layouts
         VBox mainBox = new VBox();
@@ -178,5 +202,20 @@ public class Gui extends Application {
 
         Scene creditScene = new Scene(mainBox);
         return creditScene;
+    }
+
+    /**
+     * Creates a back button to be used throughout the Gui. Action still needs
+     * to be set.
+     * 
+     * @return A Back {@code Button}
+     */
+    protected static Button createBackButton() {
+        Button back = new Button(Gui.BACK_BUTTON_TEXT);
+
+        back.setPrefSize(Gui.BACK_BUTTON_WIDTH, Gui.BACK_BUTTON_HEIGHT);
+        back.setStyle(Gui.BUTTON_CSS);
+
+        return back;
     }
 }
