@@ -1,7 +1,11 @@
 package src;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,7 +16,7 @@ public class Loader {
      * A simple CSV file loader.
      * 
      * @param file_path Path to CSV file
-     * @param log JUL logger; pass null if you don't want to use
+     * @param log JUL {@code Logger}; pass null if you don't want to use
      * @return 2D String array containing all the CSV data
      */
     public static String[][] load_csv(String file_path, Logger log) {
@@ -46,10 +50,10 @@ public class Loader {
      * Gets the Uniform Resource Identifier (URI) from a file.
      * 
      * @param file_path path to file
-     * @param log JUL logger; pass null if you don't want to use
+     * @param log JUL {@code Logger}; pass null if you don't want to use
      * @return Supplied file's URI as a String
      */
-    public static String getURI(String file_path, Logger log) {
+    public static String get_URI(String file_path, Logger log) {
         File videoFile = new File(file_path);
         String URI = "";
         boolean hasLogger = (log != null);
@@ -66,5 +70,73 @@ public class Loader {
             log.severe(file_path + " is NOT a File");
 
         return URI;
+    }
+
+    /**
+     * Serializes the given Object.
+     * 
+     * @param to_save Object to save
+     * @param save_path path to save location
+     * @param log JUL {@code Logger}; pass null if you don't want to use
+     */
+    public static void serialize(Object to_save, String save_path, Logger log) {
+        try {
+            FileOutputStream file_out_stream = new FileOutputStream(save_path);
+            ObjectOutputStream obj_out_stream = new ObjectOutputStream(file_out_stream);
+
+            obj_out_stream.writeObject(to_save);
+            obj_out_stream.flush();
+            obj_out_stream.close();
+        } catch(Exception e) {
+            log.severe("Could NOT serialize: " + to_save.toString() + "; at: " + save_path + " - " + e.toString());
+        }
+    }
+
+    /**
+     * Deserializes and returns a serialized object.
+     * 
+     * @param load_path path to file 
+     * @param log JUL {@code Logger}; pass null if you don't want to use
+     * @return Deserialized Object
+     */
+    public static Object deserialize(String load_path, Logger log) {
+        Object obj = null;
+
+        try {
+            FileInputStream file_in_stream = new FileInputStream(load_path);
+            ObjectInputStream obj_in_stream = new ObjectInputStream(file_in_stream);
+
+            obj = obj_in_stream.readObject();
+            obj_in_stream.close();
+        } catch(Exception e) {
+            log.severe("Could NOT deserialize Object at: " + load_path + " - " + e.toString());
+        }
+
+        return obj;
+    }
+
+    /**
+     * Completely wipes a file by deleting it and recreating it.
+     * 
+     * @param file_path path to file
+     * @param log JUL {@code Logger}; pass null if you don't want to use
+     */
+    public static void wipe_file(String file_path, Logger log) {
+        try {
+            File to_wipe = new File(file_path);
+
+            if(to_wipe.delete()) {
+                to_wipe.createNewFile();
+                log.info("Wiped: " + file_path);
+            }
+        } catch(NullPointerException e) {
+            log.severe("Could NOT open: " + file_path + " - " + e.toString());
+        } catch(SecurityException e) {
+            log.severe("Do NOT have correct permissions for: " + file_path + " - " + e.toString());
+        } catch(IOException e) {
+            log.severe("Could NOT create replacement file for: " + file_path + " - " + e.toString());
+        } catch(Exception e) {
+            log.severe("General Error - " + e.toString());
+        }
     }
 }

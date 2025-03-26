@@ -13,7 +13,8 @@ import src.recycling_types.categories.*;
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 3/20/2025
  */
-public class Plastic extends Material implements Binnable, Centerable, Disposable{
+public class Plastic extends Material implements Binnable, Centerable, Disposable {
+    /**All possible plastic names.*/
     public enum plasticType {
         PET, HDPE, PVC, LDPE, PP, PS, OTHER
     };
@@ -32,47 +33,24 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         super(0.8, possibleItems);
         
         this.plasticNum = plasticNum;
-        this.plasticSign = resinCodes[this.plasticNum];
-        setPlasticType(this.plasticNum);
+        this.plasticSign = resinCodes[this.plasticNum - 1];
+        this.type = plasticType.values()[this.plasticNum - 1];
     }
 
     public Plastic() {
-        this(1);
+        this(7);
     }
     
-    private void setPlasticType(int plasticNum) {
-        switch(plasticNum) {
-            case 1:
-                type = plasticType.PET;
-                break;
-            case 2:
-                type = plasticType.HDPE;
-                break;
-            case 3:
-                type = plasticType.PVC;
-                break;
-            case 4:
-                type = plasticType.LDPE;
-                break;
-            case 5:
-                type = plasticType.PP;
-                break;
-            case 6:
-                type = plasticType.PS;
-                break;
-            case 7:
-                type = plasticType.OTHER;
-                break;
-            default:
-                type = null;
-        }
+    public plasticType getType() {
+        return this.type;
     }
 
     public String getSpecial() {
         String specialBlurb = "There are 7 Plastic Types:\n";
+        String specialFormat = "\t%d: %s (%s)\n";
 
         for(int i = 0; i < 7; i++) {
-            specialBlurb += (i + 1) + ": " + plasticType.values()[i] + " (" + resinCodes[i] + ")\n"; 
+            specialBlurb += String.format(specialFormat, (i + 1), plasticType.values()[i], resinCodes[i]);
         }
 
         return specialBlurb;

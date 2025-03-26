@@ -1,5 +1,6 @@
 package src.recycling_types.materials;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -13,9 +14,14 @@ import src.recycling_types.categories.Compostable;
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 3/20/2025
  */
-public class Wood extends Material implements Compostable{
+public class Wood extends Material implements Compostable {
+    /**Whether the {@link src.recycling_types.materials.Wood Wood} was manufactured.*/
     private boolean manufactured;
 
+    /**
+     * Some possible items that {@link src.recycling_types.materials.Wood Wood} could be.
+     * @see src.recycling_types.Material Material
+     */
     private static Set<String> possibleItems = new HashSet<>(
         Arrays.asList("wood", "log", "furniture", "popsicle stick", "chopstick", "pencil")
     );

@@ -15,7 +15,7 @@ import src.recycling_types.categories.*;
  */
 public class Cardboard extends Material implements Binnable, Disposable{
     private static Set<String> possibleItems = new HashSet<>(
-        Arrays.asList("cardboard", "boxe", "packing material")
+        Arrays.asList("cardboard", "box", "packing material")
     );
 
     public Cardboard() {

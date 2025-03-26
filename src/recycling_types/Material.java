@@ -1,9 +1,10 @@
 package src.recycling_types;
 
 import java.util.Set;
-import java.util.HashSet;
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import src.recycling_types.materials.*;
 
@@ -13,7 +14,7 @@ import src.recycling_types.materials.*;
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 3/20/2025
  */
-public abstract class Material {
+public abstract class Material implements Serializable {
     /**The material's name.*/
     private String name;
 
@@ -61,7 +62,16 @@ public abstract class Material {
     }
 
     /**
-     * Creates all Material subclasses, minus Nuclear_Waste & Evidence. Used in
+     * Gets categories ready to display as a String, delimited by ", ".
+     * 
+     * @return categories as a String
+     */
+    public String displayCategories() {
+        return String.join(", ", categories);
+    }
+
+    /**
+     * Creates all Material subclasses, minus Nuclear_Waste. Used in
      * {@link src.gui.Gui_Info Gui_Info} to display material variables.
      * 
      * @return {@code List<Class<? extends Material>>} of all Material subclasses
@@ -91,27 +101,62 @@ public abstract class Material {
         possibleItems.add(toAdd);
     }
 
+    /**
+     * Gets possibleItems ready to display by capitalizing the first word and removing brackets.
+     * @return possibleItems cleaned and as a String
+     */
+    public String displayPossibleItems() {
+        Set<String> cleanedPossibleItems = possibleItems.stream()
+            .map(item -> 
+                item.substring(0,1).toUpperCase() + item.substring(1))
+            .collect(Collectors.toSet());
+
+        return cleanedPossibleItems.toString().replaceAll("\\[|\\]", "");
+    }
+
+    /**
+     * Gets {@link src.recycling_types.Material Material} name
+     * @return {@link src.recycling_types.Material Material} name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Gets {@link src.recycling_types.Material Material} categories
+     * @return {@link src.recycling_types.Material Material} categories
+     */
     public String[] getCategories() {
         return this.categories;
     }
 
+    /**
+     * Gets {@link src.recycling_types.Material Material} possibleItems
+     * @return {@link src.recycling_types.Material Material} possibleItems
+     */
     public Set<String> getPossibleItems() {
         return this.possibleItems;
     }
 
+    /**
+     * Gets {@link src.recycling_types.Material Material} impact score
+     * @return {@link src.recycling_types.Material Material} impact
+     */
     public double getImpactScore() {
         return this.impact;
     }
 
+    /**
+     * Sets {@link src.recycling_types.Material Material} impact score
+     * @param impact new impact score
+     */
     public void setImpactScore(double impact) {
         this.impact = impact;
     }
 
+    /**
+     * Gets {@link src.recycling_types.Material Material} special characteristics
+     * @return {@link src.recycling_types.Material Material} special
+     */
     public abstract String getSpecial();
-
-
 }

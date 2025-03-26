@@ -152,8 +152,8 @@ public class Gui_Info {
 
             seeMoreButtons[i] = more;
 
-            im.setFitHeight(200);
-            im.setFitWidth(150);
+            im.setFitHeight(100);
+            im.setFitWidth(50);
             im.setPreserveRatio(true);
 
             name.setFont(new Font(Gui.BODY_FONT, 30));
@@ -267,19 +267,19 @@ public class Gui_Info {
             try {
                 materials.add((Material) c.getDeclaredConstructors()[0].newInstance());
             } catch(Exception e) {
-                Gui.L.severe("Could Create Material - " + e.toString());
+                Gui.L.severe("Could NOT Create Material - " + e.toString());
             }
         }
 
-        data.add(Material.DISPLAY_HEADERS);;
+        data.add(Material.DISPLAY_HEADERS);
 
         for(Material material : materials) {
             String[] row = 
                 {   material.getName(), 
-                    material.getCategories().toString().replace("[", "").replace("]", ""),
+                    material.displayCategories(),
                     String.valueOf(material.getImpactScore()), 
                     material.getSpecial(),
-                    material.getPossibleItems().toString().replace("[", "").replace("]", "")
+                    material.displayPossibleItems()
                 };
 
             data.add(row);
@@ -295,7 +295,7 @@ public class Gui_Info {
      */
     private static void createBinScene(Stage mainStage) {
         //Video
-        Media videoMedia = new Media(Loader.getURI("src/data/videos/binnable.mp4", Gui.L));
+        Media videoMedia = new Media(Loader.get_URI("src/data/videos/binnable.mp4", Gui.L));
         MediaPlayer mediaPlayer = new MediaPlayer(videoMedia);
         MediaView mediaView = new MediaView(mediaPlayer);
 
