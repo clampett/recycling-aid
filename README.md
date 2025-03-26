@@ -12,3 +12,5 @@ Authors: Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zak
 - [ ] UML Diagrams
 - [ ] Lambda Expression
 - [ ] Inheritance
+- [ ] Thread
+- [ ] Serialization
