@@ -1,5 +1,8 @@
 package src.recycling_types.materials;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
 
 import src.recycling_types.Material;
 import src.recycling_types.categories.Compostable;
@@ -13,14 +16,20 @@ import src.recycling_types.categories.Compostable;
 public class Wood extends Material implements Compostable{
     private boolean manufactured;
 
-    private static final String[] possibleItems = {"log", "furniture", "Popsicle Sticks", "Chopsticks", "Pencils"};
-
+    private static Set<String> possibleItems = new HashSet<>(
+        Arrays.asList("wood", "log", "furniture", "popsicle stick", "chopstick", "pencil")
+    );
+    
     public Wood(boolean manufactured) {
         super(0.1, possibleItems);
         this.manufactured = manufactured;
 
         if(this.manufactured)
             setImpactScore(0.5);
+    }
+
+    public Wood() {
+        this(true);
     }
 
     public String getSpecial() {

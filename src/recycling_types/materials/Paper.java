@@ -1,5 +1,9 @@
 package src.recycling_types.materials;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
+
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -12,12 +16,18 @@ import src.recycling_types.categories.*;
 public class Paper extends Material implements Binnable, Compostable, Disposable{
     public String shape;
 
-    private static final String[] possibleItems = {"Newspaper", "Homework", "Junk Mail", "Paper Towels", "Paper Plates"};
+    private static Set<String> possibleItems = new HashSet<>(
+        Arrays.asList("paper", "newspaper", "homework", "junk mail", "paper towel", "paper plate")
+    );
 
     public Paper(String shape) {
         super(0.1, possibleItems);
 
         this.shape = shape;
+    }
+
+    public Paper() {
+        this("Rectangle");
     }
 
     public String getSpecial() {

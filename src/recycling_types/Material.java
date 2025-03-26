@@ -1,5 +1,7 @@
 package src.recycling_types;
 
+import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ public abstract class Material {
     private String[] categories;
 
     /**Some possible items that a material could be.*/
-    private String[] possibleItems;
+    private Set<String> possibleItems;
 
     /**The quantified impact that a material has on an environment, between 0 & 1.*/
     private double impact;
@@ -33,9 +35,9 @@ public abstract class Material {
     /**
      * A {@code List} of all possible {@link Material Materials}.
      */
-    public static final List<Material> ALL_MATERIALS = createAllMaterials();
+    public static final List<Class<? extends Material>> ALL_MATERIALS = createAllMaterials();
 
-    public Material(double impact, String[] possibleItems) {
+    public Material(double impact, Set<String> possibleItems) {
         this.name = this.getClass().getSimpleName().replaceAll("_", " ");
         this.categories = setCategories();
         this.impact = impact;
@@ -62,7 +64,7 @@ public abstract class Material {
      * Creates all Material subclasses, minus Nuclear_Waste & Evidence. Used in
      * {@link src.gui.Gui_Info Gui_Info} to display material variables.
      * 
-     * @return {@code List<Material>} of all Material subclasses
+     * @return {@code List<Class<? extends Material>>} of all Material subclasses
      */
     private static List<Class<? extends Material>> createAllMaterials() {
         List<Class<? extends Material>> materials = new ArrayList<>();
@@ -72,12 +74,21 @@ public abstract class Material {
         materials.add(Fabric.class);
         materials.add(Food_Waste.class);
         materials.add(Glass.class);
-        materials.add(new Metal());
-        materials.add(new Paper("Rectangle"));
-        materials.add(new Plastic(1));
-        materials.add(new Wood(true));
+        materials.add(Metal.class);
+        materials.add(Paper.class);
+        materials.add(Plastic.class);
+        materials.add(Wood.class);
 
         return materials;
+    }
+
+    /**
+     * Adds a new item to possibleItems {@code Set}.
+     * 
+     * @param toAdd String to add
+     */
+    public void addToPossibleItems(String toAdd) {
+        possibleItems.add(toAdd);
     }
 
     public String getName() {
@@ -88,7 +99,7 @@ public abstract class Material {
         return this.categories;
     }
 
-    public String[] getPossibleItems() {
+    public Set<String> getPossibleItems() {
         return this.possibleItems;
     }
 
@@ -101,4 +112,6 @@ public abstract class Material {
     }
 
     public abstract String getSpecial();
+
+
 }

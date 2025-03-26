@@ -1,5 +1,9 @@
 package src.recycling_types.materials;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
+
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -10,7 +14,9 @@ import src.recycling_types.categories.*;
  * @version 3/20/2025
  */
 public class Metal extends Material implements Centerable, Disposable{
-    private static final String[] possibleItems = {"Aluminum Cans", "Tin Cans", "Aluminum Foil", "Razor Blades", "Nails", "Screws"};
+    private static Set<String> possibleItems = new HashSet<>(
+        Arrays.asList("metal", "aluminum Can", "tin can", "aluminum foil", "razor blade", "nail", "screw")
+    );
     
     public Metal() {
         super(0.25, possibleItems);

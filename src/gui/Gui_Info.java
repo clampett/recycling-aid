@@ -12,7 +12,6 @@ import javafx.stage.*;
 import javafx.scene.media.*;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import src.Loader;
 import src.recycling_types.Material;
@@ -26,7 +25,7 @@ import src.recycling_types.Material;
  */
 public class Gui_Info {
     //Scenes
-    private static Scene materialInfoScene, binnableScene, centerableScene, compostableScene, disposableScene, dontableScene;
+    private static Scene materialInfoScene, binnableScene, centerableScene, compostableScene, disposableScene, donatableScene;
 
     /**
      * Sets up the first recycling categories info scene. Reycling categories 
@@ -214,10 +213,10 @@ public class Gui_Info {
 
         //Donatable
         seeMoreButtons[4].setOnAction(e -> {
-            if(dontableScene == null)
+            if(donatableScene == null)
                 createDonScene(mainStage);
             
-            mainStage.setScene(dontableScene);
+            mainStage.setScene(donatableScene);
         });
     }
 
@@ -261,17 +260,26 @@ public class Gui_Info {
      */
     private static String[][] createMaterialData() {
         List<String[]> data = new ArrayList<>();
-        List<Material> materials = Material.ALL_MATERIALS;
+        List<Material> materials = new ArrayList<>();
+        List<Class<? extends Material>> b = Material.ALL_MATERIALS;
+
+        for(Class<? extends Material> c : b) {
+            try {
+                materials.add((Material) c.getDeclaredConstructors()[0].newInstance());
+            } catch(Exception e) {
+                Gui.L.severe("Could Create Material - " + e.toString());
+            }
+        }
 
         data.add(Material.DISPLAY_HEADERS);;
 
         for(Material material : materials) {
             String[] row = 
                 {   material.getName(), 
-                    Arrays.toString(material.getCategories()).replace("[", "").replace("]", ""), 
+                    material.getCategories().toString().replace("[", "").replace("]", ""),
                     String.valueOf(material.getImpactScore()), 
                     material.getSpecial(),
-                    Arrays.toString(material.getPossibleItems()).replace("[", "").replace("]", ""),
+                    material.getPossibleItems().toString().replace("[", "").replace("]", "")
                 };
 
             data.add(row);

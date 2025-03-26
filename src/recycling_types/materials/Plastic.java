@@ -1,5 +1,9 @@
 package src.recycling_types.materials;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
+
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -18,7 +22,10 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     private String plasticSign;
     private plasticType type;
 
-    private static final String[] possibleItems = {"Bottles", "Straws", "Packaging", "Pens", "Toys"};
+    private static Set<String> possibleItems = new HashSet<>(
+        Arrays.asList("plastic", "bottle", "straw", "packaging", "pen", "toy")
+    );
+
     private static final String[] resinCodes = {"♳", "♴", "♵", "♶", "♷", "♸", "♹"};
 
     public Plastic(int plasticNum) {
@@ -27,6 +34,10 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         this.plasticNum = plasticNum;
         this.plasticSign = resinCodes[this.plasticNum];
         setPlasticType(this.plasticNum);
+    }
+
+    public Plastic() {
+        this(1);
     }
     
     private void setPlasticType(int plasticNum) {

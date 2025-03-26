@@ -61,6 +61,7 @@ public class Gui extends Application {
 
         titleScene = setUpTitleScene(mainStage);
         creditScene = setUpCreditScene(mainStage);
+        calculatorScene = Gui_Calculator.setUpCalculatorScene(mainStage);
         gameScene = Gui_Game.setUpGameScene(mainStage);
         infoScene = Gui_Info.setUpInfoScene(mainStage);
 
@@ -107,6 +108,7 @@ public class Gui extends Application {
         Button[] buttonArr = {calculatorButton, gameButton, infoButton, creditButton};
 
         //Button Actions
+        calculatorButton.setOnAction(e -> mainStage.setScene(calculatorScene));
         gameButton.setOnAction(e -> mainStage.setScene(gameScene));
         infoButton.setOnAction(e -> mainStage.setScene(infoScene));
         creditButton.setOnAction(e -> mainStage.setScene(creditScene));

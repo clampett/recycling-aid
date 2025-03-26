@@ -1,5 +1,9 @@
 package src.recycling_types.materials;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
+
 import src.recycling_types.categories.Donatable;
 import src.recycling_types.Material;
 import src.recycling_types.categories.Centerable;
@@ -13,13 +17,20 @@ import src.recycling_types.categories.Centerable;
 public class Electronic extends Material implements Centerable, Donatable{
     private boolean hasBattery;
 
-    private static final String[] possibleItems = {"Phones", "Batteries", "Headphones", "Laptops", "TVs", "Gaming Console"};
+    private static Set<String> possibleItems = new HashSet<>(
+        Arrays.asList("electronic", "phone", "battery", "headphone", "laptop", "tv", "gaming console")
+    );
+
 
     public Electronic(boolean hasBattery) {
         super(0.65, possibleItems);
 
         if(hasBattery)
             setImpactScore(0.80);
+    }
+
+    public Electronic() {
+        this(true);
     }
 
     public String getSpecial() {
