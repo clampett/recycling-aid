@@ -128,6 +128,7 @@ public class Gui extends Application {
         titleBox.setPrefSize(APP_HEIGHT, APP_WIDTH);
         titleBox.setAlignment(Pos.CENTER);
         titleBox.setStyle(APP_CSS);
+        titleBox.autosize();
 
         HBox topButtons = new HBox(10);
 
@@ -201,6 +202,7 @@ public class Gui extends Application {
 
         mainBox.setPrefSize(APP_HEIGHT, APP_WIDTH);
         mainBox.setStyle(APP_CSS);
+        mainBox.autosize();
 
         Scene creditScene = new Scene(mainBox);
         return creditScene;

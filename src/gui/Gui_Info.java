@@ -85,6 +85,7 @@ public class Gui_Info {
 
         mainBox.setStyle(Gui.APP_CSS);
         mainBox.setPrefSize(Gui.APP_HEIGHT, Gui.APP_WIDTH);
+        mainBox.autosize();
 
         Scene infoScene = new Scene(mainBox);
         return infoScene;
@@ -126,6 +127,7 @@ public class Gui_Info {
 
         mainBox.setPrefSize(Gui.APP_HEIGHT, Gui.APP_WIDTH);
         mainBox.setStyle(Gui.APP_CSS);
+        mainBox.autosize();
 
         Scene infoSceneII = new Scene(mainBox);
         return infoSceneII;
@@ -332,6 +334,7 @@ public class Gui_Info {
         VBox main = new VBox(20, top, player, controls);
         main.setPrefSize(Gui.APP_WIDTH, Gui.APP_HEIGHT);
         main.setStyle(Gui.APP_CSS);
+        main.autosize();
 
         binnableScene = new Scene(main);
     }
@@ -366,8 +369,10 @@ public class Gui_Info {
         HBox table = new HBox(centerableTable);
 
         VBox main = new VBox(title, table);
+
         main.setPrefSize(Gui.APP_WIDTH, Gui.APP_HEIGHT);
         main.setStyle(Gui.APP_CSS);
+        main.autosize();
 
         centerableScene = new Scene(main);
     }
