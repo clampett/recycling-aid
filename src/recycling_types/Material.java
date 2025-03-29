@@ -106,10 +106,11 @@ public abstract class Material implements Serializable {
      * @return possibleItems cleaned and as a String
      */
     public String displayPossibleItems() {
-        Set<String> cleanedPossibleItems = possibleItems.stream()
-            .map(item -> 
-                item.substring(0,1).toUpperCase() + item.substring(1))
-            .collect(Collectors.toSet());
+        Set<String> cleanedPossibleItems = 
+        possibleItems.stream()
+                     .map(item -> 
+                        item.substring(0,1).toUpperCase() + item.substring(1))
+                     .collect(Collectors.toSet());
 
         return cleanedPossibleItems.toString().replaceAll("\\[|\\]", "");
     }

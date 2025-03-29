@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
  * 
- * 
+ * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
+ * @version 3/29/2025
  */
 public class Loader {
     /**

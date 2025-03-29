@@ -1,6 +1,5 @@
 package src.gui;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +19,7 @@ import src.recycling_types.Material;
  * 
  * @see src.Loader Loader
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/27/2025
+ * @version 3/29/2025
  */
 public class Impact_Calculator {
     /**A {@HashMap} of every item and it's corresponding {@link src.recycling_types.Material Material}.*/
@@ -29,6 +28,13 @@ public class Impact_Calculator {
     /**Serialized {@link src.recycling_types.Material Material} objects.*/
     private List<Material> deserializedMaterials;
 
+    /**
+     * {@link src.gui.Impact_Calculator Impact_Calculator} constructor.
+     * <ul>
+     *      <li>Deserializes the serialized Material objects.
+     *      <li>Collates all of the possible items from every deserialized Material to a single {@code HashMap}.
+     * </ul>
+     */
     public Impact_Calculator() {
         deserializedMaterials = deserializeMaterials();
         allItems = collateItems();
@@ -40,13 +46,11 @@ public class Impact_Calculator {
      * @return {@code List<Material>} deserialized materials
      */
     private List<Material> deserializeMaterials() {
-        List<Object> loaded = Loader.deserialize_dir("src/data/serialized", Gui.L);
-        List<Material> loadedMaterials = new ArrayList<>(loaded.size());
-
-        for(Object mat : loaded)
-            loadedMaterials.add((Material) mat);
-
-        return loadedMaterials;
+        return Loader
+                    .deserialize_dir("src/data/serialized", Gui.L)
+                    .stream()
+                    .map(mat -> (Material) mat)
+                    .toList();
     }
 
     /**
@@ -62,6 +66,7 @@ public class Impact_Calculator {
                 allItems.put(item, mat);
             }
         }
+
         return allItems;
     }
 
@@ -74,6 +79,8 @@ public class Impact_Calculator {
     public boolean checkItemList(String item) {
         if(allItems.containsKey(item.toLowerCase()))
             return true;
+
+        Gui.L.severe("Could not find: " + item);
         return false;
     }
 
@@ -121,17 +128,10 @@ public class Impact_Calculator {
      * @return {@code List} of {@link src.recycling_types.Material Materials}
      */
     public List<Material> getMaterials(List<String> selectedTrash) {
-        List<Material> selectedMaterials = new ArrayList<>(16);
-
-        for(String item : selectedTrash) {
-            if(checkItemList(item)) {
-                selectedMaterials.add(allItems.get(item));
-            }
-            else
-                Gui.L.severe(item + " NOT found in item list.");
-        }
-
-        return selectedMaterials;
+        return selectedTrash.parallelStream()
+                            .filter(item -> checkItemList(item))
+                            .map(item -> allItems.get(item))
+                            .toList();
     }
 
     /**
@@ -141,13 +141,10 @@ public class Impact_Calculator {
      * @return Average Impact Score
      */
     public double getImpactScore(List<Material> selectedMaterials) {
-        double score = 0.0;
-
-        for(Material mat : selectedMaterials) {
-            score += mat.getImpactScore();
-        }
-
-        return (score / selectedMaterials.size());
+        return selectedMaterials.stream()
+                                .mapToDouble(Material::getImpactScore)
+                                .average()
+                                .getAsDouble();
     }
 
     /**

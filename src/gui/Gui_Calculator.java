@@ -73,9 +73,18 @@ public class Gui_Calculator {
         calc.setStyle(Gui.BUTTON_CSS);
 
         notFound.setVisible(false);
-        calc.setVisible(false);;
+        calc.setVisible(false);
 
-        back.setOnAction(e -> mainStage.setScene(Gui.titleScene));
+        back.setOnAction(e -> {
+            info.setVisible(false);
+            result.setVisible(false);
+            notFound.setVisible(false);
+            calc.setVisible(false);
+            currentItems.clear();
+
+            mainStage.setScene(Gui.titleScene);
+        });
+
         add.setOnAction(e -> {
             String input = field.getText().toLowerCase();
 
@@ -104,7 +113,7 @@ public class Gui_Calculator {
 
             info.setText("");
             info.setVisible(false);
-            add.setVisible(false);
+            notFound.setVisible(false);
 
             mainStage.setScene(addScene);
         });
