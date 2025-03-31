@@ -9,7 +9,6 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.stage.*;
-import javafx.scene.media.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -25,7 +24,7 @@ import src.recycling_types.Material;
  */
 public class Gui_Info {
     //Scenes
-    private static Scene materialInfoScene, binnableScene, centerableScene, compostableScene, disposableScene, donatableScene;
+    private static Scene materialInfoScene;
 
     /**
      * Sets up the first recycling categories info scene. Reycling categories 
@@ -143,16 +142,12 @@ public class Gui_Info {
     private static HBox[] createCategoryRows(Stage mainStage) {
         String[][] defaultCategories = Loader.load_csv("src/data/text/categories.csv", Gui.L);
         HBox[] rows = new HBox[defaultCategories.length];
-        Button[] seeMoreButtons = new Button[defaultCategories.length];
 
         for(int i = 0; i < rows.length; i++) {
             ImageView im = new ImageView(new Image(defaultCategories[i][0]));
             Text name = new Text(defaultCategories[i][1]);
             Text info = new Text(defaultCategories[i][2]);
-            Button more = new Button("See More");
             rows[i] = new HBox(30);
-
-            seeMoreButtons[i] = more;
 
             im.setFitHeight(100);
             im.setFitWidth(50);
@@ -162,66 +157,13 @@ public class Gui_Info {
 
             info.setFont(new Font(Gui.BODY_FONT, 25));
 
-            more.setPrefSize(Gui.BIGGER_BUTTON_WIDTH, Gui.BUTTON_HEIGHT);
-            more.setStyle(Gui.BUTTON_CSS);
             
-            rows[i].getChildren().addAll(im, name, info, more);
+            rows[i].getChildren().addAll(im, name, info);
         }
-
-        setSeeMoreButtons(mainStage, seeMoreButtons);
 
         return rows;
     }
     
-    /**
-     * Sets the actions for each of the "See More" buttons. Not every dynamic, but
-     * this is the easiest way to do.
-     * 
-     * @param mainStage the main stage from {@link Gui}
-     * @param seeMoreButtons array of buttons that need to be set
-     */
-    private static void setSeeMoreButtons(Stage mainStage, Button[] seeMoreButtons) {
-        //Binnable
-        seeMoreButtons[0].setOnAction(e -> {
-            if(binnableScene == null)
-                createBinScene(mainStage);
-            
-            mainStage.setScene(binnableScene);
-        });
-
-        //Centerable
-        seeMoreButtons[1].setOnAction(e -> {
-            if(centerableScene == null)
-                createCentScene(mainStage);
-            
-            mainStage.setScene(centerableScene);
-        });
-
-        //Compostable
-        seeMoreButtons[2].setOnAction(e -> {
-            if(compostableScene == null)
-                createComScene(mainStage);
-            
-            mainStage.setScene(compostableScene);
-        });
-
-        //Disposable
-        seeMoreButtons[3].setOnAction(e -> {
-            if(disposableScene == null)
-                createDisScene(mainStage);
-            
-            mainStage.setScene(disposableScene);
-        });
-
-        //Donatable
-        seeMoreButtons[4].setOnAction(e -> {
-            if(donatableScene == null)
-                createDonScene(mainStage);
-            
-            mainStage.setScene(donatableScene);
-        });
-    }
-
     /**
      * Creates a table using data from a 2D String array, usually loaded CSV data.
      * 
@@ -287,132 +229,5 @@ public class Gui_Info {
             data.add(row);
         }
         return data.toArray(new String[0][]);
-    }
-
-    /**
-     * Creates the {@link src.recycling_types.categories.Binnable Binnable} "See More"
-     * {@code Scene}.
-     * 
-     * @param mainStage the main stage from {@link Gui}
-     */
-    private static void createBinScene(Stage mainStage) {
-        //Video
-        Media videoMedia = new Media(Loader.get_URI("src/data/videos/binnable.mp4", Gui.L));
-        MediaPlayer mediaPlayer = new MediaPlayer(videoMedia);
-        MediaView mediaView = new MediaView(mediaPlayer);
-
-        mediaView.setFitHeight(450);
-        mediaView.setFitWidth(500);
-
-        //Buttons
-        Button back = Gui.createBackButton();
-        Button play = new Button("Play");
-        Button pause = new Button("Pause");
-
-        back.setOnAction(e -> {
-            mediaPlayer.pause();
-            mainStage.setScene(Gui.infoScene);
-        });
-        play.setOnAction(e -> mediaPlayer.play());
-        pause.setOnAction(e -> mediaPlayer.pause());
-
-        play.setPrefSize(Gui.BUTTON_WIDTH, Gui.BUTTON_HEIGHT);
-        play.setStyle(Gui.BUTTON_CSS);
-        pause.setPrefSize(Gui.BUTTON_WIDTH, Gui.BUTTON_HEIGHT);
-        pause.setStyle(Gui.BUTTON_CSS);
-
-        //Layout
-        Region leftSpacer = new Region();
-        HBox.setHgrow(leftSpacer, Priority.ALWAYS);
-
-        HBox top = new HBox(back, leftSpacer);
-
-        HBox player = new HBox(mediaView);
-
-        HBox controls = new HBox(play, pause);
-
-        VBox main = new VBox(20, top, player, controls);
-        main.setPrefSize(Gui.APP_WIDTH, Gui.APP_HEIGHT);
-        main.setStyle(Gui.APP_CSS);
-        main.autosize();
-
-        binnableScene = new Scene(main);
-    }
-    
-    /**
-     * Creates the {@link src.recycling_types.categories.Centerable Centerable} "See More"
-     * {@code Scene}.
-     * 
-     * @param mainStage the main stage from {@link Gui}
-     */
-    private static void createCentScene(Stage mainStage) {
-        //TableView
-        String[][] centerData = Loader.load_csv("src/data/text/recyclingCenters.csv", Gui.L);
-        
-        for(int i = 0; i < centerData.length; i++) {
-            for(int j = 0; j < centerData[0].length; j++) {
-                centerData[i][j] = centerData[i][j].replaceAll("\\*", ",");
-            }
-        }
-
-        TableView<String[]> centerableTable = createCSVTable(centerData);
-
-        centerableTable.setPrefSize(Gui.APP_WIDTH, Gui.APP_HEIGHT/2);
-        
-        //Buttons
-        Button back = Gui.createBackButton();
-        back.setOnAction(e -> mainStage.setScene(Gui.infoScene));
-
-        //Layouts
-        HBox title = new HBox(back);
-
-        HBox table = new HBox(centerableTable);
-
-        VBox main = new VBox(title, table);
-
-        main.setPrefSize(Gui.APP_WIDTH, Gui.APP_HEIGHT);
-        main.setStyle(Gui.APP_CSS);
-        main.autosize();
-
-        centerableScene = new Scene(main);
-    }
-
-    /**
-     * Creates the {@link src.recycling_types.categories.Compostable Compostable} "See More"
-     * {@code Scene}.
-     * 
-     * @param mainStage the main stage from {@link Gui}
-     */
-    private static void createComScene(Stage mainStage) {
-        //Buttons
-        Button back = Gui.createBackButton();
-
-        back.setOnAction(e -> mainStage.setScene(Gui.infoScene));
-    }
-
-    /**
-     * Creates the {@link src.recycling_types.categories.Disposable Disposable} "See More"
-     * {@code Scene}.
-     * 
-     * @param mainStage the main stage from {@link Gui}
-     */
-    private static void createDisScene(Stage mainStage) {
-        //Buttons
-        Button back = Gui.createBackButton();
-
-        back.setOnAction(e -> mainStage.setScene(Gui.infoScene));
-    }
-
-    /**
-     * Creates the {@link src.recycling_types.categories.Donatable Donatable} "See More"
-     * {@code Scene}.
-     * 
-     * @param mainStage the main stage from {@link Gui}
-     */
-    private static void createDonScene(Stage mainStage) {
-        //Buttons
-        Button back = Gui.createBackButton();
-
-        back.setOnAction(e -> mainStage.setScene(Gui.infoScene));
     }
 }

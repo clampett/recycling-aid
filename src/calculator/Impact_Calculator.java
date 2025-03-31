@@ -1,4 +1,4 @@
-package src.gui;
+package src.calculator;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import src.Loader;
+import src.gui.Gui;
 import src.recycling_types.Material;
 
 /**
- * {@link src.gui.Impact_Calculator Impact_Calculator} calcuates the user's impact score.
+ * {@link src.calculator.Impact_Calculator Impact_Calculator} calcuates the user's impact score.
  * <p> 
  * The user supplies a list of items that they are disposing. If present in a
  * {@link src.recycling_types.Material Material's} possibleItem {@code Set}, then that 
@@ -29,14 +30,14 @@ public class Impact_Calculator {
     private List<Material> deserializedMaterials;
 
     /**
-     * {@link src.gui.Impact_Calculator Impact_Calculator} constructor.
+     * {@link src.calculator.Impact_Calculator Impact_Calculator} constructor.
      * <ul>
      *      <li>Deserializes the serialized Material objects.
      *      <li>Collates all of the possible items from every deserialized Material to a single {@code HashMap}.
      * </ul>
      */
     public Impact_Calculator() {
-        deserializedMaterials = deserializeMaterials();
+        deserializedMaterials = deserializeAllMaterials();
         allItems = collateItems();
     }
 
@@ -45,7 +46,7 @@ public class Impact_Calculator {
      * 
      * @return {@code List<Material>} deserialized materials
      */
-    private List<Material> deserializeMaterials() {
+    private List<Material> deserializeAllMaterials() {
         return Loader
                     .deserialize_dir("src/data/serialized", Gui.L)
                     .stream()
@@ -73,15 +74,15 @@ public class Impact_Calculator {
     /**
      * Checks if given item is present in the allItems {@code HashMap}
      * 
+     * @throws ItemNotFoundException
      * @param item item to check
      * @return TRUE if present; FALSE otherwise
      */
-    public boolean checkItemList(String item) {
+    public boolean checkItemList(String item) throws ItemNotFoundException {
         if(allItems.containsKey(item.toLowerCase()))
             return true;
 
-        Gui.L.severe("Could not find: " + item);
-        return false;
+        throw new ItemNotFoundException(item);
     }
 
     /**
@@ -89,7 +90,7 @@ public class Impact_Calculator {
      * Used to bring the deserializedMaterials {@code List} up to date with any changes.
      */
     public void reloadMaterials() {
-        deserializedMaterials = deserializeMaterials();
+        deserializedMaterials = deserializeAllMaterials();
     }
 
     /**
@@ -129,7 +130,6 @@ public class Impact_Calculator {
      */
     public List<Material> getMaterials(List<String> selectedTrash) {
         return selectedTrash.parallelStream()
-                            .filter(item -> checkItemList(item))
                             .map(item -> allItems.get(item))
                             .toList();
     }

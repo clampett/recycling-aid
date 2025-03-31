@@ -9,11 +9,12 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
 
+import src.calculator.*;
 import src.recycling_types.Material;
 
 /**
  * 
- * @see src.gui.Impact_Calculator Impact_Calculator
+ * @see src.calculator.Impact_Calculator Impact_Calculator
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 3/20/2025
  */
@@ -21,6 +22,9 @@ public class Gui_Calculator {
     private static Scene addScene;
     private static Impact_Calculator ic = new Impact_Calculator();
     private static List<String> currentItems = new ArrayList<>(16);
+
+    private static Text info, result;
+    private static Button notFound, calc;
 
     /**
      * Sets up the impact calculation {@code Scene}. The user inputs an item that
@@ -32,21 +36,20 @@ public class Gui_Calculator {
      * </ul>
      * 
      * Actual calculations and serialization/deserialization is handled by
-     * {@link src.gui.Impact_Calculator}.
+     * {@link src.calculator.Impact_Calculator}.
      * 
-     * @see src.gui.Impact_Calculator Impact_Calculator
+     * @see src.calculator.Impact_Calculator Impact_Calculator
      * @param mainStage the main stage from {@link Gui}
      * @return Calculator {@code Scene} for calculating user impact
      */
     protected static Scene setUpCalculatorScene(Stage mainStage) {
         String infoSuccess = "Successfully added: %s";
-        String infoFailure = "Sorry, but we could not find that item.\nWould you like to add that item to our database?";
 
         //Label
         Text title = new Text("Calculate Your Impact");
         Text explanation = new Text("To calculate your Impact Score™, input all items that you are throwing away this week.");
-        Text info = new Text();
-        Text result = new Text();
+        info = new Text();
+        result = new Text();
 
         info.setVisible(false);
         result.setVisible(false);
@@ -65,8 +68,8 @@ public class Gui_Calculator {
         //Buttons
         Button back = Gui.createBackButton();
         Button add = new Button("Add to List");
-        Button notFound = new Button("Add to Database");
-        Button calc = new Button("Calculate");
+        notFound = new Button("Add to Database");
+        calc = new Button("Calculate");
 
         add.setStyle(Gui.BUTTON_CSS);
         notFound.setStyle(Gui.BUTTON_CSS);
@@ -88,21 +91,20 @@ public class Gui_Calculator {
         add.setOnAction(e -> {
             String input = field.getText().toLowerCase();
 
-            if(ic.checkItemList(input)) {
-                notFound.setVisible(false);
-                calc.setVisible(true);
-
-                currentItems.add(input);
-
-                info.setText(String.format(infoSuccess, input));
-                info.setVisible(true);
-
-                field.clear();
-            }
-            else {
-                info.setText(infoFailure);
-                info.setVisible(true);
-                notFound.setVisible(true);
+            try {
+                if (ic.checkItemList(input)) {
+                    notFound.setVisible(false);
+                    calc.setVisible(true);
+    
+                    currentItems.add(input);
+    
+                    info.setText(String.format(infoSuccess, input));
+                    info.setVisible(true);
+    
+                    field.clear();
+                }
+            } catch(ItemNotFoundException itemNot) {
+                Gui.L.info(itemNot.toString());
             }
         });
 
@@ -209,5 +211,16 @@ public class Gui_Calculator {
         main.autosize();
 
         addScene = new Scene(main);
+    }
+
+    /**
+     * Shows the necessary information to add a new item to the database.
+     * 
+     * @see src.calculator.ItemNotFoundException ItemNotFoundException
+     */
+    public static void showAddNew() {
+        info.setText("Sorry, but we could not find that item.\nWould you like to add that item to our database?");
+        info.setVisible(true);
+        notFound.setVisible(true);
     }
 }
