@@ -9,6 +9,7 @@ import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.stage.*;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ import src.recycling_types.Material;
 
 /**
  * {@link Gui_Info} is apart of the Recycling Aid's {@link Gui}. It creates and 
- * handles all of the scenes that display recycling categories and materials.
+ * handles all of the {@code Scenes} that display recycling categories and materials.
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 3/19/2025

@@ -1,22 +1,25 @@
 package src.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.stage.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import src.calculator.*;
 import src.recycling_types.Material;
 
 /**
+ * {@link Gui_Calculator} is apart of the Recycling Aid's {@link Gui}.
+ * It creates and handles all of the {@code Scenes} that allow the user to determine their impact score.
+ * Gui_Calculator heavily utilizes {@link src.calculator.Impact_Calculator Impact_Calculator} to determine score.
  * 
- * @see src.calculator.Impact_Calculator Impact_Calculator
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 3/20/2025
+ * @see src.calculator.Impact_Calculator Impact_Calculator
  */
 public class Gui_Calculator {
     private static Scene addScene;

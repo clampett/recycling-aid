@@ -15,7 +15,7 @@ import src.recycling_types.categories.*;
  */
 public class Plastic extends Material implements Binnable, Centerable, Disposable {
     /**All possible plastic names.*/
-    public enum plasticType {
+    private enum plasticType {
         PET, HDPE, PVC, LDPE, PP, PS, OTHER
     };
 

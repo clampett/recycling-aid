@@ -1,25 +1,18 @@
 package src;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import java.util.Scanner;
-
-import java.util.List;
-
 import src.gui.*;
-import src.recycling_types.*;
 import src.recycling_types.materials.*;
 
+/**
+ * {@link src.RecycleDriver RecycleDriver} is the main driver for the Recycling Project.
+ * 
+ * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
+ * @version 4/4/2025
+ */
 public class RecycleDriver {
     public static void main(String[] args) {
-        resetSerialized();
-        //Gui.main(args);
+        //resetSerialized();
+        Gui.main(args);
     }
 
     /**

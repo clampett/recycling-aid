@@ -1,18 +1,30 @@
 package src.recycling_types;
 
-import java.util.Set;
-import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import src.recycling_types.materials.*;
 
 /**
- * 
- * 
+ * {@link src.recycling_types.Material Material} is an abstract representation of potential materials that garbage could be.
+ * <p>
+ * All Material objects have these attributes:
+ * <ul>
+ *      <li>Name
+ *      <li>A list of categories the material fits into (aka a subclass' interfaces)
+ *      <li>A {@code Set} of some potential items that are made of the material
+ *      <li>An impact score (i.e. the material's impact on the environment)
+ * </ul>
+ * All Material subclasses include these attributes and often include other unique attributes.
+ * <p>
+ * Material also has numerous helper methods, increasing its usefulness for display and usability purposes.
+ * </p>
+ *
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/20/2025
+ * @version 4/4/2025
  */
 public abstract class Material implements Serializable {
     /**The material's name.*/

@@ -12,6 +12,22 @@ import javafx.stage.*;
 
 import java.util.logging.*;
 
+/**
+ * {@link src.gui.Gui Gui} is the main and central gui for the Recycling Aid project.
+ * <p>
+ * Gui sets up and starts the JavaFX Application, loads every scene and provides constants to maintain a single look.
+ * Simple {@code Scenes}, such as {@link src.gui.Gui#setUpTitleScene(Stage) title} and {@link src.gui.Gui#setUpCreditScene(Stage) credit},
+ * are included within the main gui class. {@code Scenes} that require different methods, such as:
+ * <ul>
+ *      <li>{@link src.gui.Gui_Info Gui_Info}
+ *      <li>{@link src.gui.Gui_Game Gui_Game}
+ *      <li>{@link src.gui.Gui_Calculator Gui_Calculator}
+ * </ul>
+ * are each in their own seperate classes.
+ * 
+ * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
+ * @version 4/4/2025
+ */
 public class Gui extends Application {
     //Gui constants
     protected static final double APP_HEIGHT = 500;

@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 import src.recycling_types.Material;
-import src.recycling_types.categories.Compostable;
+import src.recycling_types.categories.*;
 
 /**
  * 
@@ -13,7 +13,7 @@ import src.recycling_types.categories.Compostable;
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 3/20/2025
  */
-public class Wood extends Material implements Compostable {
+public class Wood extends Material implements Compostable, Disposable {
     /**Whether the {@link src.recycling_types.materials.Wood Wood} was manufactured.*/
     private boolean manufactured;
 

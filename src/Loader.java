@@ -1,22 +1,27 @@
 package src;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.util.Scanner;
-import java.util.List;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.logging.*;
 import java.util.stream.Collectors;
 
 /**
+ * {@link src.Loader Loader} is a helper class dealing with loading and saving data.
+ * <p>
+ * The 2 main functions that it covers is loading CSV files and serialization/deserialization,
+ * both used throughout the project.
+ * </p>
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/29/2025
+ * @version 4/4/2025
  */
 public class Loader {
     /**

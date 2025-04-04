@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import src.Loader;
 import src.gui.Gui;
+import src.Loader;
 import src.recycling_types.Material;
 
 /**
@@ -15,12 +15,12 @@ import src.recycling_types.Material;
  * The user supplies a list of items that they are disposing. If present in a
  * {@link src.recycling_types.Material Material's} possibleItem {@code Set}, then that 
  * Material counts towards the score. Materials are also serialized so the user can save
- * custom items inbetween session
+ * custom items inbetween sessions.
  * </p>
  * 
  * @see src.Loader Loader
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/29/2025
+ * @version 4/4/2025
  */
 public class Impact_Calculator {
     /**A {@HashMap} of every item and it's corresponding {@link src.recycling_types.Material Material}.*/
@@ -44,14 +44,14 @@ public class Impact_Calculator {
     /**
      * Deserializes materials and returns them as a {@code List<>}
      * 
+     * @see src.Loader#deserialize_dir(String, java.util.logging.Logger) Deserializer
      * @return {@code List<Material>} deserialized materials
      */
     private List<Material> deserializeAllMaterials() {
-        return Loader
-                    .deserialize_dir("src/data/serialized", Gui.L)
-                    .stream()
-                    .map(mat -> (Material) mat)
-                    .toList();
+        return Loader.deserialize_dir("src/data/serialized", Gui.L)
+                     .stream()
+                     .map(mat -> (Material) mat)
+                     .toList();
     }
 
     /**
@@ -108,13 +108,10 @@ public class Impact_Calculator {
      * @return Matching {@link src.recycling_types.Material Material}
      */
     public Material getMaterialToAdd(String newMat) {
-        Material toAdd = null;
-
-        for(Material mat : deserializedMaterials)
-            if(mat.getName().equals(newMat)) {
-                toAdd = mat;
-                break;
-            }
+        Material toAdd = deserializedMaterials.stream()
+                                              .filter(mat -> mat.getName().equals(newMat))
+                                              .findAny()
+                                              .orElse(null);
 
         if(toAdd == null)
             Gui.L.severe("Could not find " + newMat);
@@ -149,6 +146,8 @@ public class Impact_Calculator {
 
     /**
      * Serializes every deserialized {@link src.recycling_types.Material Material}.
+     * 
+     * @see src.Loader#serialize(Object, String, java.util.logging.Logger) Serializer
      */
     public void reSerialize() {
         List<String> paths = Loader.load_dir_paths("src/data/serialized", Gui.L);
