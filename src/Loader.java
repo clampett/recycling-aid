@@ -1,15 +1,18 @@
 package src;
 
 import java.io.IOException;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.*;
 import java.util.stream.Collectors;
 
@@ -33,28 +36,20 @@ public class Loader {
      */
     public static String[][] load_csv(String file_path, Logger log) {
         List<String[]> vals = new ArrayList<>();
-        Scanner sc = null;
 
-        try {
-            sc = new Scanner(new File(file_path), "UTF-8");
-        } catch(IOException e) {
-            if(log != null)
-                log.severe("Loading error - " + e.toString());
-            else
-                e.printStackTrace();
-        } finally {
-            while(sc.hasNextLine())
-                vals.add(sc.nextLine().split(","));
+        try(BufferedReader br = new BufferedReader(
+                                new FileReader(file_path))) {
+            String current;
+            while((current = br.readLine()) != null)
+                vals.add(current.split(","));
 
-            if(log != null)
-                log.info("Loaded " + file_path);
+            log.info("Loaded - " + file_path);
 
-            //Removes the byte order mark if present
             if(!vals.isEmpty())
                 vals.get(0)[0] = vals.get(0)[0].replace("\uFEFF", "");
-            
-            sc.close();
-        }
+
+        } catch(IOException e) {log.severe("Loading error - " + e.toString());}
+    
         return vals.toArray(new String[0][]);
     }
 
@@ -92,15 +87,12 @@ public class Loader {
      * @param log JUL {@code Logger}; pass null if you don't want to use
      */
     public static void serialize(Object to_save, String save_path, Logger log) {
-        try {
-            FileOutputStream file_out_stream = new FileOutputStream(save_path);
-            ObjectOutputStream obj_out_stream = new ObjectOutputStream(file_out_stream);
-
-            obj_out_stream.writeObject(to_save);
-            obj_out_stream.flush();
-            obj_out_stream.close();
-
-            log.info("Successfully saved: " + to_save);
+        try(ObjectOutputStream obj_out = new ObjectOutputStream(
+                                         new BufferedOutputStream(
+                                         new FileOutputStream(save_path)))) {
+            obj_out.writeObject(to_save);
+            obj_out.flush();
+            log.info("Successfully serialized object to: " + save_path);
         } catch(Exception e) {
             log.severe("Could NOT serialize: " + to_save.toString() + "; at: " + save_path + " - " + e.toString());
         }
@@ -116,13 +108,10 @@ public class Loader {
     public static Object deserialize(String load_path, Logger log) {
         Object obj = null;
 
-        try {
-            FileInputStream file_in_stream = new FileInputStream(load_path);
-            ObjectInputStream obj_in_stream = new ObjectInputStream(file_in_stream);
-
-            obj = obj_in_stream.readObject();
-            obj_in_stream.close();
-
+        try(ObjectInputStream obj_in = new ObjectInputStream(
+                                       new BufferedInputStream(
+                                       new FileInputStream(load_path)))) {
+            obj = obj_in.readObject();
             log.info("Successfully deserialized Object at: " + load_path);
         } catch(Exception e) {
             log.severe("Could NOT deserialize Object at: " + load_path + " - " + e.toString());
