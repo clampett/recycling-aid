@@ -10,6 +10,9 @@ import javafx.scene.paint.Color;
 import javafx.geometry.*;
 import javafx.stage.*;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.*;
 
 /**
@@ -69,21 +72,23 @@ public class Gui extends Application {
      * Start up method for the application. Creates all of the main {@code Scenes}
      * and loads the title {@code Scene}. Also sets the application title and icon.
      * 
-     * @param mainStage main stage supplied at runtime
+     * @param mainStage main {@code Stage} supplied at runtime
      */
     @Override
     public void start(Stage mainStage) {
         L.info("Setting up GUI");
 
-        titleScene = setUpTitleScene(mainStage);
-        creditScene = setUpCreditScene(mainStage);
-        calculatorScene = Gui_Calculator.setUpCalculatorScene(mainStage);
-        gameScene = Gui_Game.setUpGameScene(mainStage);
-        infoScene = Gui_Info.setUpInfoScene(mainStage);
+        // titleScene = setUpTitleScene(mainStage);
+        // creditScene = setUpCreditScene(mainStage);
+        // calculatorScene = Gui_Calculator.setUpCalculatorScene(mainStage);
+        // gameScene = Gui_Game.setUpGameScene(mainStage);
+        // infoScene = Gui_Info.setUpInfoScene(mainStage);
+
+        threadedStartup(mainStage);
 
         mainStage.setScene(titleScene);
         mainStage.setTitle("Recycling Aid");
-        mainStage.getIcons().add(new Image("src/data/images/recycling_arrow.png"));
+        mainStage.getIcons().add(new Image("data/images/recycling_arrow.png"));
         mainStage.show();
     }
 
@@ -107,7 +112,7 @@ public class Gui extends Application {
 
 
         //Image & ImageView
-        Image titleRecyclingArrowImage = new Image("src/data/images/recycling_arrow.png");
+        Image titleRecyclingArrowImage = new Image("data/images/recycling_arrow.png");
         ImageView titleImageView = new ImageView(titleRecyclingArrowImage);
 
         //Image Sizes
@@ -237,5 +242,50 @@ public class Gui extends Application {
         back.setStyle(Gui.BUTTON_CSS);
 
         return back;
+    }
+
+    /**
+     * A threaded startup for the base {@code Scenes}.
+     * 
+     * @param mainStage main {@code Stage} supplied at runtime
+     */
+    private void threadedStartup(Stage mainStage) {
+        ExecutorService service = Executors.newCachedThreadPool();
+        CountDownLatch latch = new CountDownLatch(5);
+
+        Runnable title = () -> { 
+            titleScene = this.setUpTitleScene(mainStage);
+            latch.countDown();
+        };
+        Runnable credit = () -> {
+            creditScene = this.setUpTitleScene(mainStage);
+            latch.countDown();
+        };
+        Runnable calculator = () -> {
+            calculatorScene = Gui_Calculator.setUpCalculatorScene(mainStage);
+            latch.countDown();
+        };
+        Runnable game = () -> {
+            gameScene = Gui_Game.setUpGameScene(mainStage);
+            latch.countDown();
+        };
+        Runnable info = () -> {
+            infoScene = Gui_Info.setUpInfoScene(mainStage);
+            latch.countDown();
+        };
+
+        try {
+            service.execute(title);
+            service.execute(credit);
+            service.execute(calculator);
+            service.execute(game);
+            service.execute(info);
+
+            latch.await();
+
+            L.fine("Loaded all Scenes");
+        } catch(InterruptedException e) {
+            L.severe("Could NOT load Scenes - " + e.toString());
+        }
     }
 }

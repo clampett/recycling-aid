@@ -29,14 +29,14 @@ public class RecycleDriver {
         Plastic pl = new Plastic();
         Wood w = new Wood();
 
-        Loader.serialize(c, "src/data/serialized/cardboard.txt", Gui.L);
-        Loader.serialize(e, "src/data/serialized/electronic.txt", Gui.L);
-        Loader.serialize(f, "src/data/serialized/fabric.txt", Gui.L);
-        Loader.serialize(fw, "src/data/serialized/food_waste.txt", Gui.L);
-        Loader.serialize(g, "src/data/serialized/glass.txt", Gui.L);
-        Loader.serialize(m, "src/data/serialized/metal.txt", Gui.L);
-        Loader.serialize(p, "src/data/serialized/paper.txt", Gui.L);
-        Loader.serialize(pl, "src/data/serialized/plastic.txt", Gui.L);
-        Loader.serialize(w, "src/data/serialized/wood.txt", Gui.L);
+        Loader.serialize(c, "data/serialized/cardboard.txt", Gui.L);
+        Loader.serialize(e, "data/serialized/electronic.txt", Gui.L);
+        Loader.serialize(f, "data/serialized/fabric.txt", Gui.L);
+        Loader.serialize(fw, "data/serialized/food_waste.txt", Gui.L);
+        Loader.serialize(g, "data/serialized/glass.txt", Gui.L);
+        Loader.serialize(m, "data/serialized/metal.txt", Gui.L);
+        Loader.serialize(p, "data/serialized/paper.txt", Gui.L);
+        Loader.serialize(pl, "data/serialized/plastic.txt", Gui.L);
+        Loader.serialize(w, "data/serialized/wood.txt", Gui.L);
     }
 }

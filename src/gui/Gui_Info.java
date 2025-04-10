@@ -141,7 +141,7 @@ public class Gui_Info {
      * @return {@code HBox} array of recycling category data
      */
     private static HBox[] createCategoryRows(Stage mainStage) {
-        String[][] defaultCategories = Loader.load_csv("src/data/text/categories.csv", Gui.L);
+        String[][] defaultCategories = Loader.load_csv("data/text/categories.csv", Gui.L);
         HBox[] rows = new HBox[defaultCategories.length];
 
         for(int i = 0; i < rows.length; i++) {

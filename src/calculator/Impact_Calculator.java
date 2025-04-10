@@ -48,7 +48,7 @@ public class Impact_Calculator {
      * @return {@code List<Material>} deserialized materials
      */
     private List<Material> deserializeAllMaterials() {
-        return Loader.deserialize_dir("src/data/serialized", Gui.L)
+        return Loader.deserialize_dir("data/serialized", Gui.L)
                      .stream()
                      .map(mat -> (Material) mat)
                      .toList();
@@ -150,7 +150,7 @@ public class Impact_Calculator {
      * @see src.Loader#serialize(Object, String, java.util.logging.Logger) Serializer
      */
     public void reSerialize() {
-        List<String> paths = Loader.load_dir_paths("src/data/serialized", Gui.L);
+        List<String> paths = Loader.load_dir_paths("data/serialized", Gui.L);
         Collections.sort(paths);
 
         for(int i = 0; i < paths.size(); i++) {
