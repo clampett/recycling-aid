@@ -8,21 +8,44 @@ import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
 /**
- * 
+ * {@link Fabric} is a concrete representation of garbage made out of fabric and
+ * is a subclass of {@link src.recycling_types.Material Material}
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/20/2025
+ * @version 4/12/2025
  */
-public class Fabric extends Material implements Centerable, Donatable, Disposable{
+public class Fabric extends Material implements Centerable, Donatable, Disposable {
+    /**Whether the fabric is dyed*/
+    private boolean dyed;
+
+    /**Whether the fabric has harmful dyes*/
+    private boolean harmfulDyes;
+
+    /**
+     * Some possible items that fabric could be.
+     * @see src.recycling_types.Material Material
+     */
     private static Set<String> possibleItems = new HashSet<>(
         Arrays.asList("fabric", "clothing", "bedsheet", "shoe", "tablecloth", "curtain")
     );
 
     public Fabric() {
+        this(false, false);
+    }
+
+    public Fabric(boolean dyed, boolean harmfulDyes) {
         super(0.3, possibleItems);
+        this.dyed = dyed;
+        this.harmfulDyes = harmfulDyes;
+
+        if(dyed)
+            super.setImpactScore(getImpactScore() + 0.1);
+
+        if(harmfulDyes)
+            super.setImpactScore(getImpactScore() + 0.1);
     }
 
     public String getSpecial() {
-        return("fabric special");
+        return("May have harmful dyes, which is more harmful for the environment");
     }
 }

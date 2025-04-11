@@ -168,8 +168,8 @@ public abstract class Material implements Serializable {
     }
 
     /**
-     * Gets {@link src.recycling_types.Material Material} special characteristics
-     * @return {@link src.recycling_types.Material Material} special
+     * Gets {@link src.recycling_types.Material Material's} special characteristics
+     * @return {@link src.recycling_types.Material Material's} special
      */
     public abstract String getSpecial();
 }

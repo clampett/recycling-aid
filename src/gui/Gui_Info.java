@@ -147,7 +147,7 @@ public class Gui_Info {
         for(int i = 0; i < rows.length; i++) {
             ImageView im = new ImageView(new Image(defaultCategories[i][0]));
             Text name = new Text(defaultCategories[i][1]);
-            Text info = new Text(defaultCategories[i][2]);
+            Text info = new Text(defaultCategories[i][2].replaceAll("\\*", ","));
             rows[i] = new HBox(30);
 
             im.setFitHeight(100);
@@ -156,7 +156,8 @@ public class Gui_Info {
 
             name.setFont(new Font(Gui.BODY_FONT, 30));
 
-            info.setFont(new Font(Gui.BODY_FONT, 25));
+            info.setFont(new Font(Gui.BODY_FONT, 15));
+            info.setWrappingWidth(250);
 
             
             rows[i].getChildren().addAll(im, name, info);
@@ -210,7 +211,7 @@ public class Gui_Info {
 
         for(Class<? extends Material> c : b) {
             try {
-                materials.add((Material) c.getDeclaredConstructors()[0].newInstance());
+                materials.add((Material) c.getDeclaredConstructors()[1].newInstance());
             } catch(Exception e) {
                 Gui.L.severe("Could NOT Create Material - " + e.toString());
             }

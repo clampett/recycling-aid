@@ -8,29 +8,37 @@ import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
 /**
- * 
+ * {@link Paper} is a concrete representation of garbage made out of paper and
+ * is a subclass of {@link src.recycling_types.Material Material}
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/20/2025
+ * @version 4/12/2025
  */
 public class Paper extends Material implements Binnable, Compostable, Disposable{
-    public String shape;
+    /**Whether the paper has ink*/
+    private boolean hasInk;
 
+    /**
+     * Some possible items that paper could be.
+     * @see src.recycling_types.Material Material
+     */
     private static Set<String> possibleItems = new HashSet<>(
         Arrays.asList("paper", "newspaper", "homework", "junk mail", "paper towel", "paper plate")
     );
 
-    public Paper(String shape) {
-        super(0.1, possibleItems);
-
-        this.shape = shape;
+    public Paper() {
+        this(true);
     }
 
-    public Paper() {
-        this("Rectangle");
+    public Paper(boolean hasInk) {
+        super(0.1, possibleItems);
+        this.hasInk = hasInk;
+
+        if(this.hasInk)
+            super.setImpactScore(0.25);
     }
 
     public String getSpecial() {
-        return("paper special");
+        return("May have ink, which is more harmful for the environment");
     }
 }

@@ -78,12 +78,6 @@ public class Gui extends Application {
     public void start(Stage mainStage) {
         L.info("Setting up GUI");
 
-        // titleScene = setUpTitleScene(mainStage);
-        // creditScene = setUpCreditScene(mainStage);
-        // calculatorScene = Gui_Calculator.setUpCalculatorScene(mainStage);
-        // gameScene = Gui_Game.setUpGameScene(mainStage);
-        // infoScene = Gui_Info.setUpInfoScene(mainStage);
-
         threadedStartup(mainStage);
 
         mainStage.setScene(titleScene);

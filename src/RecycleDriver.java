@@ -11,8 +11,8 @@ import src.recycling_types.materials.*;
  */
 public class RecycleDriver {
     public static void main(String[] args) {
-        //resetSerialized();
-        Gui.main(args);
+        resetSerialized();
+        //Gui.main(args);
     }
 
     /**
