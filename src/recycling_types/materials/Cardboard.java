@@ -14,7 +14,7 @@ import src.recycling_types.categories.*;
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 4/12/2025
  */
-public class Cardboard extends Material implements Binnable, Disposable {
+public class Cardboard extends Material implements Binnable, Disposable, Recyclable {
     /**Whether the carboard is soiled*/
     private boolean soiled;
 
@@ -38,6 +38,24 @@ public class Cardboard extends Material implements Binnable, Disposable {
             super.setImpactScore(0.3);
     }
 
+    @Override
+    public boolean attemptBin(Material material) {
+        // Logic for taking the material to a bin
+        return !soiled; // Example: Only allow binning if not soiled
+    }
+
+    @Override
+    public boolean attemptDispose(Material material){
+        // Logic for disposing of the material
+        return !soiled; // Example: Only allow disposal if not soiled
+    }
+
+    @Override
+    public boolean attemptRecycle(Material material) {
+        // Logic for recycling the material
+        return !soiled; // Example: Only allow recycling if not soiled
+    }
+    
     public String getSpecial() {
         return("May be soiled, which is more harmful for the environment");
     }

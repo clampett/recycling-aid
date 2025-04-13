@@ -29,6 +29,7 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     public Electronic() {
         this(true);
     }
+
     
     public Electronic(boolean hasBattery) {
         super(0.65, possibleItems);
@@ -36,6 +37,23 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
 
         if(hasBattery)
             super.setImpactScore(0.80);
+    }
+
+    @Override
+    public boolean attemptDonate(Material material) {
+        return true; // Example: Always allow donation
+    }
+
+    @Override
+    public boolean attemptCenter(Material material){
+        // Logic for taking the material to a center
+        return !hasBattery; // Example: Only allow center if no battery
+    }
+
+    @Override
+    public boolean attemptDispose(Material material){
+        // Logic for disposing of the material
+        return !hasBattery; // Example: Only allow disposal if no battery
     }
 
     public String getSpecial() {

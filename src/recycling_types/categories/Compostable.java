@@ -1,5 +1,8 @@
 package src.recycling_types.categories;
 
+import src.recycling_types.*;
+import src.customExceptions.failedCompostException;
+
 /**
  * 
  * 
@@ -8,4 +11,6 @@ package src.recycling_types.categories;
  */
 public interface Compostable {
     
+    public abstract boolean attemptCompost(Material m) throws failedCompostException;
+
 }

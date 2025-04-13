@@ -38,6 +38,24 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
             super.setImpactScore(0.25);
     }
 
+    @Override
+    public boolean attemptBin(Material material){
+        // Logic for taking the material to a bin
+        return !hasInk; // Example: Only allow binning if not hasInk
+    }
+
+    @Override
+    public boolean attemptCompost(Material material){
+        // Logic for composting the material
+        return !hasInk; // Example: Only allow composting if not hasInk
+    }
+
+    @Override
+    public boolean attemptDispose(Material material){
+        // Logic for disposing of the material
+        return !hasInk; // Example: Only allow disposal if not hasInk
+    }
+
     public String getSpecial() {
         return("May have ink, which is more harmful for the environment");
     }

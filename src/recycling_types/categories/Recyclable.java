@@ -1,13 +1,8 @@
 package src.recycling_types.categories;
 
-import src.recycling_types.*;
+import src.customExceptions.failedRecycleException;
+import src.recycling_types.Material;
 
-/**
- * 
- * 
- * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/26/2025
- */
 public interface Recyclable {
-    //public abstract boolean attemptRecycle(Material m);
+    public abstract boolean attemptRecycle(Material m) throws failedRecycleException;
 }

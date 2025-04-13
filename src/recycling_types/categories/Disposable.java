@@ -1,5 +1,7 @@
 package src.recycling_types.categories;
 
+import src.recycling_types.*;
+import src.customExceptions.failedDisposeException;
 /**
  * 
  * 
@@ -8,4 +10,5 @@ package src.recycling_types.categories;
  */
 public interface Disposable {
     
+    public abstract boolean attemptDispose(Material m) throws failedDisposeException;
 }

@@ -45,6 +45,23 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
             super.setImpactScore(getImpactScore() + 0.1);
     }
 
+    @Override
+    public boolean attemptDonate(Material material) {
+        // Logic for taking the material to a donation center
+        return !harmfulDyes; // Example: Only allow donation if not dyed and no harmful dyes
+    }
+
+    @Override
+    public boolean attemptCenter(Material material){
+        // Logic for taking the material to a center
+        return !harmfulDyes; // Example: Only allow center if not dyed and no harmful dyes
+    }
+
+    @Override
+    public boolean attemptDispose(Material material){
+        return !harmfulDyes; // Example: Only allow disposal if no harmful dyes
+    }
+
     public String getSpecial() {
         return("May have harmful dyes, which is more harmful for the environment");
     }

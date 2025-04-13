@@ -37,6 +37,18 @@ public class Glass extends Material implements Binnable, Disposable {
             super.setImpactScore(0.35);
     }
 
+    @Override
+    public boolean attemptBin(Material material){
+        // Logic for taking the material to a bin
+        return !isTempered; // Example: Only allow binning if not tempered
+    }
+
+    @Override
+    public boolean attemptDispose(Material material){
+        // Logic for disposing of the material
+        return !isTempered; // Example: Only allow disposal if not tempered
+    }
+
     public String getSpecial() {
         return("May be tempered, which is more harmful for the environment");
     }

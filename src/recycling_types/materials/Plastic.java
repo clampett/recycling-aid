@@ -88,6 +88,25 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         return impact;
     }
 
+    @Override
+    public boolean attemptBin(Material material){
+        // Logic for taking the material to a bin
+        return plasticNum != 3; // Example: Only allow binning if not PVC (3)
+    }
+
+    @Override
+    public boolean attemptCenter(Material material){
+        // Logic for taking the material to a center
+        return plasticNum != 3; // Example: Only allow center if not PVC (3)
+    }
+
+    @Override
+    public boolean attemptDispose(Material material){
+        // Logic for disposing of the material
+        return plasticNum != 3; // Example: Only allow disposal if not PVC (3)
+    }
+    
+
     public String getSpecial() {
         String specialBlurb = "There are 7 Plastic Types:\n";
         String specialFormat = "\t%d: %s (%s)\n";

@@ -71,6 +71,18 @@ public class Food_Waste extends Material implements Compostable, Disposable {
         return impact;
     }
 
+    @Override
+    public boolean attemptDispose(Material material){
+        // Logic for disposing of the material
+        return isOrganic; // Example: Only allow disposal if organic
+    }
+
+    @Override
+    public boolean attemptCompost(Material material){
+        // Logic for composting the material
+        return isOrganic; // Example: Only allow composting if organic
+    }
+
     public String getSpecial() {
         return("May be nonorganic, which is more harmful for the environment" + 
                "\nDecomposition time may also vary, which can impact how good the food waste is for the environment");

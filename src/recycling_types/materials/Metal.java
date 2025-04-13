@@ -115,6 +115,17 @@ public class Metal extends Material implements Centerable, Disposable{
         return formulaStrings;
     }
 
+    @Override
+    public boolean attemptCenter(Material material){
+        // Logic for taking the material to a center
+        return true; // Example: Always allow center
+    }
+
+    @Override
+    public boolean attemptDispose(Material mateiral){
+        return true; // Logic for disposing of the material
+    }
+
     public String getSpecial() {
         String specialBlurb = "Common metal types:\n";
         String specialFormat = "\t• %s: (%s)\n";
