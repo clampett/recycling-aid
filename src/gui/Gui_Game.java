@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class Gui_Game {
-    protected static Scene setUpGameScene(Stage mainStage  ) {
+    protected static Scene setUpGameScene(Stage mainStage) {
         Gui.L.info("Setting up game scene");
 
         // Create text for gameScene

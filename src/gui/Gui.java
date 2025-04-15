@@ -29,12 +29,12 @@ import java.util.logging.*;
  * are each in their own seperate classes.
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 4/4/2025
+ * @version 4/12/2025
  */
 public class Gui extends Application {
     //Gui constants
-    protected static final double APP_HEIGHT = 500;
-    protected static final double APP_WIDTH = 400;
+    protected static final double APP_HEIGHT = 1000;
+    protected static final double APP_WIDTH = 500;
     protected static final String APP_CSS = "-fx-background-color: #00b400;";
 
     protected static final double BUTTON_HEIGHT = 35;
@@ -63,7 +63,7 @@ public class Gui extends Application {
      * 
      * @param args CLI arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args, Logger L) {
         L.setLevel(Level.ALL);
         launch(args);
     }
@@ -179,16 +179,48 @@ public class Gui extends Application {
 
         //Text
         Text creditTitle = new Text("CREDITS:");
-        Text creditList = new Text("•Andrew Casey\n\n•Saadat Emilbekova\n\n•Dylan Jablonski\n\n•Jason Mele\n\n•Will Zakroff");
-        Text creditInfo = new Text("Rowan University\t\tHonors OOPDA\t\tSpring 2025");
+
+        Text andrew = new Text("\t• Andrew Casey\t\n");
+        Text saadat = new Text("\t• Saadat Emilbekova\t\n");
+        Text dylan = new Text("\t• Dylan Jablonski\t\n");
+        Text jason = new Text("\t• Jason Mele\t\n");
+        Text will = new Text("\t• Will Zakroff\t");
+
+        Text creditInfoI = new Text("\tRowan University");
+        Text creditInfoII = new Text("Honors OOPDA");
+        Text creditInfoIII = new Text("Spring 2025\t");
 
         //Text Style
         creditTitle.setFont(Font.font(TITLE_FONT, 45));
-        creditList.setFont(Font.font(BODY_FONT, 25));
-        creditInfo.setFont(Font.font(BODY_FONT, 15));
         creditTitle.setFill(Color.WHITE);
         creditTitle.setStroke(Color.BLACK);
         creditTitle.setStrokeWidth(2);
+
+        andrew.setFont(Font.font("Cambria", 25));
+        saadat.setFont(Font.font("Jokerman", 25));
+        dylan.setFont(Font.font(BODY_FONT, 25));
+        jason.setFont(Font.font("Elephant", 25));
+        will.setFont(Font.font(BODY_FONT, 25));
+
+        andrew.setFill(Color.BLACK);
+        saadat.setFill(Color.PURPLE);
+        dylan.setFill(Color.BLACK);
+        jason.setFill(Color.rgb(75, 97, 209));
+        will.setFill(Color.BLACK);
+
+        creditInfoI.setFont(Font.font(BODY_FONT, 15));
+        creditInfoII.setFont(Font.font(BODY_FONT, 15));
+        creditInfoIII.setFont(Font.font(BODY_FONT, 15));
+
+
+        //Seperator
+        Separator topBar = new Separator(Orientation.HORIZONTAL);
+        topBar.setStyle("-fx-background-color: #FFFFFF;");
+        topBar.autosize();
+
+        Separator bottomBar = new Separator(Orientation.HORIZONTAL);
+        bottomBar.setStyle("-fx-background-color: #FFFFFF;");
+        bottomBar.autosize();
 
 
         //Buttons
@@ -205,14 +237,32 @@ public class Gui extends Application {
         HBox.setHgrow(leftSpacer, Priority.ALWAYS);
         HBox.setHgrow(rightSpacer, Priority.ALWAYS);
 
+        Region leftSpacerII = new Region();
+        Region rightSpacerII = new Region();
+        HBox.setHgrow(leftSpacerII, Priority.ALWAYS);
+        HBox.setHgrow(rightSpacerII, Priority.ALWAYS);
+
+        Region leftSpacerIII = new Region();
+        Region rightSpacerIII = new Region();
+        HBox.setHgrow(leftSpacerIII, Priority.ALWAYS);
+        HBox.setHgrow(rightSpacerIII, Priority.ALWAYS);
+
         HBox creditTopBox = new HBox(creditBackButton, leftSpacer, creditTitle, rightSpacer);
-        HBox creditListBox = new HBox(creditList);
-        HBox creditBottomBox = new HBox(creditInfo);
+        VBox listBox = new VBox(andrew, saadat, dylan, jason, will);
+        HBox creditBottomBox = new HBox(creditInfoI, leftSpacerIII, creditInfoII, rightSpacerIII, creditInfoIII);
+
+        listBox.setStyle("-fx-background-color: #FFFFFFFF;");
+
+        HBox middle = new HBox(leftSpacerII, listBox, rightSpacerII);
+        VBox bottom = new VBox(bottomBar, creditBottomBox);
         
         mainBox.getChildren().addAll(
             creditTopBox,
-            creditListBox,
-            creditBottomBox
+            topBar,
+            new Text("\n"),
+            middle,
+            new Text("\n"),
+            bottom
         );
 
         mainBox.setPrefSize(APP_HEIGHT, APP_WIDTH);
@@ -245,14 +295,14 @@ public class Gui extends Application {
      */
     private void threadedStartup(Stage mainStage) {
         ExecutorService service = Executors.newCachedThreadPool();
-        CountDownLatch latch = new CountDownLatch(5);
+        CountDownLatch latch = new CountDownLatch(7);
 
         Runnable title = () -> { 
             titleScene = this.setUpTitleScene(mainStage);
             latch.countDown();
         };
         Runnable credit = () -> {
-            creditScene = this.setUpTitleScene(mainStage);
+            creditScene = this.setUpCreditScene(mainStage);
             latch.countDown();
         };
         Runnable calculator = () -> {
@@ -268,12 +318,25 @@ public class Gui extends Application {
             latch.countDown();
         };
 
+        Runnable calculatorII = () -> {
+            Gui_Calculator.setUpAddScene(mainStage);
+            latch.countDown();
+        };
+        Runnable infoII = () -> {
+            Gui_Info.materialInfoScene = Gui_Info.setUpInfoSceneII(mainStage);
+            latch.countDown();
+        };
+
+
         try {
             service.execute(title);
             service.execute(credit);
             service.execute(calculator);
             service.execute(game);
             service.execute(info);
+
+            service.execute(calculatorII);
+            service.execute(infoII);
 
             latch.await();
 

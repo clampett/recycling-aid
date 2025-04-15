@@ -3,6 +3,8 @@ package src;
 import src.gui.*;
 import src.recycling_types.materials.*;
 
+import java.util.logging.*;
+
 /**
  * {@link src.RecycleDriver RecycleDriver} is the main driver for the Recycling Project.
  * 
@@ -10,9 +12,11 @@ import src.recycling_types.materials.*;
  * @version 4/4/2025
  */
 public class RecycleDriver {
+    public static final Logger L = Logger.getLogger(RecycleDriver.class.getName());
+
     public static void main(String[] args) {
         resetSerialized();
-        Gui.main(args);
+        Gui.main(args, L);
     }
 
     /**

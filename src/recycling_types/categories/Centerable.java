@@ -12,6 +12,6 @@ import src.recycling_types.*;
  */
 public interface Centerable {
     
-    public abstract boolean attemptCenter(Material m) throws failedCenterException;
+    public boolean attemptCenter(Material m) throws failedCenterException;
 
 }

@@ -10,5 +10,5 @@ import src.customExceptions.failedDisposeException;
  */
 public interface Disposable {
     
-    public abstract boolean attemptDispose(Material m) throws failedDisposeException;
+    public boolean attemptDispose(Material m) throws failedDisposeException;
 }

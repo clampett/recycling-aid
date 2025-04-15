@@ -2,6 +2,7 @@ package src.gui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -21,11 +22,11 @@ import src.recycling_types.Material;
  * handles all of the {@code Scenes} that display recycling categories and materials.
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/19/2025
+ * @version 4/12/2025
  */
 public class Gui_Info {
     //Scenes
-    private static Scene materialInfoScene;
+    protected static Scene materialInfoScene;
 
     /**
      * Sets up the first recycling categories info scene. Reycling categories 
@@ -73,7 +74,7 @@ public class Gui_Info {
         mainBox.getChildren().add(titleBox);
 
         for(HBox row : rows) {
-            mainBox.getChildren().add(row);
+            mainBox.getChildren().addAll(row, new Separator(Orientation.HORIZONTAL));
         }
 
         Region bottomSpacer = new Region();
@@ -100,7 +101,7 @@ public class Gui_Info {
      * @param mainStage the main stage from {@link Gui}
      * @return Info {@code Scene} for recycling materials
      */
-    private static Scene setUpInfoSceneII(Stage mainStage) {
+    protected static Scene setUpInfoSceneII(Stage mainStage) {
         Gui.L.info("Setting up material info scene");
 
         //Text
@@ -150,16 +151,15 @@ public class Gui_Info {
             Text info = new Text(defaultCategories[i][2].replaceAll("\\*", ","));
             rows[i] = new HBox(30);
 
-            im.setFitHeight(100);
-            im.setFitWidth(50);
+            im.setFitHeight(75);
+            im.setFitWidth(100);
             im.setPreserveRatio(true);
 
             name.setFont(new Font(Gui.BODY_FONT, 30));
 
             info.setFont(new Font(Gui.BODY_FONT, 15));
-            info.setWrappingWidth(250);
+            info.setWrappingWidth(600);
 
-            
             rows[i].getChildren().addAll(im, name, info);
         }
 
