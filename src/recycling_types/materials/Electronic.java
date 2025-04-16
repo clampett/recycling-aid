@@ -39,6 +39,20 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
             super.setImpactScore(0.80);
     }
 
+    // Field mutator methods
+    public void setBatteryStatus(boolean hasBattery) {
+        this.hasBattery = hasBattery;
+        if(hasBattery)
+            super.setImpactScore(0.80);
+        else
+            super.setImpactScore(0.65);
+    }
+
+    // Field accessor methods
+    public boolean getHasBattery() {
+        return hasBattery;
+    }
+
     @Override
     public boolean attemptDonate(Material material) {
         return true; // Example: Always allow donation

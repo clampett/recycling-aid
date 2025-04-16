@@ -17,7 +17,7 @@ import src.recycling_types.categories.*;
 public class Wood extends Material implements Compostable, Disposable {
     /**Whether the {@link Wood} was manufactured.*/
     private boolean manufactured;
-    private boolean contaminated;
+    
 
     /**
      * Some possible items that wood could be.
@@ -34,27 +34,50 @@ public class Wood extends Material implements Compostable, Disposable {
     public Wood(boolean manufactured, boolean contaminated) {
         super(0.1, possibleItems);
         this.manufactured = manufactured;
-        this.contaminated = contaminated;
 
         if(this.manufactured)
-            // TODO: add impact score for contaminated wood
+            
             super.setImpactScore(0.5);
+    }
+
+    // Field mutator methods
+
+    /*
+     * Sets the status of manufactured
+     * updates the impact score if manufactured
+     * @param manufactured whether the wood is manufactured or not
+     */
+    public void setManufactured(boolean manufactured){
+        this.manufactured = manufactured;
+        if(manufactured){
+            super.setImpactScore(0.5); // Example impact score for manufactured wood
+        } else {
+            super.setImpactScore(0.1); // Example impact score for non-manufactured wood
+        }
+    }
+
+    // Field accessor methods
+
+    public boolean getManufactured(){
+        return manufactured;
     }
 
     @Override
     public boolean attemptCompost(Material material){
         // Logic for composting the material
-        return !manufactured && !contaminated; // Example: Only allow composting if not manufactured and not contaminated
+        return !manufactured; // Example: Only allow composting if not manufactured and not contaminated
     }
 
     @Override
     public boolean attemptDispose(Material material){
         // Logic for disposing of the material
-        return !manufactured && !contaminated; // Example: Only allow disposal if not manufactured and not contaminated
+        return !manufactured; // Example: Only allow disposal if not manufactured and not contaminated
     }
     
     public String getSpecial() {
         return("May be manufactured, which could be more harmful for the environment");
     }
+
+    
 
 }

@@ -1,5 +1,7 @@
 package src.customExceptions;
 
+import src.gui.Gui_Game;
+
 public class failedDonateException extends Exception {
     private static final String message = "Failed to donate material."; //describes what went wrong
     private static final String errorCode = "02"; //error code specific to this exception

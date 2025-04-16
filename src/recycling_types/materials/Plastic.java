@@ -53,6 +53,33 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         this.type = plasticType.values()[this.plasticNum - 1];
     }
     
+    //Field mutator methods
+
+    /*
+     * Sets the plastic num
+     * updates impact score accordingly
+     * @param type the type of plastic
+     */
+    public void setPlasticNum(int plasticNum) {
+       this.plasticNum = plasticNum;
+       this.plasticSign = resinCodes[this.plasticNum - 1];
+       setImpact(plasticNum);
+    }
+    
+    //Field accesor methods
+
+    public int getPlasticNum() {
+        return plasticNum;
+    }
+
+    public String getPlasticSign() {
+        return plasticSign;
+    }
+
+    public plasticType getPlasticType() {
+        return type;
+    }
+
     /**
      * Sets impact score based on the type of plastic
      * 

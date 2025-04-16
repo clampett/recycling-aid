@@ -38,6 +38,20 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
             super.setImpactScore(0.3);
     }
 
+    // Field mutator methods
+    public void setSoiled(boolean soiled) {
+        this.soiled = soiled;
+        if(soiled)
+            super.setImpactScore(0.3);
+        else
+            super.setImpactScore(0.2);
+    }
+
+    // Field accessor methods
+    public boolean getIsSoiled() {
+        return soiled;
+    }
+
     @Override
     public boolean attemptBin(Material material) {
         // Logic for taking the material to a bin

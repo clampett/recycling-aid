@@ -56,6 +56,18 @@ public class Metal extends Material implements Centerable, Disposable{
         this(metalFormula.valueOf(typeFormula));
     }
 
+    /*
+     * Sets the type of metal and updates the impact score accordingly
+     * and update the impact score accordingly
+     * @param typeFormula the metal's formula
+     */
+    public void setMetalType(String typeFormula) {
+        this.typeFormula = metalFormula.valueOf(typeFormula);
+        this.type = metalType.values()[Arrays.binarySearch(metalFormula.values(), typeFormula)];
+        
+        super.setImpactScore(setImpact(this.typeFormula));
+    }
+
     /**
      * Sets impact score based on the type of metal
      * 
@@ -134,5 +146,9 @@ public class Metal extends Material implements Centerable, Disposable{
             specialBlurb += String.format(specialFormat, metalType.values()[i], metalFormula.values()[i]);
 
         return specialBlurb;
+    }
+
+    public String getMetalType() {
+        return type.toString();
     }
 }

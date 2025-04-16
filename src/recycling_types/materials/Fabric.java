@@ -45,6 +45,45 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
             super.setImpactScore(getImpactScore() + 0.1);
     }
 
+    // Field mutator methods
+
+    /*
+     * Sets status of thet fabric to dyed or not dyed
+     * and updates the impact score accordingly
+     * @param dyed true if the fabric is dyed, false otherwise
+     */
+    
+    public void setDyed(boolean dyed) {
+        this.dyed = dyed;
+        if(dyed)
+            super.setImpactScore(getImpactScore() + 0.1);
+        else
+            super.setImpactScore(getImpactScore() - 0.1);
+    }
+
+    /*
+     * Sets status of that fabric's harmful dyes status to true or false
+     * and updates the impact score accordingly
+     * @param harmfulDyes true if the fabric has harmful dyes, false otherwise
+     */
+    public void setHarmfulDyed(boolean harmfulDyes) {
+        this.harmfulDyes = harmfulDyes;
+        if(harmfulDyes)
+            super.setImpactScore(getImpactScore() + 0.1);
+        else
+            super.setImpactScore(getImpactScore() - 0.1);
+    }
+
+    // Field accessor methods
+
+    public boolean isDyed() {
+        return dyed;
+    }
+
+    public boolean isHarmfulDyed(){
+        return harmfulDyes;
+    }
+
     @Override
     public boolean attemptDonate(Material material) {
         // Logic for taking the material to a donation center
