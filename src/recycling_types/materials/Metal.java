@@ -9,12 +9,12 @@ import src.recycling_types.categories.*;
 
 /**
  * {@link Metal} is a concrete representation of garbage made out of metal and
- * is a subclass of {@link src.recycling_types.Material Material}
+ * is a subclass of {@link src.recycling_types.Material Material}.
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 4/12/2025
  */
-public class Metal extends Material implements Centerable, Disposable{
+public class Metal extends Material implements Centerable, Disposable {
     /**Possible metal types*/
     private enum metalType {
         Aluminum, Brass, Bronze, Copper, Lead, Iron, Nickel, Steel, Tin, Titanium

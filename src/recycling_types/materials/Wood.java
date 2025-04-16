@@ -9,7 +9,7 @@ import src.recycling_types.categories.*;
 
 /**
  * {@link Wood} is a concrete representation of garbage made out of wood and
- * is a subclass of {@link src.recycling_types.Material Material}
+ * is a subclass of {@link src.recycling_types.Material Material}.
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 4/12/2025
@@ -17,7 +17,9 @@ import src.recycling_types.categories.*;
 public class Wood extends Material implements Compostable, Disposable {
     /**Whether the {@link Wood} was manufactured.*/
     private boolean manufactured;
-    
+
+    /**Whether the {@link Wood} is contaminated.*/
+    private boolean contaminated;
 
     /**
      * Some possible items that wood could be.
@@ -36,7 +38,7 @@ public class Wood extends Material implements Compostable, Disposable {
         this.manufactured = manufactured;
 
         if(this.manufactured)
-            
+            // TODO: add impact score for contaminated wood
             super.setImpactScore(0.5);
     }
 
@@ -63,13 +65,13 @@ public class Wood extends Material implements Compostable, Disposable {
     }
 
     @Override
-    public boolean attemptCompost(Material material){
+    public boolean attemptCompost(Material material) {
         // Logic for composting the material
         return !manufactured; // Example: Only allow composting if not manufactured and not contaminated
     }
 
     @Override
-    public boolean attemptDispose(Material material){
+    public boolean attemptDispose(Material material) {
         // Logic for disposing of the material
         return !manufactured; // Example: Only allow disposal if not manufactured and not contaminated
     }

@@ -11,6 +11,6 @@ import src.recycling_types.*;
  */
 public interface Donatable {
     
-    public abstract boolean attemptDonate(Material m) throws failedDonateException;
+    public boolean attemptDonate(Material m) throws failedDonateException;
     
 }

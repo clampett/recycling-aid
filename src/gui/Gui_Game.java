@@ -43,7 +43,7 @@ public class Gui_Game {
 
     Material currentMaterial; // Current material to be recycled
 
-    protected static Scene setUpGameScene(Stage mainStage  ) {
+    protected static Scene setUpGameScene(Stage mainStage) {
         Gui.L.info("Setting up game scene");
 
         // Create text for gameScene

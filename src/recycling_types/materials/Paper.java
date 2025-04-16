@@ -9,12 +9,12 @@ import src.recycling_types.categories.*;
 
 /**
  * {@link Paper} is a concrete representation of garbage made out of paper and
- * is a subclass of {@link src.recycling_types.Material Material}
+ * is a subclass of {@link src.recycling_types.Material Material}.
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 4/12/2025
  */
-public class Paper extends Material implements Binnable, Compostable, Disposable{
+public class Paper extends Material implements Binnable, Compostable, Disposable {
     /**Whether the paper has ink*/
     private boolean hasInk;
 

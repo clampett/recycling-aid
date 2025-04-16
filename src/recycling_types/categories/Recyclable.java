@@ -4,5 +4,5 @@ import src.customExceptions.failedRecycleException;
 import src.recycling_types.Material;
 
 public interface Recyclable {
-    public abstract boolean attemptRecycle(Material m) throws failedRecycleException;
+    public boolean attemptRecycle(Material m) throws failedRecycleException;
 }

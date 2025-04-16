@@ -12,6 +12,6 @@ import src.recycling_types.*;
 public interface Binnable{
     //@Override
     //public boolean attemptRecycle(Material m);
-
-     public abstract boolean attemptBin(Material m) throws failedBinException;
+    
+    public boolean attemptBin(Material m) throws failedBinException;
 }

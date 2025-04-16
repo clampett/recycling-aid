@@ -1,5 +1,6 @@
 package src.gui;
 
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
@@ -18,13 +19,13 @@ import src.recycling_types.Material;
  * Gui_Calculator heavily utilizes {@link src.calculator.Impact_Calculator Impact_Calculator} to determine score.
  * 
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
- * @version 3/20/2025
+ * @version 4/12/2025
  * @see src.calculator.Impact_Calculator Impact_Calculator
  */
 public class Gui_Calculator {
-    private static Scene addScene;
     private static Impact_Calculator ic = new Impact_Calculator();
     private static List<String> currentItems = new ArrayList<>(16);
+    private static Scene addScene;
 
     private static Text info, result;
     private static Button notFound, calc;
@@ -62,11 +63,14 @@ public class Gui_Calculator {
         info.setFont(Font.font(Gui.BODY_FONT, 20));
         result.setFont(Font.font(Gui.BODY_FONT, 20));
 
+        explanation.setWrappingWidth(500);
+        explanation.setTextAlignment(TextAlignment.CENTER);
+
         //Text Field
         TextField field = new TextField();
 
         field.setFont(Font.font(Gui.BODY_FONT, 20));
-        field.setPrefWidth(20);
+        field.setMaxWidth(Gui.APP_WIDTH);
 
         //Buttons
         Button back = Gui.createBackButton();
@@ -146,10 +150,11 @@ public class Gui_Calculator {
         HBox exp = new HBox(expLSpacer, explanation, expRSpacer);
 
         VBox input = new VBox(10, field, add, info, notFound, calc, result);
+        input.setAlignment(Pos.CENTER);
 
-        VBox main = new VBox(top, exp, input);
+        VBox main = new VBox(top, new Separator(), exp, new Text("\n"), input);
 
-        main.setPrefSize(Gui.APP_WIDTH, Gui.APP_HEIGHT);
+        main.setPrefSize(Gui.APP_HEIGHT, Gui.APP_WIDTH);
         main.setStyle(Gui.APP_CSS);
         main.autosize();
 
@@ -165,7 +170,7 @@ public class Gui_Calculator {
      * 
      * @param mainStage the main stage from {@link Gui}
      */
-    private static void setUpAddScene(Stage mainStage) {
+    protected static void setUpAddScene(Stage mainStage) {
         //Labels
         Text title = new Text("Add To Database");
 
@@ -203,13 +208,15 @@ public class Gui_Calculator {
 
         //Layout
         HBox top = new HBox(title);
+        top.setAlignment(Pos.CENTER);
 
         VBox btns = new VBox(20, materialSelectBtns);
         btns.getChildren().add(confirm);
+        btns.setAlignment(Pos.CENTER);
 
-        VBox main = new VBox(top, btns);
+        VBox main = new VBox(top, new Separator(), btns);
 
-        main.setPrefSize(Gui.APP_WIDTH, Gui.APP_HEIGHT);
+        main.setPrefSize(Gui.APP_HEIGHT, Gui.APP_WIDTH);
         main.setStyle(Gui.APP_CSS);
         main.autosize();
 
