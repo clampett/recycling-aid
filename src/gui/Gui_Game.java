@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Date;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -41,7 +42,7 @@ public class Gui_Game {
     private static Button centerableButton = new Button("Centerable"); // Centerable button
     private static Button binnableButton = new Button("Binnable"); // Binnable button
 
-    Material currentMaterial; // Current material to be recycled
+    private static Material currentMaterial = null; // Current material to be recycled
 
     protected static Scene setUpGameScene(Stage mainStage) {
         Gui.L.info("Setting up game scene");
@@ -115,7 +116,9 @@ public class Gui_Game {
         });
         exitButton.setOnAction(e -> {
             Gui.L.info("Exit game button pressed");
-            mainStage.close(); // Close the application
+            mainStage.setScene(Gui.titleScene); // Close the application
+            endGame(); // Call the endGame method
+            
         });
 
         donateableButton.setOnAction(e -> {
@@ -162,7 +165,7 @@ public class Gui_Game {
     private static void startGame(){
         Gui.L.info("Starting game...");
         // Logic to start the game goes here
-        Material currentMaterial = getRandomMaterial(); // Get a random material
+        currentMaterial = getRandomMaterial(); // Get a random material
         randomizeMaterialFields(currentMaterial); // Randomize the material fields
         
         // Disable and enable buttons based on the game state
@@ -172,6 +175,19 @@ public class Gui_Game {
         centerableButton.setDisable(false); // Enable the centerable button
         binnableButton.setDisable(false); // Enable the binnable button
         donateableButton.setDisable(false); // Enable the donateable button
+    }
+
+    private static void endGame(){
+        Gui.L.info("Ending game...");
+        currentMaterial = null; // Set the current material to null
+
+        // Disable and enable buttons based on the game state
+        startButton.setDisable(false); // Disable the start button
+        disposeableButton.setDisable(true); // Enable the disposeable button
+        compostableButton.setDisable(true); // Enable the compostable button
+        centerableButton.setDisable(true); // Enable the centerable button
+        binnableButton.setDisable(true); // Enable the binnable button
+        donateableButton.setDisable(true); // Enable the donateable button
     }
 
     /*
@@ -202,7 +218,7 @@ public class Gui_Game {
             case "Metal":
                 String[] metalTypes = {"Al", "CuZn", "CuSn", "Cu", "Pb", "Fe", "Ni", "FeC", "Sn", "Ti"}; // List of metal types
                 // Randomize metal fields
-                int randomIndex = (int)(Math.random() *10 + 1); // Randomize between 1 and 10
+                int randomIndex = (int)(Math.random() *9); // Randomize between 1 and 10
                 ((Metal) m).setMetalType(metalTypes[randomIndex]); // Set a random metal type
 
                 Gui.L.info("Randomized metal fields: " + ((Metal) m).getMetalType()); // Log the randomized metal fields
@@ -233,7 +249,7 @@ public class Gui_Game {
                     ((Wood) m).setContaminated(true); // Set contaminated to true
                 }
                 
-                Gui.L.info("Randomized wood fields: " + ((Wood) m).getManufactured()); // Log the randomized wood fields
+                Gui.L.info("Randomized wood fields: " + ((Wood) m).getManufactured() + ((Wood) m).getContaminated()); // Log the randomized wood fields
                 break;
             case "Food_Waste":
                 int decompTime = (int) (Math.random()*14 + 1); // Randomize between 1 and 14 days
@@ -312,9 +328,10 @@ public class Gui_Game {
 
         System.out.println(materialClasses);
         
-        Random r = new Random();
+        Date d = new Date(); // Get the current date and time
+        Random r = new Random(d.getTime());
         int materialsLength = materialClasses.size(); // Get the length of the materials array
-        int randomIndex = r.nextInt(materialsLength-1); // Get a random index from the materials array
+        int randomIndex = r.nextInt(materialsLength); // Get a random index from the materials array
         
 
         Class<? extends Material> randomMaterialClass = materialClasses.get(randomIndex); // Get the random material class
@@ -323,10 +340,9 @@ public class Gui_Game {
         try{
             // Logic to display the material and ask the user to recycle it goes here
             Constructor<?> constructor = randomMaterialClass.getDeclaredConstructor(); // Get the constructor of the random material class
-            Material currentMaterial = (Material) constructor.newInstance(); // Create an instance of the random material class
-            Gui.L.info("Material successfully created: " + currentMaterial.getClass().getSimpleName()); // Log the material name
-            return currentMaterial; // Return the current material
-
+            Material newMaterial = (Material) constructor.newInstance(); // Create an instance of the random material class
+            Gui.L.info("Material successfully created: " + newMaterial.getClass().getSimpleName()); // Log the material name
+            return newMaterial; // Return the current material
         }
         catch (Exception e) {
             Gui.L.severe("Error creating material: " + e.getMessage());

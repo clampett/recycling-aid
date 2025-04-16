@@ -73,6 +73,10 @@ public class Wood extends Material implements Compostable, Disposable {
         return manufactured;
     }
 
+    public boolean getContaminated(){
+        return contaminated;
+    }
+
     @Override
     public boolean attemptCompost(Material material) {
         // Logic for composting the material

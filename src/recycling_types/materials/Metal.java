@@ -47,7 +47,7 @@ public class Metal extends Material implements Centerable, Disposable {
         super(0.25, possibleItems);
 
         this.typeFormula = typeFormula;
-        this.type = metalType.values()[Arrays.binarySearch(metalFormula.values(), typeFormula)];
+        setMetalType(typeFormula);
         
         super.setImpactScore(setImpact(typeFormula));
     }
@@ -63,11 +63,78 @@ public class Metal extends Material implements Centerable, Disposable {
      */
     public void setMetalType(String typeFormula) {
         this.typeFormula = metalFormula.valueOf(typeFormula);
-        this.type = metalType.values()[Arrays.binarySearch(metalFormula.values(), typeFormula)];
+        //this.type = metalType.values()[Arrays.binarySearch(metalFormula.values(), typeFormula)];
+
+        switch(typeFormula) {
+            case "Al":
+                this.type = metalType.Aluminum;
+                break;
+            case "CuZn":
+                this.type = metalType.Brass;
+                break;
+            case "CuSn":
+                this.type = metalType.Bronze;
+                break;
+            case "Cu":
+                this.type = metalType.Copper;
+                break;
+            case "Pb":
+                this.type = metalType.Lead;
+                break;
+            case "Fe":
+                this.type = metalType.Iron;
+                break;
+            case "Ni":
+                this.type = metalType.Nickel;
+                break;
+            case "FeC":
+                this.type = metalType.Steel;
+                break;
+            case "Sn":
+                this.type = metalType.Tin;
+                break;
+            case "Ti":
+                this.type = metalType.Titanium;
+                break;
+        }
         
         super.setImpactScore(setImpact(this.typeFormula));
     }
 
+    public void setMetalType(metalFormula typeFormula) {
+        switch(typeFormula) {
+            case metalFormula.Al:
+                this.type = metalType.Aluminum;
+                break;
+            case metalFormula.CuZn:
+                this.type = metalType.Brass;
+                break;
+            case metalFormula.CuSn:
+                this.type = metalType.Bronze;
+                break;
+            case metalFormula.Cu:
+                this.type = metalType.Copper;
+                break;
+            case metalFormula.Pb:
+                this.type = metalType.Lead;
+                break;
+            case metalFormula.Fe:
+                this.type = metalType.Iron;
+                break;
+            case metalFormula.Ni:
+                this.type = metalType.Nickel;
+                break;
+            case metalFormula.FeC:
+                this.type = metalType.Steel;
+                break;
+            case metalFormula.Sn:
+                this.type = metalType.Tin;
+                break;
+            case metalFormula.Ti:
+                this.type = metalType.Titanium;
+                break;
+        }
+    }
     /**
      * Sets impact score based on the type of metal
      * 
