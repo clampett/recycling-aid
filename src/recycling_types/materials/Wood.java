@@ -38,7 +38,6 @@ public class Wood extends Material implements Compostable, Disposable {
         this.manufactured = manufactured;
 
         if(this.manufactured)
-            // TODO: add impact score for contaminated wood
             super.setImpactScore(0.5);
     }
 
@@ -56,6 +55,16 @@ public class Wood extends Material implements Compostable, Disposable {
         } else {
             super.setImpactScore(0.1); // Example impact score for non-manufactured wood
         }
+    }
+
+    public void setContaminated(boolean isContaminated) {
+        this.contaminated = isContaminated;
+        if (isContaminated) {
+            super.setImpactScore(0.5); // Example impact score for contaminated wood
+        } else {
+            super.setImpactScore(0.1); // Example impact score for non-contaminated wood
+        }
+        
     }
 
     // Field accessor methods

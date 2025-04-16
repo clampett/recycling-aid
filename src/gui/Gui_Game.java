@@ -218,13 +218,21 @@ public class Gui_Game {
                 Gui.L.info("Randomized glass fields: " + ((Glass) m).glassIsTempered()); // Log the randomized glass fields
                 break;
             case "Wood":
-                int randomWoodNum = (int) (Math.random()*2 + 1); // Randomize between 1 and 2
-                if(randomWoodNum == 1){
+                int randomWoodContamNum = (int) (Math.random()*2 + 1); // Randomize between 1 and 2
+                int randomWoodManNum = (int) (Math.random()*2 + 1); // Randomize between 1 and 2
+
+                if(randomWoodManNum == 1){
                     ((Wood) m).setManufactured(false); // Set manufactured to false
                 } else {
                     ((Wood) m).setManufactured(true); // Set manufactured to true
                 }
 
+                if(randomWoodContamNum == 1){
+                    ((Wood) m).setContaminated(false); // Set contaminated to false
+                } else {
+                    ((Wood) m).setContaminated(true); // Set contaminated to true
+                }
+                
                 Gui.L.info("Randomized wood fields: " + ((Wood) m).getManufactured()); // Log the randomized wood fields
                 break;
             case "Food_Waste":
