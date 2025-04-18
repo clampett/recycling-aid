@@ -56,14 +56,16 @@ public class Gui extends Application {
     private Scene creditScene;
 
     /**Logger used throughout the application.*/
-    public static final Logger L = Logger.getLogger(Gui.class.getName());
+    public static Logger L;
 
     /**
      * Same as start(), but with standard Java main().
      * 
      * @param args CLI arguments
+     * @param log JUL {@code Logger}
      */
-    public static void main(String[] args) {
+    public static void main(String[] args, final Logger log) {
+        L = log;
         L.setLevel(Level.ALL);
         launch(args);
     }
