@@ -1,6 +1,6 @@
 package src;
 
-import src.gui.*;
+import src.gui.Gui;
 import src.recycling_types.materials.*;
 
 import java.util.logging.*;
@@ -14,8 +14,13 @@ import java.util.logging.*;
 public class RecycleDriver {
     public static final Logger L = Logger.getLogger(RecycleDriver.class.getName());
 
+    /**
+     * Central main method for running the application.
+     * 
+     * @param args CLI arguments
+     */
     public static void main(String[] args) {
-        resetSerialized();
+        //resetSerialized();
         Gui.main(args, L);
     }
 
@@ -33,14 +38,14 @@ public class RecycleDriver {
         Plastic pl = new Plastic();
         Wood w = new Wood();
 
-        Loader.serialize(c, "data/serialized/cardboard.txt", Gui.L);
-        Loader.serialize(e, "data/serialized/electronic.txt", Gui.L);
-        Loader.serialize(f, "data/serialized/fabric.txt", Gui.L);
-        Loader.serialize(fw, "data/serialized/food_waste.txt", Gui.L);
-        Loader.serialize(g, "data/serialized/glass.txt", Gui.L);
-        Loader.serialize(m, "data/serialized/metal.txt", Gui.L);
-        Loader.serialize(p, "data/serialized/paper.txt", Gui.L);
-        Loader.serialize(pl, "data/serialized/plastic.txt", Gui.L);
-        Loader.serialize(w, "data/serialized/wood.txt", Gui.L);
+        Loader.serialize(c, "data/serialized/cardboard.txt", L);
+        Loader.serialize(e, "data/serialized/electronic.txt", L);
+        Loader.serialize(f, "data/serialized/fabric.txt", L);
+        Loader.serialize(fw, "data/serialized/food_waste.txt", L);
+        Loader.serialize(g, "data/serialized/glass.txt", L);
+        Loader.serialize(m, "data/serialized/metal.txt", L);
+        Loader.serialize(p, "data/serialized/paper.txt", L);
+        Loader.serialize(pl, "data/serialized/plastic.txt", L);
+        Loader.serialize(w, "data/serialized/wood.txt", L);
     }
 }

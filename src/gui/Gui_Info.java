@@ -213,7 +213,7 @@ public class Gui_Info {
             try {
                 materials.add((Material) c.getDeclaredConstructors()[1].newInstance());
             } catch(Exception e) {
-                Gui.L.severe("Could NOT Create Material - " + e.toString());
+                Gui.L.severe("Could NOT Create Material - " + e.getMessage());
             }
         }
 

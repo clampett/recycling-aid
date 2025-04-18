@@ -27,6 +27,12 @@ import java.util.stream.Collectors;
  * @version 4/4/2025
  */
 public class Loader {
+    //Error colors
+    private static final String RESET = "\u001B[0m";
+    private static final String ERROR = "\u001B[31m";
+    private static final String PATH = "\u001B[43m";
+    private static final String OBJECT = "\u001B[46m";
+
     /**
      * A simple CSV file loader.
      * 
@@ -43,40 +49,14 @@ public class Loader {
             while((current = br.readLine()) != null)
                 vals.add(current.split(","));
 
-            log.info("Loaded - " + file_path);
+            log.info("Loaded - " + PATH + file_path + RESET);
 
             if(!vals.isEmpty())
                 vals.get(0)[0] = vals.get(0)[0].replace("\uFEFF", "");
 
-        } catch(IOException e) {log.severe("Loading error - " + e.toString());}
+        } catch(IOException e) {log.severe("Loading error - " + ERROR + e.getMessage() + RESET);}
     
         return vals.toArray(new String[0][]);
-    }
-
-    /**
-     * Gets the Uniform Resource Identifier (URI) from a file.
-     * 
-     * @param file_path path to file
-     * @param log JUL {@code Logger}; pass null if you don't want to use
-     * @return Supplied file's URI as a String
-     */
-    public static String get_URI(String file_path, Logger log) {
-        File videoFile = new File(file_path);
-        String URI = "";
-        boolean hasLogger = (log != null);
-
-        if(videoFile.exists() && videoFile.isFile()) {
-            URI = videoFile.toURI().toString();
-
-            if(hasLogger)
-                log.info("Got URI from: " + videoFile);
-        }
-        else if(hasLogger && !videoFile.exists())
-            log.severe(file_path + " Does NOT Exist");
-        else if(hasLogger && !videoFile.isFile())
-            log.severe(file_path + " is NOT a File");
-
-        return URI;
     }
 
     /**
@@ -92,10 +72,11 @@ public class Loader {
                                          new FileOutputStream(save_path)))) {
             obj_out.writeObject(to_save);
             obj_out.flush();
-            log.info("Successfully serialized object to: " + save_path);
-        } catch(Exception e) {
-            log.severe("Could NOT serialize: " + to_save.toString() + "; at: " + save_path + " - " + e.toString());
-        }
+            log.info("Successfully serialized object at: " + PATH + save_path + RESET);
+        } catch(Exception e) {log.severe("Could NOT serialize: " + 
+                                         OBJECT + to_save.toString() + RESET +"; at: " + 
+                                         PATH + save_path + RESET + " - " + 
+                                         ERROR + e.getMessage() + RESET);}
     }
 
     /**
@@ -112,11 +93,10 @@ public class Loader {
                                        new BufferedInputStream(
                                        new FileInputStream(load_path)))) {
             obj = obj_in.readObject();
-            log.info("Successfully deserialized Object at: " + load_path);
-        } catch(Exception e) {
-            log.severe("Could NOT deserialize Object at: " + load_path + " - " + e.toString());
-        }
-
+            log.info("Successfully deserialized Object at: " + PATH + load_path + RESET);
+        } catch(Exception e) {log.severe("Could NOT deserialize Object at: " + 
+                                         PATH + load_path + RESET + " - " + 
+                                         ERROR + e.getMessage() + RESET);}
         return obj;
     }
 
@@ -132,17 +112,20 @@ public class Loader {
 
             if(to_wipe.delete()) {
                 to_wipe.createNewFile();
-                log.info("Wiped: " + file_path);
+                log.info("Wiped: " + PATH + file_path + RESET);
             }
-        } catch(NullPointerException e) {
-            log.severe("Could NOT open: " + file_path + " - " + e.toString());
-        } catch(SecurityException e) {
-            log.severe("Do NOT have correct permissions for: " + file_path + " - " + e.toString());
-        } catch(IOException e) {
-            log.severe("Could NOT create replacement file for: " + file_path + " - " + e.toString());
-        } catch(Exception e) {
-            log.severe("General Error - " + e.toString());
-        }
+        } 
+        catch(NullPointerException e) {log.severe("Could NOT open: " + 
+                                                    PATH + file_path + RESET + " - " + 
+                                                    ERROR + e.getMessage() + RESET);}
+        catch(SecurityException e) {log.severe("Do NOT have correct permissions for: " + 
+                                               PATH + file_path + RESET + " - " + 
+                                               ERROR + e.getMessage() + RESET);} 
+        catch(IOException e) {log.severe("Could NOT create replacement file for: " + 
+                                         PATH + file_path + RESET + " - " + 
+                                         ERROR + e.getMessage() + RESET);} 
+        catch(Exception e) {log.severe("General Error - " + 
+                                       ERROR + e.getMessage() + RESET);}
     }
 
     /**
@@ -162,14 +145,14 @@ public class Loader {
                 if(dir.isDirectory())
                     dir_list = dir.listFiles();
                 else
-                    log.severe(dir_path + " is NOT a directory.");
+                    log.severe(PATH + dir_path + RESET + ERROR + " is NOT a directory." + RESET);
             } 
             else
-                log.severe(dir_path + " does NOT exist.");
+                log.severe(PATH + dir_path + RESET + ERROR + " does NOT exist." + RESET);
         } catch(NullPointerException e) {
-            log.severe("Could NOT load " + dir_path + " - " + e.toString());
-        }
-
+            log.severe("Could NOT load " + PATH + dir_path + RESET + " - " +
+                       ERROR + e.getMessage() + RESET);}
+                       
         return dir_list;
     }
 
