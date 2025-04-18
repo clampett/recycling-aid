@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
+import src.gui.Gui;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -74,13 +75,26 @@ public class Food_Waste extends Material implements Compostable, Disposable {
     @Override
     public boolean attemptDispose(Material material){
         // Logic for disposing of the material
-        return isOrganic; // Example: Only allow disposal if organic
+        if(((Food_Waste)material).getIsOrganic()){
+            Gui.L.info("Material successfully disposed of.");
+            return true;
+        }
+        else return false;
+        
     }
 
     @Override
     public boolean attemptCompost(Material material){
         // Logic for composting the material
-        return isOrganic; // Example: Only allow composting if organic
+        if(((Food_Waste)material).getIsOrganic()){
+            Gui.L.info("Material successfully composted of.");
+            return true;
+        }
+        else {
+            Gui.L.warning("Material cannot be composted.");
+            Gui.L.warning("Material is not organic.");
+            return false;
+        }
     }
 
     public String getSpecial() {
