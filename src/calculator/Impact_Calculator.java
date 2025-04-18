@@ -10,7 +10,7 @@ import src.Loader;
 import src.recycling_types.Material;
 
 /**
- * {@link src.calculator.Impact_Calculator Impact_Calculator} calcuates the user's impact score.
+ * {@link Impact_Calculator} calcuates the user's impact score.
  * <p> 
  * The user supplies a list of items that they are disposing. If present in a
  * {@link src.recycling_types.Material Material's} possibleItem {@code Set}, then that 

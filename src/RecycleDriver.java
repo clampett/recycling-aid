@@ -15,8 +15,8 @@ public class RecycleDriver {
     public static final Logger L = Logger.getLogger(RecycleDriver.class.getName());
 
     public static void main(String[] args) {
-        resetSerialized();
-        Gui.main(args, L);
+        //resetSerialized();
+        Gui.main(args);
     }
 
     /**

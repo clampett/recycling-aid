@@ -48,7 +48,7 @@ public class Loader {
             if(!vals.isEmpty())
                 vals.get(0)[0] = vals.get(0)[0].replace("\uFEFF", "");
 
-        } catch(IOException e) {log.severe("Loading error - " + e.toString());}
+        } catch(IOException e) {log.severe("Loading error - " + e.getMessage());}
     
         return vals.toArray(new String[0][]);
     }
@@ -94,7 +94,7 @@ public class Loader {
             obj_out.flush();
             log.info("Successfully serialized object to: " + save_path);
         } catch(Exception e) {
-            log.severe("Could NOT serialize: " + to_save.toString() + "; at: " + save_path + " - " + e.toString());
+            log.severe("Could NOT serialize: " + to_save.toString() + "; at: " + save_path + " - " + e.getMessage());
         }
     }
 
@@ -114,7 +114,7 @@ public class Loader {
             obj = obj_in.readObject();
             log.info("Successfully deserialized Object at: " + load_path);
         } catch(Exception e) {
-            log.severe("Could NOT deserialize Object at: " + load_path + " - " + e.toString());
+            log.severe("Could NOT deserialize Object at: " + load_path + " - " +e.getMessage());
         }
 
         return obj;
@@ -135,13 +135,13 @@ public class Loader {
                 log.info("Wiped: " + file_path);
             }
         } catch(NullPointerException e) {
-            log.severe("Could NOT open: " + file_path + " - " + e.toString());
+            log.severe("Could NOT open: " + file_path + " - " +e.getMessage());
         } catch(SecurityException e) {
-            log.severe("Do NOT have correct permissions for: " + file_path + " - " + e.toString());
+            log.severe("Do NOT have correct permissions for: " + file_path + " - " +e.getMessage());
         } catch(IOException e) {
-            log.severe("Could NOT create replacement file for: " + file_path + " - " + e.toString());
+            log.severe("Could NOT create replacement file for: " + file_path + " - " +e.getMessage());
         } catch(Exception e) {
-            log.severe("General Error - " + e.toString());
+            log.severe("General Error - " +e.getMessage());
         }
     }
 
@@ -167,7 +167,7 @@ public class Loader {
             else
                 log.severe(dir_path + " does NOT exist.");
         } catch(NullPointerException e) {
-            log.severe("Could NOT load " + dir_path + " - " + e.toString());
+            log.severe("Could NOT load " + dir_path + " - " +e.getMessage());
         }
 
         return dir_list;

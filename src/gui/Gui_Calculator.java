@@ -111,7 +111,7 @@ public class Gui_Calculator {
                     field.clear();
                 }
             } catch(ItemNotFoundException itemNot) {
-                Gui.L.info(itemNot.toString());
+                Gui.L.info(itemNot.getMessage());
             }
         });
 

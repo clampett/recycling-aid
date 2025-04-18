@@ -16,15 +16,15 @@ import java.util.concurrent.Executors;
 import java.util.logging.*;
 
 /**
- * {@link src.gui.Gui Gui} is the main and central gui for the Recycling Aid project.
+ * {@link Gui} is the main and central gui for the Recycling Aid project.
  * <p>
  * Gui sets up and starts the JavaFX Application, loads every scene and provides constants to maintain a single look.
- * Simple {@code Scenes}, such as {@link src.gui.Gui#setUpTitleScene(Stage) title} and {@link src.gui.Gui#setUpCreditScene(Stage) credit},
+ * Simple {@code Scenes}, such as {@link #setUpTitleScene(Stage) title} and {@link #setUpCreditScene(Stage) credit},
  * are included within the main gui class. {@code Scenes} that require different methods, such as:
  * <ul>
- *      <li>{@link src.gui.Gui_Info Gui_Info}
- *      <li>{@link src.gui.Gui_Game Gui_Game}
- *      <li>{@link src.gui.Gui_Calculator Gui_Calculator}
+ *      <li>{@link Gui_Info}
+ *      <li>{@link Gui_Game}
+ *      <li>{@link Gui_Calculator}
  * </ul>
  * are each in their own seperate classes.
  * 
@@ -52,7 +52,7 @@ public class Gui extends Application {
     protected static final String BODY_FONT = "Comic Sans MS";
 
     //Scenes
-    protected static Scene titleScene, gameScene, infoScene, calculatorScene;
+    protected static Scene titleScene, gameScene, infoScene, calculatorScene, simulatorScene, lookupScene;
     private Scene creditScene;
 
     /**Logger used throughout the application.*/
@@ -63,7 +63,7 @@ public class Gui extends Application {
      * 
      * @param args CLI arguments
      */
-    public static void main(String[] args, Logger L) {
+    public static void main(String[] args) {
         L.setLevel(Level.ALL);
         launch(args);
     }
@@ -116,13 +116,17 @@ public class Gui extends Application {
 
 
         //Buttons
-        Button calculatorButton = new Button("Calculate Your Impact");
+        Button lookupButton = new Button("Look Up");
+        Button simulatorButton = new Button("Simulator");
+        Button calculatorButton = new Button("Calculate");
         Button gameButton = new Button("Game");
         Button infoButton = new Button("Info");
         Button creditButton = new Button("Credits");
-        Button[] buttonArr = {calculatorButton, gameButton, infoButton, creditButton};
+        Button[] buttonArr = {lookupButton, simulatorButton, calculatorButton, gameButton, infoButton, creditButton};
 
         //Button Actions
+        lookupButton.setOnAction(e -> mainStage.setScene(lookupScene));
+        simulatorButton.setOnAction(e -> mainStage.setScene(simulatorScene));
         calculatorButton.setOnAction(e -> mainStage.setScene(calculatorScene));
         gameButton.setOnAction(e -> mainStage.setScene(gameScene));
         infoButton.setOnAction(e -> mainStage.setScene(infoScene));
@@ -130,11 +134,9 @@ public class Gui extends Application {
         
         //Button Size & Style
         for(Button b : buttonArr) {
-            b.setPrefSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+            b.setPrefSize(BUTTON_WIDTH * 1.5, BUTTON_HEIGHT);
             b.setStyle(BUTTON_CSS);
         }
-
-        calculatorButton.setPrefWidth(BIGGER_BUTTON_WIDTH * 1.5);
 
         //VBox
         VBox titleBox = new VBox(20);
@@ -145,19 +147,26 @@ public class Gui extends Application {
         titleBox.setStyle(APP_CSS);
         titleBox.autosize();
 
-        HBox topButtons = new HBox(10);
+        HBox row2 = new HBox(10);
+        HBox row3 = new HBox(10);
 
-        topButtons.setAlignment(Pos.CENTER);
-        topButtons.setStyle(APP_CSS);
+        row2.setAlignment(Pos.CENTER);
+        row2.setStyle(APP_CSS);
 
-        topButtons.getChildren().addAll(gameButton, infoButton);
+        row2.getChildren().addAll(gameButton, infoButton);
+
+        row3.setAlignment(Pos.CENTER);
+        row3.setStyle(APP_CSS);
+
+        row3.getChildren().addAll(calculatorButton, simulatorButton);
 
         //Add nodes to VBox
         titleBox.getChildren().addAll(
             titleText,
             titleImageView,
-            calculatorButton,
-            topButtons,
+            lookupButton,
+            row2,
+            row3,
             creditButton
         );   
 
@@ -295,7 +304,7 @@ public class Gui extends Application {
      */
     private void threadedStartup(Stage mainStage) {
         ExecutorService service = Executors.newCachedThreadPool();
-        CountDownLatch latch = new CountDownLatch(7);
+        CountDownLatch latch = new CountDownLatch(9);
 
         Runnable title = () -> { 
             titleScene = this.setUpTitleScene(mainStage);
@@ -317,6 +326,14 @@ public class Gui extends Application {
             infoScene = Gui_Info.setUpInfoScene(mainStage);
             latch.countDown();
         };
+        Runnable sim = () -> {
+            simulatorScene = Gui_Simulator.setUpSimulatorScene(mainStage);
+            latch.countDown();
+        };
+        Runnable lookup = () -> {
+            lookupScene = Gui_Lookup.setUpLookupScene(mainStage);
+            latch.countDown();
+        };
 
         Runnable calculatorII = () -> {
             Gui_Calculator.setUpAddScene(mainStage);
@@ -334,6 +351,8 @@ public class Gui extends Application {
             service.execute(calculator);
             service.execute(game);
             service.execute(info);
+            service.execute(sim);
+            service.execute(lookup);
 
             service.execute(calculatorII);
             service.execute(infoII);
@@ -342,7 +361,7 @@ public class Gui extends Application {
 
             L.fine("Loaded all Scenes");
         } catch(InterruptedException e) {
-            L.severe("Could NOT load Scenes - " + e.toString());
+            L.severe("Could NOT load Scenes - " + e.getMessage());
         }
     }
 }
