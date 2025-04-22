@@ -56,14 +56,14 @@ public class Metal extends Material implements Centerable, Disposable {
         this(metalFormula.valueOf(typeFormula));
     }
 
-    /*
-     * Sets the type of metal and updates the impact score accordingly
-     * and update the impact score accordingly
-     * @param typeFormula the metal's formula
+    //Mutator methods
+
+    /**
+     * Sets the type of {@link Metal} based on it's formula, as a String, and updates impact score.
+     * @param typeFormula {@link Metal} formula, as a String
      */
     public void setMetalType(String typeFormula) {
         this.typeFormula = metalFormula.valueOf(typeFormula);
-        //this.type = metalType.values()[Arrays.binarySearch(metalFormula.values(), typeFormula)];
 
         switch(typeFormula) {
             case "Al":
@@ -101,6 +101,10 @@ public class Metal extends Material implements Centerable, Disposable {
         super.setImpactScore(setImpact(this.typeFormula));
     }
 
+    /**
+     * Sets the type of {@link Metal} based on it's formula from typeFormula {@code Enum}.
+     * @param typeFormula {@link Metal} formula
+     */
     public void setMetalType(metalFormula typeFormula) {
         switch(typeFormula) {
             case Al:
@@ -136,8 +140,7 @@ public class Metal extends Material implements Centerable, Disposable {
         }
     }
     /**
-     * Sets impact score based on the type of metal
-     * 
+     * Sets impact score based on the type of metal.
      * @param type metalFormula 
      * @return impact score
      */
@@ -180,8 +183,10 @@ public class Metal extends Material implements Centerable, Disposable {
         return impact;
     }
 
+    //Accessor methods
+
     /**
-     * Get the metalFormulas {@code enum} as a {@code String[]}.
+     * Get the metalFormulas {@code Enum} as a {@code String[]}.
      * @return {@code String[]} of metalFormulas
      */
     public String[] getMetalFormulaStrings() {
@@ -194,6 +199,16 @@ public class Metal extends Material implements Centerable, Disposable {
         return formulaStrings;
     }
 
+    /**
+     * Get {@link Metal} type from {@code Enum} as a String.
+     * @return {@link Metal} type as a String
+     */
+    public String getMetalType() {
+        return type.toString();
+    }
+
+    //Interface methods
+
     @Override
     public boolean attemptCenter(Material material){
         // Logic for taking the material to a center
@@ -205,6 +220,9 @@ public class Metal extends Material implements Centerable, Disposable {
         return true; // Logic for disposing of the material
     }
 
+    //Material superclass methods
+
+    @Override
     public String getSpecial() {
         String specialBlurb = "Common metal types:\n";
         String specialFormat = "\t• %s: (%s)\n";
@@ -213,9 +231,5 @@ public class Metal extends Material implements Centerable, Disposable {
             specialBlurb += String.format(specialFormat, metalType.values()[i], metalFormula.values()[i]);
 
         return specialBlurb;
-    }
-
-    public String getMetalType() {
-        return type.toString();
     }
 }

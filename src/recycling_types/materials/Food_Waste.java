@@ -49,9 +49,10 @@ public class Food_Waste extends Material implements Compostable, Disposable {
         this(isOrganic, 1);
     }
 
+    //Mutator methods
+
     /**
      * Sets impact score based on how long the food takes to decompose
-     * 
      * @param decompositionTime number of days it takes to decompose
      * @return impact score
      */
@@ -71,6 +72,47 @@ public class Food_Waste extends Material implements Compostable, Disposable {
         
         return impact;
     }
+
+    /**
+     * Sets whether {@link Food_Waste} is organic and updates impact score.
+     * @param isOrganic T/F - is {@link Food_Waste} organic?
+     */
+    public void setOrganic(boolean isOrganic) {
+        this.isOrganic = isOrganic;
+        if(isOrganic)
+            super.setImpactScore(getImpactScore() - 0.1);
+        else
+            super.setImpactScore(getImpactScore() + 0.1);
+    }
+
+    /**
+     * Sets the {@link Food_Waste} decomposition time and updates impact score.
+     * @param decompositionTime How long does it take for {@link Food_Waste} to decompose
+     */
+     public void setDecompositionTime(int decompositionTime) {
+        this.decompositionTime = decompositionTime;
+        super.setImpactScore(setImpact(decompositionTime));
+    }
+
+    //Accessor methods
+
+    /**
+     * Gets whether {@link Food_Waste} is organic.
+     * @return {@link Food_Waste} organic
+     */
+    public boolean getIsOrganic() {
+        return isOrganic;
+    }
+
+    /**
+     * Gets the amount of time it takes for {@link Food_Waste} to decompose.
+     * @return {@link Food_Waste} decompostion time
+     */
+    public int getDecompositionTime() {
+        return decompositionTime;
+    }
+
+    //Interface methods
 
     @Override
     public boolean attemptDispose(Material material){
@@ -97,47 +139,11 @@ public class Food_Waste extends Material implements Compostable, Disposable {
         }
     }
 
+    //Material superclass methods
+
+    @Override
     public String getSpecial() {
         return("May be nonorganic, which is more harmful for the environment" + 
                "\nDecomposition time may also vary, which can impact how good the food waste is for the environment");
-    }
-
-    // Field mutator methods
-
-    /*
-     * Sets status of the food waste to organic or not organic
-     * and updates the impact score accordingly
-     * @param isOrganic will set the food's organic status to true or false
-     */
-    public void setOrganic(boolean isOrganic) {
-        this.isOrganic = isOrganic;
-        if(isOrganic)
-            super.setImpactScore(getImpactScore() - 0.1);
-        else
-            super.setImpactScore(getImpactScore() + 0.1);
-    }
-
-    /*
-     * Sets the deconposition time field to a given value
-     * @param decompositionTime integer number of days it takes to decompose
-     */
-
-    public void setDecompositionTime(int decompositionTime) {
-        this.decompositionTime = decompositionTime;
-        super.setImpactScore(setImpact(decompositionTime));
-    }
-
-    // Field accessor methods
-
-    // Returns a boolean that describes the food's organic status
-    //@return isOrganic
-    public boolean getIsOrganic() {
-        return isOrganic;
-    }
-
-    // Returns the time it takes for food to decompose
-    //@return decompositionTime
-    public int getDecompositionTime() {
-        return decompositionTime;
     }
 }

@@ -45,14 +45,12 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
             super.setImpactScore(getImpactScore() + 0.1);
     }
 
-    // Field mutator methods
+    //Mutator methods
 
-    /*
-     * Sets status of thet fabric to dyed or not dyed
-     * and updates the impact score accordingly
-     * @param dyed true if the fabric is dyed, false otherwise
+    /**
+     * Sets whether {@link Fabric} is dyed and updates impact score.
+     * @param dyed T/F - is {@link Fabric} dyed?
      */
-    
     public void setDyed(boolean dyed) {
         this.dyed = dyed;
         if(dyed)
@@ -61,10 +59,9 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
             super.setImpactScore(getImpactScore() - 0.1);
     }
 
-    /*
-     * Sets status of that fabric's harmful dyes status to true or false
-     * and updates the impact score accordingly
-     * @param harmfulDyes true if the fabric has harmful dyes, false otherwise
+    /**
+     * Sets whether {@link Fabric} has harmful dyes and updates impact score.
+     * @param harmfulDyes T/F - does {@link Fabric} have harmful dyes?
      */
     public void setHarmfulDyed(boolean harmfulDyes) {
         this.harmfulDyes = harmfulDyes;
@@ -74,15 +71,25 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
             super.setImpactScore(getImpactScore() - 0.1);
     }
 
-    // Field accessor methods
+    //Accessor methods
 
+    /**
+     * Gets whether {@link Fabric} is dyed.
+     * @return {@link Fabric} dyed
+     */
     public boolean isDyed() {
         return dyed;
     }
 
+    /**
+     * Gets whether {@link Fabric} has harmful dyes.
+     * @return {@link Fabric} harmfulDyed
+     */
     public boolean isHarmfulDyed(){
         return harmfulDyes;
     }
+
+    //Interface methods
 
     @Override
     public boolean attemptDonate(Material material) {
@@ -101,6 +108,9 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
         return !harmfulDyes; // Example: Only allow disposal if no harmful dyes
     }
 
+    //Material superclass methods
+
+    @Override
     public String getSpecial() {
         return("May have harmful dyes, which is more harmful for the environment");
     }

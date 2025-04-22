@@ -41,41 +41,51 @@ public class Wood extends Material implements Compostable, Disposable {
             super.setImpactScore(0.5);
     }
 
-    // Field mutator methods
+    //Mutator methods
 
-    /*
-     * Sets the status of manufactured
-     * updates the impact score if manufactured
-     * @param manufactured whether the wood is manufactured or not
+    /**
+     * Sets whether {@link Wood} is manufactured and updates impact score.
+     * @param manufactured T/F - is {@link Wood} manufactured?
      */
     public void setManufactured(boolean manufactured){
         this.manufactured = manufactured;
-        if(manufactured){
+        if(manufactured)
             super.setImpactScore(0.5); // Example impact score for manufactured wood
-        } else {
+        else
             super.setImpactScore(0.1); // Example impact score for non-manufactured wood
-        }
     }
 
+    /**
+     * Sets whether {@link Wood} is contaminated and updates impact score.
+     * @param isContaminated T/F - is {@link Wood} contaminated? 
+     */
     public void setContaminated(boolean isContaminated) {
         this.contaminated = isContaminated;
-        if (isContaminated) {
+        if(isContaminated) 
             super.setImpactScore(0.5); // Example impact score for contaminated wood
-        } else {
+        else 
             super.setImpactScore(0.1); // Example impact score for non-contaminated wood
-        }
-        
     }
 
-    // Field accessor methods
+    //Accessor methods
 
-    public boolean getManufactured(){
+    /**
+     * Gets whether {@link Wood} is manufactured.
+     * @return {@link Wood} manufactured
+     */
+    public boolean getManufactured() {
         return manufactured;
     }
 
-    public boolean getContaminated(){
+    /**
+     * Gets whether {@link Wood} is contaminated.
+     * @return {@link Wood} contaminated
+     */
+    public boolean getContaminated() {
         return contaminated;
     }
+
+    //Interface methods
 
     @Override
     public boolean attemptCompost(Material material) {
@@ -88,11 +98,11 @@ public class Wood extends Material implements Compostable, Disposable {
         // Logic for disposing of the material
         return !manufactured; // Example: Only allow disposal if not manufactured and not contaminated
     }
-    
+   
+    //Material superclass methods
+
+    @Override
     public String getSpecial() {
         return("May be manufactured, which could be more harmful for the environment");
     }
-
-    
-
 }

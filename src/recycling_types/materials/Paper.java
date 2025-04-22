@@ -38,19 +38,34 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
             super.setImpactScore(0.25);
     }
 
-    /*
-     * Sets hasInk to true or false
-     * and updates the impact score accordingly
-     * @pararm hasInk whether the paper has ink or not
+    //Mutator methods
+
+    /**
+     * Sets whether {@link Paper} has ink and updates impact score
+     * @param hasInk T/F - does {@link Paper} have ink?
      */
     public void setHasInk(boolean hasInk) {
         this.hasInk = hasInk;
-        if(this.hasInk) {
+        if(this.hasInk)
             super.setImpactScore(0.25);
-        } else {
+        else
             super.setImpactScore(0.1);
-        }
     }
+
+    //Accessor Methods
+
+    /**
+     * Returns whether the {@link Paper} has ink or not, as a String.
+     * @return {@link Paper} ink status
+     */
+    public String hasInk() {
+        if(this.hasInk)
+            return "This paper has ink";
+        else
+            return "This paper does not have ink";
+    }
+
+    //Interface methods
 
     @Override
     public boolean attemptBin(Material material){
@@ -70,18 +85,10 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
         return !hasInk; // Example: Only allow disposal if not hasInk
     }
 
+    //Material superclass methods
+
+    @Override
     public String getSpecial() {
         return("May have ink, which is more harmful for the environment");
-    }
-
-    /*
-     * Returns whether the paper has ink or not
-     */
-    public String hasInk() {
-        if(this.hasInk) {
-            return "This paper has ink";
-        } else {
-            return "This paper does not have ink";
-        }
     }
 }
