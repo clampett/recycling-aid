@@ -150,19 +150,40 @@ public class Gui_Game {
             // Logic for donateable button goes here
 
             if(currentMaterial instanceof Donatable){
-                try{
-                    ((Donatable)currentMaterial).attemptDonate(currentMaterial, currentMaterialFields); // Attempt to donate the material
-                    Gui.L.info("Material donated successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Donated " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                switch(currentMaterialClass.getSimpleName()){
+                    case "Elecronic":
+                    try{
+                        ((Electronic)currentMaterial).attemptDonate(currentMaterial, currentMaterialFields); // Attempt to donate the material
+                        Gui.L.info("Material donated successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Donated " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully donating the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch (failedDonateException ex){
+                        Gui.L.warning("Failed to donate material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to donate " + currentMaterial.getClass().getSimpleName());
+                    }
+                    break;
 
-                    //After successfully donating the material, we need to get a new random material
-                    currentMaterial = getRandomMaterial(); // Get a new random material
-                    randomizeMaterialFields(currentMaterial); // Randomize the material fields
-                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
-                } catch (failedDonateException ex){
-                    Gui.L.warning("Failed to donate material: " + ex.getMessage()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Failed to donate " + currentMaterial.getClass().getSimpleName());
+                    case "Fabric":
+                    try{
+                        ((Fabric)currentMaterial).attemptDonate(currentMaterial, currentMaterialFields); // Attempt to donate the material
+                        Gui.L.info("Material donated successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Donated " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully donating the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch (failedDonateException ex){
+                        Gui.L.warning("Failed to donate material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to donate " + currentMaterial.getClass().getSimpleName());
+                    }
+                    break;
                 }
             } else {
                 Gui.L.warning("Material is not donateable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
@@ -175,19 +196,142 @@ public class Gui_Game {
             Gui.L.info("Disposeable button pressed");
             // Logic for disposeable button goes here
             if(currentMaterial instanceof Disposable){
-                try{
-                    ((Disposable)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
-                    Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                switch(currentMaterialClass.getSimpleName()){
+                    case "Cardboard":
+                    try{
+                        ((Cardboard)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
+                        Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully disposing the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedDisposeException ex){
+                        Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
 
-                    //After successfully disposing the material, we need to get a new random material
-                    currentMaterial = getRandomMaterial(); // Get a new random material
-                    randomizeMaterialFields(currentMaterial); // Randomize the material fields
-                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    case "Electronic":
+                    try{
+                        ((Electronic)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
+                        Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully disposing the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedDisposeException ex){
+                        Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
 
-                } catch(failedDisposeException ex){
-                    Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    case "Fabric":
+                    try{
+                        ((Fabric)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
+                        Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully disposing the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedDisposeException ex){
+                        Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
+
+                    case "Food_Waste":
+                    try{
+                        ((Food_Waste)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
+                        Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully disposing the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedDisposeException ex){
+                        Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
+
+                    case "Glass":
+                    try{
+                        ((Glass)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
+                        Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully disposing the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedDisposeException ex){
+                        Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
+
+                    case "Metal":
+                    try{
+                        ((Metal)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
+                        Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully disposing the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedDisposeException ex){
+                        Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
+
+                    case "Plastic":
+                    try{
+                        ((Plastic)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
+                        Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully disposing the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedDisposeException ex){
+                        Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
+
+                    case "Wood":
+                    try{
+                        ((Wood)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
+                        Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully disposing the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedDisposeException ex){
+                        Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
                 }
             }
             else{
@@ -201,18 +345,54 @@ public class Gui_Game {
             Gui.L.info("Compostable button pressed");
             // Logic for compostable button goes here
             if(currentMaterial instanceof Compostable){
-                try{
-                    ((Compostable)currentMaterial).attemptCompost(currentMaterial, currentMaterialFields); // Attempt to compost the material
-                    Gui.L.info("Material composted successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Composted " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                switch(currentMaterialClass.getSimpleName()){
+                    case "Food_Waste":
+                    try{
+                        ((Food_Waste)currentMaterial).attemptCompost(currentMaterial, currentMaterialFields); // Attempt to compost the material
+                        Gui.L.info("Material composted successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Composted " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                        
+                        //After successfully composting the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch(failedCompostException ex){
+                        Gui.L.warning("Failed to compost material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
                     
-                    //After successfully composting the material, we need to get a new random material
-                    currentMaterial = getRandomMaterial(); // Get a new random material
-                    randomizeMaterialFields(currentMaterial); // Randomize the material fields
-                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
-                } catch(failedCompostException ex){
-                    Gui.L.warning("Failed to compost material: " + ex.getMessage()); // Log the error message
+                    case "Paper":
+                    try{
+                        ((Paper)currentMaterial).attemptCompost(currentMaterial, currentMaterialFields); // Attempt to compost the material
+                        Gui.L.info("Material composted successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Composted " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                        
+                        //After successfully composting the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch(failedCompostException ex){
+                        Gui.L.warning("Failed to compost material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
+
+                    case "Wood":
+                    try{
+                        ((Wood)currentMaterial).attemptCompost(currentMaterial, currentMaterialFields); // Attempt to compost the material
+                        Gui.L.info("Material composted successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Composted " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                        
+                        //After successfully composting the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch(failedCompostException ex){
+                        Gui.L.warning("Failed to compost material: " + ex.getMessage()); // Log the error message
+                    }
+                    break;
                 }
             } else{
                 Gui.L.warning("Material is not compostable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
@@ -224,20 +404,79 @@ public class Gui_Game {
             Gui.L.info("Centerable button pressed");
             // Logic for centerable button goes here 
             if(currentMaterial instanceof Centerable){
-                try{
-                    ((Centerable)currentMaterial).attemptCenter(currentMaterial, currentMaterialFields); // Attempt to center the material
-                    Gui.L.info("Material centered successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
-                    
-                    //After successfully centering the material, we need to get a new random material
-                    currentMaterial = getRandomMaterial(); // Get a new random material
-                    randomizeMaterialFields(currentMaterial); // Randomize the material fields
-                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
 
-                } catch(failedCenterException ex){
-                    Gui.L.warning("Failed to center material: " + ex.getMessage()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Failed to center " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                switch (currentMaterialClass.getSimpleName()){
+                    case "Electronic":
+                    try{
+                        ((Electronic)currentMaterial).attemptCenter(currentMaterial, currentMaterialFields); // Attempt to center the material
+                        Gui.L.info("Material centered successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                        
+                        //After successfully centering the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedCenterException ex){
+                        Gui.L.warning("Failed to center material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to center " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    }
+                    break;
+
+                    case "Fabric":
+                    try{
+                        ((Fabric)currentMaterial).attemptCenter(currentMaterial, currentMaterialFields); // Attempt to center the material
+                        Gui.L.info("Material centered successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                        
+                        //After successfully centering the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedCenterException ex){
+                        Gui.L.warning("Failed to center material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to center " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    }
+                    break;
+
+                    case "Metal":
+                    try{
+                        ((Metal)currentMaterial).attemptCenter(currentMaterial, currentMaterialFields); // Attempt to center the material
+                        Gui.L.info("Material centered successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                        
+                        //After successfully centering the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedCenterException ex){
+                        Gui.L.warning("Failed to center material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to center " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    }
+                    break;
+
+                    case "Plastic":
+                    try{
+                        ((Plastic)currentMaterial).attemptCenter(currentMaterial, currentMaterialFields); // Attempt to center the material
+                        Gui.L.info("Material centered successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                        
+                        //After successfully centering the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+    
+                    } catch(failedCenterException ex){
+                        Gui.L.warning("Failed to center material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to center " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    }
+                    break;
                 }
             } else{
                 Gui.L.warning("Material is not centerable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
@@ -252,25 +491,73 @@ public class Gui_Game {
             if(currentMaterial instanceof Binnable){
                 switch(currentMaterialClass.getSimpleName()){
                     case "Cardboard":
-                        
+                    try{
+                        ((Cardboard)currentMaterial).attemptBin(currentMaterial, currentMaterialFields); // Attempt to bin the material
+                        Gui.L.info("Material binned successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully binning the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch(failedBinException ex){
+                        Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    }
                     break;
 
-                }
-                try{
-                    ((Binnable)currentMaterial).attemptBin(currentMaterial, currentMaterialFields); // Attempt to bin the material
-                    Gui.L.info("Material binned successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    case "Glass":
+                    try{
+                        ((Glass)currentMaterial).attemptBin(currentMaterial, currentMaterialFields); // Attempt to bin the material
+                        Gui.L.info("Material binned successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully binning the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch(failedBinException ex){
+                        Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    }
+                    break;
 
-                    //After successfully binning the material, we need to get a new random material
-                    currentMaterial = getRandomMaterial(); // Get a new random material
-                    randomizeMaterialFields(currentMaterial); // Randomize the material fields
-                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
-                } catch(failedBinException ex){
-                    Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    case "Paper":
+                    try{
+                        ((Paper)currentMaterial).attemptBin(currentMaterial, currentMaterialFields); // Attempt to bin the material
+                        Gui.L.info("Material binned successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully binning the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch(failedBinException ex){
+                        Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    }
+                    break;
+
+                    case "Plastic":
+                    try{
+                        ((Plastic)currentMaterial).attemptBin(currentMaterial, currentMaterialFields); // Attempt to bin the material
+                        Gui.L.info("Material binned successfully: " + currentMaterial.getClass().getSimpleName());
+                        successStatusText.setText("Recycle Success Status: Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+    
+                        //After successfully binning the material, we need to get a new random material
+                        currentMaterial = getRandomMaterial(); // Get a new random material
+                        randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    } catch(failedBinException ex){
+                        Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
+                        successStatusText.setText("Recycle Success Status: Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    }
+
                 }
-            
             }else{
                     Gui.L.warning("Material is not binnable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
                     successStatusText.setText("Recycle Success Status: Material is not binnable"); // Update the success status text
