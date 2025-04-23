@@ -158,14 +158,11 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
 
     @Override
     public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
-        Plastic p1 = new Plastic(1);
-        Plastic p2 = new Plastic(2);
-        Plastic p5 = new Plastic(5);
         boolean binable = false;
         for (Field f : fields) {
             System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(p1) || f.equals(p2) || f.equals(p5)) {
+                if(f.toString().contains("1") || f.toString().contains("2") || f.toString().contains("5") ) {
                     binable = true;
                 }
             }
@@ -176,11 +173,10 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     @Override
     public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
         boolean centerable = false;
-        Plastic p4 = new Plastic(4);
         for (Field f : fields) {
             System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(p4)) {
+                if(f.toString().contains("4") ) {
                     centerable = true;
                 }
             }
@@ -191,13 +187,10 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     @Override
     public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = false;
-        Plastic p3 = new Plastic(3);
-        Plastic p6 = new Plastic(6);
-        Plastic p7 = new Plastic(7);
         for (Field f : fields) {
             System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(p3) || f.equals(p6) || f.equals(p7)) {
+                if(f.toString().contains("3") || f.toString().contains("6") ||f.toString().contains("7")   ) {
                     disposable = true;
                 }
             }

@@ -101,7 +101,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("harmfulDyes")) {
-                if(f.equals(false)) {
+                if(f.toString().contains("false")) {
                     donatable = true;
                 }
                 }
@@ -111,12 +111,12 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
 
     @Override
     public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
-        boolean donatable = true;
+        boolean donatable = false;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("harmfulDyes")) {
-                if(f.equals(true)) {
-                    donatable = false;
+                if(f.toString().contains("false")) {
+                    donatable = true;
                 }
             }
         }
@@ -129,7 +129,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("harmfulDyes")) {
-                if(f.equals(true)) {
+                if(f.toString().contains("true")) {
                     disposable = true;
                 }
             }

@@ -78,12 +78,12 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
 
     @Override
     public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
-        boolean centerable = true;
+        boolean centerable = false;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("hasBattery")) {
-                if(f.equals(true)) {
-                    centerable = false;
+                if(f.toString().contains("false")) {
+                    centerable = true;
                 }
                 }
             }
@@ -92,12 +92,12 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
 
     @Override
     public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
-        boolean disposable = true;
+        boolean disposable = false;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("hasBattery")) {
-                if(f.equals(true)) {
-                    disposable = false;
+                if(f.toString().contains("true")) {
+                    disposable = true;
                 }
                 }
             }
