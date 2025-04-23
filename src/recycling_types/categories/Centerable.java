@@ -1,5 +1,7 @@
 package src.recycling_types.categories;
 
+import java.lang.reflect.Field;
+
 import src.customExceptions.failedCenterException;
 import src.recycling_types.*;
 
@@ -12,6 +14,6 @@ import src.recycling_types.*;
  */
 public interface Centerable {
     
-    public abstract boolean attemptCenter(Material m) throws failedCenterException;
+    public abstract boolean attemptCenter(Material m, Field[] fields) throws failedCenterException;
 
 }

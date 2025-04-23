@@ -1,5 +1,6 @@
 package src.recycling_types.materials;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -128,21 +129,45 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material){
-        // Logic for taking the material to a bin
-        return plasticNum != 3; // Example: Only allow binning if not PVC (3)
+    public boolean attemptBin(Material material, Field[] fields){
+        boolean binable = false;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("plasticNum")) {
+                if(f.equals(1) || f.equals(2) || f.equals(5)) {
+                    binable = true;
+                }
+            }
+        }
+        return binable;
     }
 
     @Override
-    public boolean attemptCenter(Material material){
-        // Logic for taking the material to a center
-        return plasticNum != 3; // Example: Only allow center if not PVC (3)
+    public boolean attemptCenter(Material material, Field[] fields){
+        boolean centerable = false;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("plasticNum")) {
+                if(f.equals(4)) {
+                    centerable = true;
+                }
+            }
+        }
+        return centerable;
     }
 
     @Override
-    public boolean attemptDispose(Material material){
-        // Logic for disposing of the material
-        return plasticNum != 3; // Example: Only allow disposal if not PVC (3)
+    public boolean attemptDispose(Material material, Field[] fields){
+        boolean disposable = false;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("plasticNum")) {
+                if(f.equals(5) || f.equals(6)) {
+                    disposable = true;
+                }
+            }
+        }
+        return disposable;
     }
     
     //Material superclass methods

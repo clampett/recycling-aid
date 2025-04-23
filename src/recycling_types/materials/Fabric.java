@@ -1,5 +1,6 @@
 package src.recycling_types.materials;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -92,20 +93,45 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material) {
-        // Logic for taking the material to a donation center
-        return !harmfulDyes; // Example: Only allow donation if not dyed and no harmful dyes
+    public boolean attemptDonate(Material material, Field[] fields){
+        boolean donatable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("harmfulDyes")) {
+                if(f.equals(true)) {
+                    donatable = false;
+                }
+                }
+            }
+        return donatable;
     }
 
     @Override
-    public boolean attemptCenter(Material material){
-        // Logic for taking the material to a center
-        return !harmfulDyes; // Example: Only allow center if not dyed and no harmful dyes
+    public boolean attemptCenter(Material material, Field[] fields){
+        boolean donatable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("harmfulDyes")) {
+                if(f.equals(true)) {
+                    donatable = false;
+                }
+            }
+        }
+        return donatable;
     }
 
     @Override
-    public boolean attemptDispose(Material material){
-        return !harmfulDyes; // Example: Only allow disposal if no harmful dyes
+    public boolean attemptDispose(Material material, Field[] fields){
+        boolean disposable = false;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("harmfulDyes")) {
+                if(f.equals(true)) {
+                    disposable = true;
+                }
+            }
+        }
+        return disposable;
     }
 
     //Material superclass methods

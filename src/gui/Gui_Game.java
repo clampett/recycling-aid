@@ -151,7 +151,7 @@ public class Gui_Game {
 
             if(currentMaterial instanceof Donatable){
                 try{
-                    ((Donatable)currentMaterial).attemptDonate(currentMaterial); // Attempt to donate the material
+                    ((Donatable)currentMaterial).attemptDonate(currentMaterial, currentMaterialFields); // Attempt to donate the material
                     Gui.L.info("Material donated successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Donated " + currentMaterial.getClass().getSimpleName()); // Update the success status text
 
@@ -160,7 +160,6 @@ public class Gui_Game {
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
                     currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
-                    
                 } catch (failedDonateException ex){
                     Gui.L.warning("Failed to donate material: " + ex.getMessage()); // Log the error message
                     successStatusText.setText("Recycle Success Status: Failed to donate " + currentMaterial.getClass().getSimpleName());
@@ -177,7 +176,7 @@ public class Gui_Game {
             // Logic for disposeable button goes here
             if(currentMaterial instanceof Disposable){
                 try{
-                    ((Disposable)currentMaterial).attemptDispose(currentMaterial); // Attempt to dispose the material
+                    ((Disposable)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields); // Attempt to dispose the material
                     Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
 
@@ -203,7 +202,7 @@ public class Gui_Game {
             // Logic for compostable button goes here
             if(currentMaterial instanceof Compostable){
                 try{
-                    ((Compostable)currentMaterial).attemptCompost(currentMaterial); // Attempt to compost the material
+                    ((Compostable)currentMaterial).attemptCompost(currentMaterial, currentMaterialFields); // Attempt to compost the material
                     Gui.L.info("Material composted successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Composted " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                     
@@ -226,7 +225,7 @@ public class Gui_Game {
             // Logic for centerable button goes here 
             if(currentMaterial instanceof Centerable){
                 try{
-                    ((Centerable)currentMaterial).attemptCenter(currentMaterial); // Attempt to center the material
+                    ((Centerable)currentMaterial).attemptCenter(currentMaterial, currentMaterialFields); // Attempt to center the material
                     Gui.L.info("Material centered successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                     
@@ -251,8 +250,14 @@ public class Gui_Game {
             Gui.L.info("Binnable button pressed");
             // Logic for binnable button goes here
             if(currentMaterial instanceof Binnable){
+                switch(currentMaterialClass.getSimpleName()){
+                    case "Cardboard":
+                        
+                    break;
+
+                }
                 try{
-                    ((Binnable)currentMaterial).attemptBin(currentMaterial); // Attempt to bin the material
+                    ((Binnable)currentMaterial).attemptBin(currentMaterial, currentMaterialFields); // Attempt to bin the material
                     Gui.L.info("Material binned successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
 

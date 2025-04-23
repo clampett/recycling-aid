@@ -1,6 +1,9 @@
 package src.recycling_types.categories;
 
 import src.recycling_types.*;
+
+import java.lang.reflect.Field;
+
 import src.customExceptions.failedCompostException;
 
 /**
@@ -11,6 +14,6 @@ import src.customExceptions.failedCompostException;
  */
 public interface Compostable {
     
-    public abstract boolean attemptCompost(Material m) throws failedCompostException;
+    public abstract boolean attemptCompost(Material m, Field[] fields) throws failedCompostException;
 
 }

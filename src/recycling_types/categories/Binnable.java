@@ -1,5 +1,7 @@
 package src.recycling_types.categories;
 
+import java.lang.reflect.Field;
+
 import src.customExceptions.failedBinException;
 import src.recycling_types.*;
 
@@ -13,5 +15,6 @@ public interface Binnable{
     //@Override
     //public boolean attemptRecycle(Material m);
     
-    public abstract boolean attemptBin(Material m) throws failedBinException;
+    public abstract boolean attemptBin(Material m, Field[] fields) throws failedBinException;
+    
 }

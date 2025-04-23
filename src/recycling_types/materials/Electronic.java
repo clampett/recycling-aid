@@ -3,6 +3,7 @@ package src.recycling_types.materials;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
+import java.lang.reflect.Field;
 
 import src.gui.Gui;
 import src.recycling_types.Material;
@@ -18,6 +19,7 @@ import src.recycling_types.categories.*;
 public class Electronic extends Material implements Centerable, Donatable, Disposable {
     /**Whether the electronic has a battery*/
     private boolean hasBattery;
+    
 
     /**
      * Some possible items that electronic could be.
@@ -67,20 +69,36 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material) {
+    public boolean attemptDonate(Material material, Field[] fields) {
         return true; // Example: Always allow donation
     }
 
     @Override
-    public boolean attemptCenter(Material material){
-        // Logic for taking the material to a center
-       return true; // Example: Always allow center
+    public boolean attemptCenter(Material material, Field[] fields){
+        boolean centerable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("hasBattery")) {
+                if(f.equals(true)) {
+                    centerable = false;
+                }
+                }
+            }
+        return centerable;
     }
 
     @Override
-    public boolean attemptDispose(Material material){
-        // Logic for disposing of the material
-        return true;
+    public boolean attemptDispose(Material material, Field[] fields){
+        boolean disposable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("hasBattery")) {
+                if(f.equals(true)) {
+                    disposable = false;
+                }
+                }
+            }
+        return disposable;
     }
 
     //Material superclass methods

@@ -1,5 +1,6 @@
 package src.recycling_types.materials;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -210,14 +211,33 @@ public class Metal extends Material implements Centerable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCenter(Material material){
-        // Logic for taking the material to a center
-        return true; // Example: Always allow center
+    public boolean attemptCenter(Material material, Field[] fields){
+        boolean centerable = false;
+        for (Field f : fields) {
+            f.getName();
+            //Aluminum, steel, copper, brass, bronze, tin
+            if (f.getName().equals("type")) {
+                if(f.equals("Aluminum") || f.equals("Steel") || f.equals("Copper") || f.equals("Brass") || f.equals("Bronze") || f.equals("Tin")) {
+                    centerable = true;
+                }
+            }
+        }
+        return centerable;
     }
 
     @Override
-    public boolean attemptDispose(Material mateiral){
-        return true; // Logic for disposing of the material
+    public boolean attemptDispose(Material mateiral, Field[] fields){
+        boolean disposable = true;
+        for (Field f : fields) {
+            f.getName();
+            //Aluminum, steel, copper, brass, bronze, tin
+            if (f.getName().equals("type")) {
+                if(f.equals("Aluminum") || f.equals("Steel") || f.equals("Copper") || f.equals("Brass") || f.equals("Bronze") || f.equals("Tin")) {
+                    disposable = false;
+                }
+            }
+        }
+        return disposable;
     }
 
     //Material superclass methods

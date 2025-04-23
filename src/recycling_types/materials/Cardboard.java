@@ -1,5 +1,6 @@
 package src.recycling_types.materials;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -65,21 +66,45 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material) {
-        // Logic for taking the material to a bin
-        return !soiled; // Example: Only allow binning if not soiled
+    public boolean attemptBin(Material material, Field[] fields){
+        boolean binable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("soiled")) {
+                if(f.equals(true)) {
+                    binable = false;
+                }
+                }
+            }
+        return binable;
     }
 
     @Override
-    public boolean attemptDispose(Material material){
-        // Logic for disposing of the material
-        return !soiled; // Example: Only allow disposal if not soiled
+    public boolean attemptDispose(Material material, Field[] fields){
+        boolean disposable = false;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("soiled")) {
+                if(f.equals(true)) {
+                    disposable = true;
+                }
+                }
+            }
+        return disposable;
     }
 
     @Override
-    public boolean attemptRecycle(Material material) {
-        // Logic for recycling the material
-        return !soiled; // Example: Only allow recycling if not soiled
+    public boolean attemptRecycle(Material material, Field[] fields){
+        boolean recyclable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("soiled")) {
+                if(f.equals(true)) {
+                    recyclable = false;
+                }
+                }
+            }
+        return recyclable;
     }
     
     //Material superclass methods

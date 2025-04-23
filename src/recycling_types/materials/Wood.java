@@ -1,5 +1,6 @@
 package src.recycling_types.materials;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -88,17 +89,42 @@ public class Wood extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCompost(Material material) {
-        // Logic for composting the material
-        return !manufactured; // Example: Only allow composting if not manufactured and not contaminated
+    public boolean attemptCompost(Material material, Field[] fields){
+        boolean compostable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("manufactured")) {
+                if(f.equals(true)) {
+                    compostable = false;
+                }
+            }
+            else if (f.getName().equals("contaminated")) {
+                if(f.equals(true)) {
+                    compostable = false;
+                }
+            }
+        }
+        return compostable;
     }
 
     @Override
-    public boolean attemptDispose(Material material) {
-        // Logic for disposing of the material
-        return !manufactured; // Example: Only allow disposal if not manufactured and not contaminated
+    public boolean attemptDispose(Material material, Field[] fields){
+        boolean disposable = false;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("manufactured")) {
+                if(f.equals(true)) {
+                    disposable = true;
+                }
+            }
+            else if (f.getName().equals("contaminated")) {
+                if(f.equals(true)) {
+                    disposable = true;
+                }
+            }
+        }
+        return disposable;
     }
-   
     //Material superclass methods
 
     @Override

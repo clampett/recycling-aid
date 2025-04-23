@@ -1,5 +1,6 @@
 package src.recycling_types.materials;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -68,21 +69,45 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material){
-        // Logic for taking the material to a bin
-        return !hasInk; // Example: Only allow binning if not hasInk
+    public boolean attemptBin(Material material, Field[] fields){
+        boolean binnable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("hasInk")) {
+                if(f.equals(true)) {
+                    binnable = false;
+                }
+            }
+        }
+        return binnable;
     }
 
     @Override
-    public boolean attemptCompost(Material material){
-        // Logic for composting the material
-        return !hasInk; // Example: Only allow composting if not hasInk
+    public boolean attemptCompost(Material material, Field[] fields){
+        boolean compostable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("hasInk")) {
+                if(f.equals(true)) {
+                    compostable = false;
+                }
+            }
+        }
+        return compostable;
     }
 
     @Override
-    public boolean attemptDispose(Material material){
-        // Logic for disposing of the material
-        return !hasInk; // Example: Only allow disposal if not hasInk
+    public boolean attemptDispose(Material material, Field[] fields){
+        boolean disposable = false;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("hasInk")) {
+                if(f.equals(true)) {
+                    disposable = true;
+                }
+            }
+        }
+        return disposable;
     }
 
     //Material superclass methods

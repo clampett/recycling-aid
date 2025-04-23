@@ -1,5 +1,7 @@
 package src.recycling_types.categories;
 
+import java.lang.reflect.Field;
+
 import src.customExceptions.failedDonateException;
 import src.recycling_types.*;
 
@@ -11,7 +13,7 @@ import src.recycling_types.*;
  */
 public interface Donatable {
     
-    public abstract boolean attemptDonate(Material m) throws failedDonateException;
+    public abstract boolean attemptDonate(Material material, Field[] fields) throws failedDonateException;
 
     
 }

@@ -1,5 +1,6 @@
 package src.recycling_types.materials;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -115,30 +116,32 @@ public class Food_Waste extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptDispose(Material material){
-        // Logic for disposing of the material
-        if(((Food_Waste)material).getIsOrganic()){
-            Gui.L.info("Material successfully disposed of.");
-            return true;
+    public boolean attemptDispose(Material material, Field[] fields){
+        boolean disposable = true;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("isOrganic")) {
+                if(f.equals(true)) {
+                    disposable = false;
+                }
+            }
         }
-        else return false;
-        
+        return disposable;
     }
 
     @Override
-    public boolean attemptCompost(Material material){
-        // Logic for composting the material
-        if(((Food_Waste)material).getIsOrganic()){
-            Gui.L.info("Material successfully composted of.");
-            return true;
+    public boolean attemptCompost(Material material, Field[] fields){
+        boolean compostable = false;
+        for (Field f : fields) {
+            f.getName();
+            if (f.getName().equals("isOrganic")) {
+                if(f.equals(true)) {
+                    compostable = true;
+                }
+            }
         }
-        else {
-            Gui.L.warning("Material cannot be composted.");
-            Gui.L.warning("Material is not organic.");
-            return false;
-        }
+        return compostable;
     }
-
     //Material superclass methods
 
     @Override
