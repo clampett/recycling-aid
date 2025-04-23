@@ -54,7 +54,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
 
         this.plasticNum = plasticNum;
         this.plasticSign = resinCodes[plasticNum - 1];
-        setPlasticType(plasticNum-1);
+        setPlasticType(plasticNum);
     }
     
     //Mutator methods
@@ -190,7 +190,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(5) || f.equals(6)) {
+                if(f.equals(3) || f.equals(6)) {
                     disposable = true;
                 }
             }

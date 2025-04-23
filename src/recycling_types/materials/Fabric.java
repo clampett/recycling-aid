@@ -97,12 +97,12 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
 
     @Override
     public boolean attemptDonate(Material material, Field[] fields) throws failedDonateException{
-        boolean donatable = true;
+        boolean donatable = false;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("harmfulDyes")) {
-                if(f.equals(true)) {
-                    donatable = false;
+                if(f.equals(false)) {
+                    donatable = true;
                 }
                 }
             }
