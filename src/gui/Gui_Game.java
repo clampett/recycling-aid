@@ -52,7 +52,9 @@ public class Gui_Game {
     private static Button centerableButton = new Button("Centerable"); // Centerable button
     private static Button binnableButton = new Button("Binnable"); // Binnable button
     private static Text materialText = new Text("Material: START GAME"); // Placeholder text
-    
+
+
+    private static ArrayList<Button> recycleButtons = new ArrayList<>(Arrays.asList(donatableButton, disposableButton, compostableButton, centerableButton, binnableButton)); // List of all recycle buttons
     private static Material currentMaterial = null; // Current material to be recycled
 
     protected static Scene setUpGameScene(Stage mainStage) {
@@ -262,11 +264,7 @@ public class Gui_Game {
         v.getChildren().addAll(startButton, exitButton, donatableButton, disposableButton, compostableButton, centerableButton, binnableButton);
 
         // Disable buttons until the game starts
-        donatableButton.setDisable(true);
-        disposableButton.setDisable(true);
-        compostableButton.setDisable(true);
-        centerableButton.setDisable(true);
-        binnableButton.setDisable(true);
+        recycleButtons.forEach(b -> b.setDisable(true)); // Disable all recycle buttons
 
         Scene gameScene = new Scene(v);
         return gameScene;
@@ -283,11 +281,7 @@ public class Gui_Game {
         
         // Disable and enable buttons based on the game state
         startButton.setDisable(true); // Disable the start button
-        disposableButton.setDisable(false); // Enable the disposeable button
-        compostableButton.setDisable(false); // Enable the compostable button
-        centerableButton.setDisable(false); // Enable the centerable button
-        binnableButton.setDisable(false); // Enable the binnable button
-        donatableButton.setDisable(false); // Enable the donateable button
+        recycleButtons.forEach(b-> b.setDisable(false)); // Enable all recycle buttons
     }
 
     private static void endGame(){
@@ -296,11 +290,8 @@ public class Gui_Game {
 
         // Disable and enable buttons based on the game state
         startButton.setDisable(false); // Disable the start button
-        disposableButton.setDisable(true); // Enable the disposeable button
-        compostableButton.setDisable(true); // Enable the compostable button
-        centerableButton.setDisable(true); // Enable the centerable button
-        binnableButton.setDisable(true); // Enable the binnable button
-        donatableButton.setDisable(true); // Enable the donateable button
+        recycleButtons.forEach(b -> b.setDisable(true)); // Disable all recycle buttons
+        materialText.setText("Material: START GAME"); // Reset the material text
     }
 
     /*
@@ -476,20 +467,6 @@ public class Gui_Game {
             return null; // Return null if there was an error
         }
     }
-
-    private static void checkIfRecyclable(Material m){
-        String materialClass = m.getClass().getSimpleName(); // Get the class name of the material
-
-        Gui.L.info("Checking if material is recyclable: " + materialClass); // Log the material class name
-
-        switch(materialClass){
-            case "Plastic":
-                
-            break;
-        }
-
-    }
-    
     
 
     

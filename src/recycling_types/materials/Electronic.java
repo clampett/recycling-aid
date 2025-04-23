@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
+import src.gui.Gui;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -61,13 +62,13 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     @Override
     public boolean attemptCenter(Material material){
         // Logic for taking the material to a center
-        return !hasBattery; // Example: Only allow center if no battery
+       return true; // Example: Always allow center
     }
 
     @Override
     public boolean attemptDispose(Material material){
         // Logic for disposing of the material
-        return !hasBattery; // Example: Only allow disposal if no battery
+        return true;
     }
 
     public String getSpecial() {
