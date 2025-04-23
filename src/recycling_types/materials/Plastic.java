@@ -53,12 +53,37 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         super.setImpactScore(setImpact(plasticNum));
 
         this.plasticNum = plasticNum;
-        this.plasticSign = resinCodes[this.plasticNum - 1];
-        this.type = plasticType.values()[this.plasticNum - 1];
+        this.plasticSign = resinCodes[plasticNum - 1];
+        setPlasticType(plasticNum-1);
     }
     
     //Mutator methods
 
+    public void setPlasticType(int plasticNum) {
+        switch(plasticNum) {
+            case 1:
+            this.type = plasticType.PET;
+            break;
+            case 2:
+            this.type = plasticType.HDPE;
+            break;
+            case 3:
+            this.type = plasticType.PVC;
+            break;
+            case 4:
+            this.type = plasticType.LDPE;
+            break;
+            case 5:
+            this.type = plasticType.PP;
+            break;
+            case 6:
+            this.type = plasticType.PS;
+            break;
+            case 7:
+            this.type = plasticType.OTHER;
+            break;
+        }
+    }
     /**
      * Sets impact score based on the type of plastic.
      * @param plasticNum RIC number from 1-7
