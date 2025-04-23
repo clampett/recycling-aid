@@ -38,7 +38,12 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
             super.setImpactScore(0.3);
     }
 
-    // Field mutator methods
+    //Mutator methods
+    
+    /**
+     * Sets whether {@link Cardboard} is soiled and updates impact score.
+     * @param soiled T/F - is {@link Cardboard} soiled?
+     */
     public void setSoiled(boolean soiled) {
         this.soiled = soiled;
         if(soiled)
@@ -47,10 +52,17 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
             super.setImpactScore(0.2);
     }
 
-    // Field accessor methods
+    //Accessor methods
+
+    /**
+     * Gets whether {@link Cardboard} is soiled.
+     * @return {@link Cardboard} soiled
+     */
     public boolean getIsSoiled() {
         return soiled;
     }
+
+    //Interface methods
 
     @Override
     public boolean attemptBin(Material material) {
@@ -70,6 +82,9 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
         return !soiled; // Example: Only allow recycling if not soiled
     }
     
+    //Material superclass methods
+
+    @Override
     public String getSpecial() {
         return("May be soiled, which is more harmful for the environment");
     }

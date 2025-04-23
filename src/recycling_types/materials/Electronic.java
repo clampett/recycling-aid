@@ -40,7 +40,12 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
             super.setImpactScore(0.80);
     }
 
-    // Field mutator methods
+    //Mutator methods
+
+    /**
+     * Sets whether {@link Electronic} has a battery and updates impact score.
+     * @param hasBattery T/F - does {@link Electronic} have a battery?
+     */
     public void setBatteryStatus(boolean hasBattery) {
         this.hasBattery = hasBattery;
         if(hasBattery)
@@ -49,10 +54,17 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
             super.setImpactScore(0.65);
     }
 
-    // Field accessor methods
+    //Accessor methods
+
+    /**
+     * Gets whether {@link Electronic} has a battery.
+     * @retur {@link Electronic} battery
+     */
     public boolean getHasBattery() {
         return hasBattery;
     }
+
+    //Interface methods
 
     @Override
     public boolean attemptDonate(Material material) {
@@ -71,6 +83,9 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
         return true;
     }
 
+    //Material superclass methods
+
+    @Override
     public String getSpecial() {
         return("May have a battery, which is more harmful for the environment");
     }

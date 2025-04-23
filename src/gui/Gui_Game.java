@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Date;
+import java.lang.reflect.Field;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -56,6 +57,8 @@ public class Gui_Game {
 
     private static ArrayList<Button> recycleButtons = new ArrayList<>(Arrays.asList(donatableButton, disposableButton, compostableButton, centerableButton, binnableButton)); // List of all recycle buttons
     private static Material currentMaterial = null; // Current material to be recycled
+    private static Class<? extends Material> currentMaterialClass = null;
+    private static Field[] currentMaterialFields = null;
 
     protected static Scene setUpGameScene(Stage mainStage) {
         Gui.L.info("Setting up game scene");
@@ -155,6 +158,8 @@ public class Gui_Game {
                     //After successfully donating the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
                     
                 } catch (failedDonateException ex){
                     Gui.L.warning("Failed to donate material: " + ex.getMessage()); // Log the error message
@@ -179,6 +184,8 @@ public class Gui_Game {
                     //After successfully disposing the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
 
                 } catch(failedDisposeException ex){
                     Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
@@ -203,6 +210,8 @@ public class Gui_Game {
                     //After successfully composting the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
                 } catch(failedCompostException ex){
                     Gui.L.warning("Failed to compost material: " + ex.getMessage()); // Log the error message
                 }
@@ -224,6 +233,8 @@ public class Gui_Game {
                     //After successfully centering the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
 
                 } catch(failedCenterException ex){
                     Gui.L.warning("Failed to center material: " + ex.getMessage()); // Log the error message
@@ -248,6 +259,8 @@ public class Gui_Game {
                     //After successfully binning the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
+                    currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
                 } catch(failedBinException ex){
                     Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
                     successStatusText.setText("Recycle Success Status: Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
@@ -276,6 +289,8 @@ public class Gui_Game {
         // Logic to start the game goes here
         currentMaterial = getRandomMaterial(); // Get a random material
         randomizeMaterialFields(currentMaterial); // Randomize the material fields
+        currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
+        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
 
         Gui.L.info("Recieved material: " + currentMaterial.getClass().getSimpleName()); // Log the material name
         

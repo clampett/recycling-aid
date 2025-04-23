@@ -6,6 +6,7 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.ObjectInputStream;
@@ -60,7 +61,13 @@ public class Loader {
     }
 
     /**
-     * Serializes the given Object.
+     * Serializes the given {@code Object}.
+     * <p>
+     * If file is not found, a new file is created and then the {@code Object}
+     * is serialized.</p>
+     * <p>
+     * If directory is not found, the directory is created, then the file, then
+     * the {@code Object} is serialized.</p>
      * 
      * @param to_save Object to save
      * @param save_path path to save location
@@ -73,6 +80,20 @@ public class Loader {
             obj_out.writeObject(to_save);
             obj_out.flush();
             log.info("Successfully serialized object at: " + PATH + save_path + RESET);
+        } catch(FileNotFoundException fe) { //File is not found
+            try {
+                log.info("Could NOT find object at: " + PATH + save_path + RESET + " - Creating file");
+                new File(save_path).createNewFile();
+                serialize(to_save, save_path, log);
+            } catch(IOException ie) { //Directory not found
+                log.severe("Could NOT create file at: " + 
+                                          PATH + save_path + RESET + " - " + 
+                                          ERROR + fe.getMessage() + RESET +
+                                          " - Creating directory");
+                String[] save_path_split = save_path.split("/");
+                new File(String.join("/", Arrays.copyOf(save_path_split, save_path_split.length - 1))).mkdirs();
+                serialize(to_save, save_path, log);
+            }
         } catch(Exception e) {log.severe("Could NOT serialize: " + 
                                          OBJECT + to_save.toString() + RESET +"; at: " + 
                                          PATH + save_path + RESET + " - " + 
@@ -80,7 +101,7 @@ public class Loader {
     }
 
     /**
-     * Deserializes and returns a serialized object.
+     * Deserializes and returns a serialized {@code Object}.
      * 
      * @param load_path path to file 
      * @param log JUL {@code Logger}; pass null if you don't want to use

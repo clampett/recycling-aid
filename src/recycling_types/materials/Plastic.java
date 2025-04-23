@@ -53,36 +53,10 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         this.type = plasticType.values()[this.plasticNum - 1];
     }
     
-    //Field mutator methods
-
-    /*
-     * Sets the plastic num
-     * updates impact score accordingly
-     * @param type the type of plastic
-     */
-    public void setPlasticNum(int plasticNum) {
-       this.plasticNum = plasticNum;
-       this.plasticSign = resinCodes[this.plasticNum - 1];
-       setImpact(plasticNum);
-    }
-    
-    //Field accesor methods
-
-    public int getPlasticNum() {
-        return plasticNum;
-    }
-
-    public String getPlasticSign() {
-        return plasticSign;
-    }
-
-    public plasticType getPlasticType() {
-        return type;
-    }
+    //Mutator methods
 
     /**
-     * Sets impact score based on the type of plastic
-     * 
+     * Sets impact score based on the type of plastic.
      * @param plasticNum RIC number from 1-7
      * @return impact score
      */
@@ -115,6 +89,44 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         return impact;
     }
 
+    /**
+     * Sets the {@link Plastic} RIC number, along with the sign and impact score.
+     * @param plasticNum 
+     */
+    public void setPlasticNum(int plasticNum) {
+       this.plasticNum = plasticNum;
+       this.plasticSign = resinCodes[this.plasticNum - 1];
+       setImpact(plasticNum);
+    }
+    
+    //Accesor methods
+
+    /**
+     * Get {@link Plastic} RIC number.
+     * @return {@link Plastic} plasticNum
+     */
+    public int getPlasticNum() {
+        return plasticNum;
+    }
+
+    /**
+     * Get {@link Plastic} RIC sign.
+     * @return {@link Plastic} plasticSign
+     */
+    public String getPlasticSign() {
+        return plasticSign;
+    }
+
+    /**
+     * Get {@link Plastic} name {@code Enum}.
+     * @return {@link Plastic} type
+     */
+    public plasticType getPlasticType() {
+        return type;
+    }
+
+    //Interface methods
+
     @Override
     public boolean attemptBin(Material material){
         // Logic for taking the material to a bin
@@ -133,7 +145,9 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
         return plasticNum != 3; // Example: Only allow disposal if not PVC (3)
     }
     
+    //Material superclass methods
 
+    @Override
     public String getSpecial() {
         String specialBlurb = "There are 7 Plastic Types:\n";
         String specialFormat = "\t%d: %s (%s)\n";

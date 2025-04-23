@@ -57,11 +57,12 @@ public abstract class Material implements Serializable{
         this.possibleItems = possibleItems;
     }
 
+    //Mutator methods
+
     /**
      * Gets a class' interfaces and converts them into Strings.
-     * Used in {@link src.gui.Gui_Info Gui_Info} to display information.
-     * 
      * @return String array of all class' interfaces
+     * @see src.gui.Gui_Info Gui_Info
      */
     private String[] setCategories() {
         Class<?>[] interfaces = this.getClass().getInterfaces();
@@ -74,6 +75,68 @@ public abstract class Material implements Serializable{
     }
 
     /**
+     * Sets {@link Material} impact score
+     * @param impact new impact score
+     */
+    public void setImpactScore(double impact) {
+        this.impact = impact;
+    }
+
+    //Accessor methods
+
+    /**
+     * Gets possibleItems ready to display by capitalizing the first word and removing brackets.
+     * @return possibleItems cleaned and as a String
+     */
+    public String displayPossibleItems() {
+        Set<String> cleanedPossibleItems = 
+        possibleItems.stream()
+                     .map(item -> 
+                        item.substring(0,1).toUpperCase() + item.substring(1))
+                     .collect(Collectors.toSet());
+
+        return cleanedPossibleItems.toString().replaceAll("\\[|\\]", "");
+    }
+
+    /**
+     * Gets {@link Material} name
+     * @return {@link Material} name
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Gets {@link Material} categories
+     * @return {@link Material} categories
+     */
+    public String[] getCategories() {
+        return this.categories;
+    }
+
+    /**
+     * Gets {@link Material} possibleItems
+     * @return {@link Material} possibleItems
+     */
+    public Set<String> getPossibleItems() {
+        return this.possibleItems;
+    }
+
+    /**
+     * Gets {@link Material} impact score
+     * @return {@link Material} impact
+     */
+    public double getImpactScore() {
+        return this.impact;
+    }
+
+    /**
+     * Gets {@link Material Material's} special characteristics
+     * @return {@link Material Material's} special
+     */
+    public abstract String getSpecial();
+
+    /**
      * Gets categories ready to display as a String, delimited by ", ".
      * 
      * @return categories as a String
@@ -82,11 +145,14 @@ public abstract class Material implements Serializable{
         return String.join(", ", categories);
     }
 
+    //Functional methods
+
     /**
-     * Creates all Material subclasses, minus Nuclear_Waste. Used in
-     * {@link src.gui.Gui_Info Gui_Info} to display material variables.
+     * Creates all Material subclasses.
      * 
      * @return {@code List<Class<? extends Material>>} of all Material subclasses
+     * @see src.gui.Gui_Info Gui_Info
+     * @see src.gui.Gui_Game Gui_Game
      */
     private static List<Class<? extends Material>> createAllMaterials() {
         List<Class<? extends Material>> materials = new ArrayList<>();
@@ -112,64 +178,4 @@ public abstract class Material implements Serializable{
     public void addToPossibleItems(String toAdd) {
         possibleItems.add(toAdd);
     }
-
-    /**
-     * Gets possibleItems ready to display by capitalizing the first word and removing brackets.
-     * @return possibleItems cleaned and as a String
-     */
-    public String displayPossibleItems() {
-        Set<String> cleanedPossibleItems = 
-        possibleItems.stream()
-                     .map(item -> 
-                        item.substring(0,1).toUpperCase() + item.substring(1))
-                     .collect(Collectors.toSet());
-
-        return cleanedPossibleItems.toString().replaceAll("\\[|\\]", "");
-    }
-
-    /**
-     * Gets {@link src.recycling_types.Material Material} name
-     * @return {@link src.recycling_types.Material Material} name
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * Gets {@link src.recycling_types.Material Material} categories
-     * @return {@link src.recycling_types.Material Material} categories
-     */
-    public String[] getCategories() {
-        return this.categories;
-    }
-
-    /**
-     * Gets {@link src.recycling_types.Material Material} possibleItems
-     * @return {@link src.recycling_types.Material Material} possibleItems
-     */
-    public Set<String> getPossibleItems() {
-        return this.possibleItems;
-    }
-
-    /**
-     * Gets {@link src.recycling_types.Material Material} impact score
-     * @return {@link src.recycling_types.Material Material} impact
-     */
-    public double getImpactScore() {
-        return this.impact;
-    }
-
-    /**
-     * Sets {@link src.recycling_types.Material Material} impact score
-     * @param impact new impact score
-     */
-    public void setImpactScore(double impact) {
-        this.impact = impact;
-    }
-
-    /**
-     * Gets {@link src.recycling_types.Material Material's} special characteristics
-     * @return {@link src.recycling_types.Material Material's} special
-     */
-    public abstract String getSpecial();
 }

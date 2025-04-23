@@ -37,12 +37,11 @@ public class Glass extends Material implements Binnable, Disposable {
             super.setImpactScore(0.35);
     }
 
-    // instance field mutators
+    //Mutator methods
 
-    /*
-     * Sets the status of isTempered
-     * and updates the impaact score accordingly
-     * @param isTempered whether the glass is tempered or not
+    /**
+     * Sets whether {@link Glass} is tempered and updates impact score.
+     * @param isTempered T/F - is {@link Glass} tempered?
      */
     public void setTempered(boolean isTempered){
         this.isTempered = isTempered;
@@ -52,7 +51,21 @@ public class Glass extends Material implements Binnable, Disposable {
             super.setImpactScore(0.25);
     }
 
-    
+    //Accessor methods
+
+    /**
+     * Gets whether {@link Glass} is tempered, as a String.
+     * @return {@link Glass} tempering status
+     */
+    public String glassIsTempered() {
+        if(this.isTempered)
+            return("This glass is tempered.");
+        else
+            return("This glass is not tempered.");
+    }
+
+    //Interface methods
+
     @Override
     public boolean attemptBin(Material material){
         // Logic for taking the material to a bin
@@ -65,16 +78,10 @@ public class Glass extends Material implements Binnable, Disposable {
         return !isTempered; // Example: Only allow disposal if not tempered
     }
 
+    //Material superclass methods
+
+    @Override
     public String getSpecial() {
         return("May be tempered, which is more harmful for the environment");
-    }
-
-    public String glassIsTempered() {
-        if(isTempered){
-            return ("This glass is tempered.");
-        }
-        else {
-            return ("This glass is not tempered.");
-        }
     }
 }
