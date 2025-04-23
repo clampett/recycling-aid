@@ -613,7 +613,8 @@ public class Gui_Game {
         switch(m.getClass().getSimpleName()){
             case "Plastic":
                 // Randomize plastic fields
-                ((Plastic) m).setPlasticNum(new Random().nextInt(7) + 1); // Set a random plastic number between 1 and 7
+                int randomPlastic = (int)(Math.random() *7 +1);
+                ((Plastic) m).setPlasticType(randomPlastic);
                 Gui.L.info("Randomized plastic fields: " + ((Plastic) m).getPlasticType()); // Log the randomized plastic fields
                 materialText.setText("Material: " + m.getClass().getSimpleName() + ", Plastic Type: " + ((Plastic) m).getPlasticType()); // Update the material text
                 break;
@@ -632,7 +633,7 @@ public class Gui_Game {
             case "Metal":
                 String[] metalTypes = {"Al", "CuZn", "CuSn", "Cu", "Pb", "Fe", "Ni", "FeC", "Sn", "Ti"}; // List of metal types
                 // Randomize metal fields
-                int randomIndex = (int)(Math.random() *9); // Randomize between 1 and 10
+                int randomIndex = (int)(Math.random() *9); // Randomize between 0 and 9
                 ((Metal) m).setMetalType(metalTypes[randomIndex]); // Set a random metal type
                 Gui.L.info("Randomized metal fields: " + ((Metal) m).getMetalType()); // Log the randomized metal fields
                 materialText.setText("Material: " + m.getClass().getSimpleName() + ", Metal Type: " + ((Metal) m).getMetalType()); // Update the material text
