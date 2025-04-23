@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
+import src.customExceptions.failedBinException;
+import src.customExceptions.failedDisposeException;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -68,7 +70,7 @@ public class Glass extends Material implements Binnable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields){
+    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
         boolean binnable = true;
         for (Field f : fields) {
             f.getName();
@@ -82,7 +84,7 @@ public class Glass extends Material implements Binnable, Disposable {
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields){
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();

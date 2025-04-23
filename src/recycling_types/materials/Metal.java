@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
+import src.customExceptions.failedCenterException;
+import src.customExceptions.failedDisposeException;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -211,7 +213,7 @@ public class Metal extends Material implements Centerable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields){
+    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
         boolean centerable = false;
         for (Field f : fields) {
             f.getName();
@@ -226,7 +228,7 @@ public class Metal extends Material implements Centerable, Disposable {
     }
 
     @Override
-    public boolean attemptDispose(Material mateiral, Field[] fields){
+    public boolean attemptDispose(Material mateiral, Field[] fields) throws failedDisposeException{
         boolean disposable = true;
         for (Field f : fields) {
             f.getName();

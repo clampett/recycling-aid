@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
+import src.customExceptions.failedBinException;
+import src.customExceptions.failedDisposeException;
+import src.customExceptions.failedRecycleException;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -66,7 +69,7 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields){
+    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
         boolean binable = true;
         for (Field f : fields) {
             f.getName();
@@ -80,7 +83,7 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields){
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();
@@ -94,7 +97,7 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     }
 
     @Override
-    public boolean attemptRecycle(Material material, Field[] fields){
+    public boolean attemptRecycle(Material material, Field[] fields) throws failedRecycleException{
         boolean recyclable = true;
         for (Field f : fields) {
             f.getName();

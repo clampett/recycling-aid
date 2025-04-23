@@ -5,6 +5,9 @@ import java.util.Set;
 import java.util.HashSet;
 import java.lang.reflect.Field;
 
+import src.customExceptions.failedCenterException;
+import src.customExceptions.failedDisposeException;
+import src.customExceptions.failedDonateException;
 import src.gui.Gui;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
@@ -69,12 +72,12 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material, Field[] fields) {
+    public boolean attemptDonate(Material material, Field[] fields) throws failedDonateException{
         return true; // Example: Always allow donation
     }
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields){
+    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
         boolean centerable = true;
         for (Field f : fields) {
             f.getName();
@@ -88,7 +91,7 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields){
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = true;
         for (Field f : fields) {
             f.getName();
