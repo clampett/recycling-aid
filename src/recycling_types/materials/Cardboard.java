@@ -98,12 +98,12 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
 
     @Override
     public boolean attemptRecycle(Material material, Field[] fields) throws failedRecycleException{
-        boolean recyclable = true;
+        boolean recyclable = false;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("soiled")) {
-                if(f.equals(true)) {
-                    recyclable = false;
+                if(f.equals(false)) {
+                    recyclable = true;
                 }
                 }
             }

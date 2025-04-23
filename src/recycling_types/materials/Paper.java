@@ -73,12 +73,13 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
 
     @Override
     public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
-        boolean binnable = true;
+        boolean binnable = false;
+        Paper p1 = new Paper(false);
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("hasInk")) {
-                if(f.equals(true)) {
-                    binnable = false;
+                if(f.equals(p1)) {
+                    binnable = true;
                 }
             }
         }
@@ -87,12 +88,13 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
 
     @Override
     public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException{
-        boolean compostable = true;
+        boolean compostable = false;
+        Paper p2 = new Paper(false);
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("hasInk")) {
-                if(f.equals(true)) {
-                    compostable = false;
+                if(f.equals(p2)) {
+                    compostable = true;
                 }
             }
         }
@@ -102,10 +104,11 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
     @Override
     public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = false;
+        Paper p3 = new Paper(true);
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("hasInk")) {
-                if(f.equals(true)) {
+                if(f.equals(p3)) {
                     disposable = true;
                 }
             }

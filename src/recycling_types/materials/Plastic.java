@@ -158,11 +158,14 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
 
     @Override
     public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
+        Plastic p1 = new Plastic(1);
+        Plastic p2 = new Plastic(2);
+        Plastic p5 = new Plastic(5);
         boolean binable = false;
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(1) || f.equals(2) || f.equals(5)) {
+                if(f.equals(p1) || f.equals(p2) || f.equals(p5)) {
                     binable = true;
                 }
             }
@@ -173,10 +176,11 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     @Override
     public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
         boolean centerable = false;
+        Plastic p4 = new Plastic(4);
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(4)) {
+                if(f.equals(p4)) {
                     centerable = true;
                 }
             }
@@ -187,10 +191,13 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     @Override
     public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = false;
+        Plastic p3 = new Plastic(3);
+        Plastic p6 = new Plastic(6);
+        Plastic p7 = new Plastic(7);
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(3) || f.equals(6)) {
+                if(f.equals(p3) || f.equals(p6) || f.equals(p7)) {
                     disposable = true;
                 }
             }
