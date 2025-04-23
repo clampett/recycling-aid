@@ -13,7 +13,7 @@ Authors: Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zak
 - [X] Custom Exceptions
 - [X] File Input/Output
 - [X] Logging
-- [ ] Lambda Expressions
+- [X] Lambda Expressions
 - [ ] Design Patterns
 - [X] Threads
 - [X] Enums
