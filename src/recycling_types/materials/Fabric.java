@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
+import src.customExceptions.failedCenterException;
+import src.customExceptions.failedDisposeException;
+import src.customExceptions.failedDonateException;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -93,7 +96,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material, Field[] fields){
+    public boolean attemptDonate(Material material, Field[] fields) throws failedDonateException{
         boolean donatable = true;
         for (Field f : fields) {
             f.getName();
@@ -107,7 +110,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     }
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields){
+    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
         boolean donatable = true;
         for (Field f : fields) {
             f.getName();
@@ -121,7 +124,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields){
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();

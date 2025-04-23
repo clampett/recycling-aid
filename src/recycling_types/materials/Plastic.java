@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
+import src.customExceptions.failedBinException;
+import src.customExceptions.failedCenterException;
+import src.customExceptions.failedDisposeException;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -129,7 +132,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields){
+    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
         boolean binable = false;
         for (Field f : fields) {
             f.getName();
@@ -143,7 +146,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     }
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields){
+    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
         boolean centerable = false;
         for (Field f : fields) {
             f.getName();
@@ -157,7 +160,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields){
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();

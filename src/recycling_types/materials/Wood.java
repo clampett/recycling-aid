@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
+import src.customExceptions.failedCompostException;
+import src.customExceptions.failedDisposeException;
 import src.recycling_types.Material;
 import src.recycling_types.categories.*;
 
@@ -89,7 +91,7 @@ public class Wood extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCompost(Material material, Field[] fields){
+    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException{
         boolean compostable = true;
         for (Field f : fields) {
             f.getName();
@@ -108,7 +110,7 @@ public class Wood extends Material implements Compostable, Disposable {
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields){
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();
