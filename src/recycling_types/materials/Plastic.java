@@ -160,9 +160,9 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     public boolean attemptBin(Material material, Field[] fields) throws failedBinException {
         boolean binable = false;
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(1) || f.equals(2) || f.equals(5)) {
+                if(f.toString().contains("1") || f.toString().contains("2") || f.toString().contains("5") ) {
                     binable = true;
                 }
             }
@@ -174,9 +174,9 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException {
         boolean centerable = false;
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(4)) {
+                if(f.toString().contains("4") ) {
                     centerable = true;
                 }
             }
@@ -188,9 +188,9 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
         boolean disposable = false;
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("plasticNum")) {
-                if(f.equals(3) || f.equals(6)) {
+                if(f.toString().contains("3") || f.toString().contains("6") ||f.toString().contains("7")   ) {
                     disposable = true;
                 }
             }

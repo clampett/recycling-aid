@@ -75,10 +75,10 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
     public boolean attemptBin(Material material, Field[] fields) throws failedBinException {
         boolean binnable = true;
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("hasInk")) {
-                if(f.equals(true)) {
-                    binnable = false;
+                if(f.toString().contains("false")) {
+                    binnable = true;
                 }
             }
         }
@@ -89,10 +89,10 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
     public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException {
         boolean compostable = true;
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("hasInk")) {
-                if(f.equals(true)) {
-                    compostable = false;
+                if(f.toString().contains("false") ) {
+                    compostable = true;
                 }
             }
         }
@@ -103,9 +103,9 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
     public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
         boolean disposable = false;
         for (Field f : fields) {
-            f.getName();
+            System.out.println(f.getName());
             if (f.getName().equals("hasInk")) {
-                if(f.equals(true)) {
+                if(f.toString().contains("true")) {
                     disposable = true;
                 }
             }

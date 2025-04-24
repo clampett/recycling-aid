@@ -219,7 +219,7 @@ public class Metal extends Material implements Centerable, Disposable {
             f.getName();
             //Aluminum, steel, copper, brass, bronze, tin
             if (f.getName().equals("type")) {
-                if(f.equals("Aluminum") || f.equals("Steel") || f.equals("Copper") || f.equals("Brass") || f.equals("Bronze") || f.equals("Tin")) {
+                if(f.toString().contains("Aluminum") || f.toString().contains("Steel") || f.toString().contains("Copper") || f.toString().contains("Brass") || f.toString().contains("Bronze") || f.toString().contains("Tin")) {
                     centerable = true;
                 }
             }
@@ -234,7 +234,7 @@ public class Metal extends Material implements Centerable, Disposable {
             f.getName();
             //Aluminum, steel, copper, brass, bronze, tin
             if (f.getName().equals("type")) {
-                if(f.equals("Aluminum") || f.equals("Steel") || f.equals("Copper") || f.equals("Brass") || f.equals("Bronze") || f.equals("Tin")) {
+                if(f.toString().contains("Aluminum") || f.toString().contains("Steel") || f.toString().contains("Copper") || f.toString().contains("Brass") || f.toString().contains("Bronze") || f.toString().contains("Tin")) {
                     disposable = false;
                 }
             }

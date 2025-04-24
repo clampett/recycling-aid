@@ -96,12 +96,12 @@ public class Wood extends Material implements Compostable, Disposable {
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("manufactured")) {
-                if(f.equals(true)) {
+                if(f.toString().contains("true")) {
                     compostable = false;
                 }
             }
             else if (f.getName().equals("contaminated")) {
-                if(f.equals(true)) {
+                if(f.toString().contains("true")) {
                     compostable = false;
                 }
             }
@@ -115,12 +115,12 @@ public class Wood extends Material implements Compostable, Disposable {
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("manufactured")) {
-                if(f.equals(true)) {
+                if(f.toString().contains("true")) {
                     disposable = true;
                 }
             }
             else if (f.getName().equals("contaminated")) {
-                if(f.equals(true)) {
+                if(f.toString().contains("true")) {
                     disposable = true;
                 }
             }

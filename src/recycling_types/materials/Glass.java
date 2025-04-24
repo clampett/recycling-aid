@@ -75,8 +75,8 @@ public class Glass extends Material implements Binnable, Disposable {
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("isTempered")) {
-                if(f.equals(true)) {
-                    binnable = false;
+                if(f.toString().contains("false")) {
+                    binnable = true;
                 }
             }
         }
@@ -89,7 +89,7 @@ public class Glass extends Material implements Binnable, Disposable {
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("isTempered")) {
-                if(f.equals(true)) {
+                if(f.toString().contains("true")) {
                     disposable = true;
                 }
             }
