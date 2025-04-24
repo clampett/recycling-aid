@@ -91,7 +91,7 @@ public class Wood extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException{
+    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException {
         boolean compostable = true;
         for (Field f : fields) {
             f.getName();
@@ -110,7 +110,7 @@ public class Wood extends Material implements Compostable, Disposable {
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();

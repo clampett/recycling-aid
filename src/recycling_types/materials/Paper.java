@@ -72,7 +72,7 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
+    public boolean attemptBin(Material material, Field[] fields) throws failedBinException {
         boolean binnable = true;
         for (Field f : fields) {
             f.getName();
@@ -86,7 +86,7 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
     }
 
     @Override
-    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException{
+    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException {
         boolean compostable = true;
         for (Field f : fields) {
             f.getName();
@@ -100,7 +100,7 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();

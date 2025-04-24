@@ -213,7 +213,7 @@ public class Metal extends Material implements Centerable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
+    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException {
         boolean centerable = false;
         for (Field f : fields) {
             f.getName();
@@ -228,7 +228,7 @@ public class Metal extends Material implements Centerable, Disposable {
     }
 
     @Override
-    public boolean attemptDispose(Material mateiral, Field[] fields) throws failedDisposeException{
+    public boolean attemptDispose(Material mateiral, Field[] fields) throws failedDisposeException {
         boolean disposable = true;
         for (Field f : fields) {
             f.getName();

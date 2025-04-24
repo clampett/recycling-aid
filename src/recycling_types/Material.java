@@ -26,7 +26,7 @@ import src.recycling_types.materials.*;
  * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
  * @version 4/4/2025
  */
-public abstract class Material implements Serializable{
+public abstract class Material implements Serializable {
     /**The material's name.*/
     private String name;
 

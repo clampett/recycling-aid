@@ -89,14 +89,14 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
      * Gets whether {@link Fabric} has harmful dyes.
      * @return {@link Fabric} harmfulDyed
      */
-    public boolean isHarmfulDyed(){
+    public boolean isHarmfulDyed() {
         return harmfulDyes;
     }
 
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material, Field[] fields) throws failedDonateException{
+    public boolean attemptDonate(Material material, Field[] fields) throws failedDonateException {
         boolean donatable = false;
         for (Field f : fields) {
             f.getName();
@@ -110,7 +110,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     }
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
+    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException {
         boolean donatable = true;
         for (Field f : fields) {
             f.getName();
@@ -124,7 +124,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();
