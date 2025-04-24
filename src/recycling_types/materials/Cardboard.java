@@ -69,21 +69,22 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
-        boolean binable = false;
+    public boolean attemptBin(Material material, Field[] fields) throws failedBinException {
+        boolean binable = true;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("soiled")) {
                 if(f.toString().contains("false")) {
                     binable = true;
                 }
-                }
             }
+        }
+        
         return binable;
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();
@@ -91,22 +92,24 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
                 if(f.toString().contains("true")) {
                     disposable = true;
                 }
-                }
             }
+        }
+
         return disposable;
     }
 
     @Override
-    public boolean attemptRecycle(Material material, Field[] fields) throws failedRecycleException{
-        boolean recyclable = false;
+    public boolean attemptRecycle(Material material, Field[] fields) throws failedRecycleException {
+        boolean recyclable = true;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("soiled")) {
                 if(f.toString().contains("false")) {
                     recyclable = true;
                 }
-                }
             }
+        }
+
         return recyclable;
     }
     

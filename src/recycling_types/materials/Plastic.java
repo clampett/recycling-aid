@@ -62,26 +62,26 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     public void setPlasticType(int plasticNum) {
         switch(plasticNum) {
             case 1:
-            this.type = plasticType.PET;
-            break;
+                this.type = plasticType.PET;
+                break;
             case 2:
-            this.type = plasticType.HDPE;
-            break;
+                this.type = plasticType.HDPE;
+                break;
             case 3:
-            this.type = plasticType.PVC;
-            break;
+                this.type = plasticType.PVC;
+                break;
             case 4:
-            this.type = plasticType.LDPE;
-            break;
+                this.type = plasticType.LDPE;
+                break;
             case 5:
-            this.type = plasticType.PP;
-            break;
+                this.type = plasticType.PP;
+                break;
             case 6:
-            this.type = plasticType.PS;
-            break;
+                this.type = plasticType.PS;
+                break;
             case 7:
-            this.type = plasticType.OTHER;
-            break;
+                this.type = plasticType.OTHER;
+                break;
         }
     }
     /**
@@ -157,7 +157,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
+    public boolean attemptBin(Material material, Field[] fields) throws failedBinException {
         boolean binable = false;
         for (Field f : fields) {
             System.out.println(f.getName());
@@ -171,7 +171,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     }
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
+    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException {
         boolean centerable = false;
         for (Field f : fields) {
             System.out.println(f.getName());
@@ -185,7 +185,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
         boolean disposable = false;
         for (Field f : fields) {
             System.out.println(f.getName());

@@ -46,7 +46,7 @@ public class Glass extends Material implements Binnable, Disposable {
      * Sets whether {@link Glass} is tempered and updates impact score.
      * @param isTempered T/F - is {@link Glass} tempered?
      */
-    public void setTempered(boolean isTempered){
+    public void setTempered(boolean isTempered) {
         this.isTempered = isTempered;
         if(isTempered)
             super.setImpactScore(0.35);
@@ -70,8 +70,8 @@ public class Glass extends Material implements Binnable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
-        boolean binnable = false;
+    public boolean attemptBin(Material material, Field[] fields) throws failedBinException {
+        boolean binnable = true;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("isTempered")) {
@@ -84,7 +84,7 @@ public class Glass extends Material implements Binnable, Disposable {
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
         boolean disposable = false;
         for (Field f : fields) {
             f.getName();

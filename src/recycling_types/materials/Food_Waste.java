@@ -118,8 +118,8 @@ public class Food_Waste extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
-        boolean disposable = false;
+    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
+        boolean disposable = true;
         for (Field f : fields) {
             f.getName();
             if (f.getName().equals("isOrganic")) {
@@ -132,7 +132,7 @@ public class Food_Waste extends Material implements Compostable, Disposable {
     }
 
     @Override
-    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException{
+    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException {
         boolean compostable = false;
         for (Field f : fields) {
             f.getName();

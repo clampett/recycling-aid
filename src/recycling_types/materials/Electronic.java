@@ -23,7 +23,6 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     /**Whether the electronic has a battery*/
     private boolean hasBattery;
     
-
     /**
      * Some possible items that electronic could be.
      * @see src.recycling_types.Material Material
@@ -63,7 +62,7 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
 
     /**
      * Gets whether {@link Electronic} has a battery.
-     * @retur {@link Electronic} battery
+     * @return {@link Electronic} battery
      */
     public boolean getHasBattery() {
         return hasBattery;
