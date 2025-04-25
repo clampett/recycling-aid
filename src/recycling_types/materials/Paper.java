@@ -62,55 +62,31 @@ public class Paper extends Material implements Binnable, Compostable, Disposable
      * Returns whether the {@link Paper} has ink or not, as a String.
      * @return {@link Paper} ink status
      */
-    public String hasInk() {
-        if(this.hasInk)
-            return "This paper has ink";
-        else
-            return "This paper does not have ink";
+    public boolean hasInk() {
+        return hasInk;
     }
 
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields) throws failedBinException {
-        boolean binnable = true;
-        for (Field f : fields) {
-            System.out.println(f.getName());
-            if (f.getName().equals("hasInk")) {
-                if(f.toString().contains("false")) {
-                    binnable = true;
-                }
-            }
+    public boolean attemptBin(Material material) throws failedBinException{
+        if(((Paper)material).hasInk()){
+            return false;
         }
-        return binnable;
+        else return true;
     }
 
     @Override
-    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException {
-        boolean compostable = true;
-        for (Field f : fields) {
-            System.out.println(f.getName());
-            if (f.getName().equals("hasInk")) {
-                if(f.toString().contains("false") ) {
-                    compostable = true;
-                }
-            }
+    public boolean attemptCompost(Material material) throws failedCompostException{
+        if(((Paper)material).hasInk()){
+            return false;
         }
-        return compostable;
+        else return true;
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
-        boolean disposable = false;
-        for (Field f : fields) {
-            System.out.println(f.getName());
-            if (f.getName().equals("hasInk")) {
-                if(f.toString().contains("true")) {
-                    disposable = true;
-                }
-            }
-        }
-        return disposable;
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        return true;
     }
 
     //Material superclass methods

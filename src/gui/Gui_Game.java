@@ -151,7 +151,7 @@ public class Gui_Game {
 
             if(currentMaterial instanceof Donatable){
                 try{
-                    if(((Donatable)currentMaterial).attemptDonate(currentMaterial, currentMaterialFields)) // Attempt to donate the material
+                    if(((Donatable)currentMaterial).attemptDonate(currentMaterial)) // Attempt to donate the material
                     {
                     Gui.L.info("Material donated successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Donated " + currentMaterial.getClass().getSimpleName()); // Update the success status text
@@ -160,7 +160,7 @@ public class Gui_Game {
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    
                     }
                 } catch (failedDonateException ex){
                     Gui.L.warning("Failed to donate material: " + ex.getMessage()); // Log the error message
@@ -172,13 +172,13 @@ public class Gui_Game {
             }
             
         });
-
+        
         disposableButton.setOnAction(e -> {
             Gui.L.info("Disposeable button pressed");
             // Logic for disposeable button goes here
             if(currentMaterial instanceof Disposable){
                 try{
-                    if(((Disposable)currentMaterial).attemptDispose(currentMaterial, currentMaterialFields)) // Attempt to dispose the material
+                    if(((Disposable)currentMaterial).attemptDispose(currentMaterial)) // Attempt to dispose the material
                     {
                     Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
@@ -187,10 +187,11 @@ public class Gui_Game {
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    
                     }
                 } catch(failedDisposeException ex){
                     Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                    successStatusText.setText("Recycle Success Status: Failed to dispose " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             }
             else{
@@ -205,7 +206,7 @@ public class Gui_Game {
             // Logic for compostable button goes here
             if(currentMaterial instanceof Compostable){
                 try{
-                    if(((Compostable)currentMaterial).attemptCompost(currentMaterial, currentMaterialFields)) // Attempt to compost the material
+                    if(((Compostable)currentMaterial).attemptCompost(currentMaterial)) // Attempt to compost the material
                     {
                     Gui.L.info("Material composted successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Composted " + currentMaterial.getClass().getSimpleName()); // Update the success status text
@@ -214,10 +215,11 @@ public class Gui_Game {
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    
                     }
                 } catch(failedCompostException ex){
                     Gui.L.warning("Failed to compost material: " + ex.getMessage()); // Log the error message
+                    successStatusText.setText("Recycle Success Status: Failed to compost " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             } else{
                 Gui.L.warning("Material is not compostable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
@@ -230,7 +232,7 @@ public class Gui_Game {
             // Logic for centerable button goes here 
             if(currentMaterial instanceof Centerable){
                 try{
-                    if(((Centerable)currentMaterial).attemptCenter(currentMaterial, currentMaterialFields)) // Attempt to center the material
+                    if(((Centerable)currentMaterial).attemptCenter(currentMaterial)) // Attempt to center the material
                     {
                     Gui.L.info("Material centered successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
@@ -239,7 +241,7 @@ public class Gui_Game {
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    
                     }
 
                 } catch(failedCenterException ex){
@@ -258,7 +260,7 @@ public class Gui_Game {
             // Logic for binnable button goes here
             if(currentMaterial instanceof Binnable){
                 try{
-                    if(((Binnable)currentMaterial).attemptBin(currentMaterial, currentMaterialFields))// Attempt to bin the material
+                    if(((Binnable)currentMaterial).attemptBin(currentMaterial))// Attempt to bin the material
                     {
                     Gui.L.info("Material binned successfully: " + currentMaterial.getClass().getSimpleName());
                     successStatusText.setText("Recycle Success Status: Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
@@ -267,7 +269,7 @@ public class Gui_Game {
                     currentMaterial = getRandomMaterial(); // Get a new random material
                     randomizeMaterialFields(currentMaterial); // Randomize the material fields
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-                    currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+                    
                     }
                 } catch(failedBinException ex){
                     Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
@@ -295,10 +297,14 @@ public class Gui_Game {
     private static void startGame(){
         Gui.L.info("Starting game...");
         // Logic to start the game goes here
+
+        /*
+         * 
+         */
         currentMaterial = getRandomMaterial(); // Get a random material
         randomizeMaterialFields(currentMaterial); // Randomize the material fields
         currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
-        currentMaterialFields = currentMaterialClass.getDeclaredFields(); // Get the fields of the current material class
+        
 
         Gui.L.info("Recieved material: " + currentMaterial.getClass().getSimpleName()); // Log the material name
         
@@ -343,7 +349,7 @@ public class Gui_Game {
                     ((Paper) m).setHasInk(false); // Set whether the paper has ink or not
                 }
                 Gui.L.info("Randomized paper fields: " + ((Paper) m).hasInk()); // Log the randomized paper fields
-                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Properties: " + ((Paper) m).hasInk()); // Update the material text
+                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Has ink:" + ((Paper) m).hasInk()); // Update the material text
                 break;
 
             case "Metal":
@@ -362,8 +368,8 @@ public class Gui_Game {
                 } else {
                     ((Glass) m).setTempered(true); // Set tempered to true
                 }
-                Gui.L.info("Randomized glass fields: " + ((Glass) m).glassIsTempered()); // Log the randomized glass fields
-                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Properties: " + ((Glass) m).glassIsTempered()); // Update the material text
+                Gui.L.info("Randomized glass fields: " + ((Glass) m).getIsTempered()); // Log the randomized glass fields
+                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Tempered: " + ((Glass) m).getIsTempered()); // Update the material text
                 break;
             case "Wood":
                 int randomWoodContamNum = (int) (Math.random()*2 + 1); // Randomize between 1 and 2
@@ -381,7 +387,7 @@ public class Gui_Game {
                     ((Wood) m).setContaminated(true); // Set contaminated to true
                 }
                 Gui.L.info("Randomized wood fields: " + ((Wood) m).getManufactured() + ((Wood) m).getContaminated()); // Log the randomized wood fields
-                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Properties : " + " Manufactured: " + ((Wood) m).getManufactured() + ", Contaminated: " + ((Wood) m).getContaminated()); // Update the material text
+                materialText.setText("Material: " + m.getClass().getSimpleName() + ", " + " Manufactured: " + ((Wood) m).getManufactured() + ", Contaminated: " + ((Wood) m).getContaminated()); // Update the material text
 
                 break;
             case "Food_Waste":
@@ -394,7 +400,7 @@ public class Gui_Game {
                     ((Food_Waste) m).setOrganic(true); // Set organic to true
                 }
                 Gui.L.info("Randomized food waste fields: " + ((Food_Waste) m).getIsOrganic() + ", " + ((Food_Waste) m).getDecompositionTime()); // Log the randomized food waste fields
-                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Properties: " + "Organic: " + ((Food_Waste) m).getIsOrganic() + ", Decomposition Time: " + ((Food_Waste) m).getDecompositionTime() + " days"); // Update the material text
+                materialText.setText("Material: " + m.getClass().getSimpleName() + ", " + "Organic: " + ((Food_Waste) m).getIsOrganic()); // Update the material text
                 break;
             case "Fabric":
                 int randomFabricIsDyed = (int)(Math.random() * 2 + 1); // Randomize between 1 and 2
@@ -413,7 +419,7 @@ public class Gui_Game {
                 }
 
                 Gui.L.info("Randomized fabric fields: " + ((Fabric) m).isDyed() + ", " + ((Fabric) m).isHarmfulDyed()); // Log the randomized fabric fields
-                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Properties: " + "Dyed: " + ((Fabric) m).isDyed() + ", Harmful Dyes: " + ((Fabric) m).isHarmfulDyed()); // Update the material text
+                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Harmful Dyes: " + ((Fabric) m).isHarmfulDyed()); // Update the material text
                 break;
             case "Electronic":
                 int randomHasBatery = (int)(Math.random() * 2 + 1); // Randomize between 1 and 2
@@ -425,7 +431,7 @@ public class Gui_Game {
                 }
 
                 Gui.L.info("Randomized electronic fields: " + ((Electronic) m).getHasBattery()); // Log the randomized electronic fields
-                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Properties: " + "Has Battery: " + ((Electronic) m).getHasBattery()); // Update the material text
+                materialText.setText("Material: " + m.getClass().getSimpleName() + ", " + "Has Battery: " + ((Electronic) m).getHasBattery()); // Update the material text
                 break;
             case "Cardboard":
                 int randomCardboardSoiled = (int)(Math.random() * 2 + 1); // Randomize between 1 and 2
@@ -437,7 +443,7 @@ public class Gui_Game {
                 }
 
                 Gui.L.info("Randomized cardboard fields: " + ((Cardboard) m).getIsSoiled()); // Log the randomized cardboard fields
-                materialText.setText("Material: " + m.getClass().getSimpleName() + ", Properties: " + "Soiled: " + ((Cardboard) m).getIsSoiled()); // Update the material text
+                materialText.setText("Material: " + m.getClass().getSimpleName() + ", " + "Soiled: " + ((Cardboard) m).getIsSoiled()); // Update the material text
                 break;
             default:
                 Gui.L.warning("Unknown material type: " + m.getClass().getSimpleName());

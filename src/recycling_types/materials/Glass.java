@@ -60,41 +60,31 @@ public class Glass extends Material implements Binnable, Disposable {
      * Gets whether {@link Glass} is tempered, as a String.
      * @return {@link Glass} tempering status
      */
-    public String glassIsTempered() {
-        if(this.isTempered)
-            return("This glass is tempered.");
+    public boolean getIsTempered() {
+        if(isTempered)
+            return true;
         else
-            return("This glass is not tempered.");
+            return false;
     }
 
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields) throws failedBinException {
-        boolean binnable = true;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("isTempered")) {
-                if(f.toString().contains("false")) {
-                    binnable = true;
-                }
-            }
+    public boolean attemptBin(Material material) throws failedBinException{
+        if(((Glass)material).getIsTempered() == true){
+            return false;
         }
-        return binnable;
+        else return true;
+        
+
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
-        boolean disposable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("isTempered")) {
-                if(f.toString().contains("true")) {
-                    disposable = true;
-                }
-            }
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        if(((Glass)material).getIsTempered() == true){
+            return true;
         }
-        return disposable;
+        else return false;
     }
 
 

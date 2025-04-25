@@ -15,6 +15,6 @@ public interface Binnable{
     //@Override
     //public boolean attemptRecycle(Material m);
     
-    public abstract boolean attemptBin(Material m, Field[] fields) throws failedBinException;
+    public abstract boolean attemptBin(Material m) throws failedBinException;
     
 }

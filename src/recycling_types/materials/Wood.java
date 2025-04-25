@@ -91,41 +91,27 @@ public class Wood extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException {
-        boolean compostable = true;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("manufactured")) {
-                if(f.toString().contains("true")) {
-                    compostable = false;
-                }
-            }
-            else if (f.getName().equals("contaminated")) {
-                if(f.toString().contains("true")) {
-                    compostable = false;
-                }
-            }
+    public boolean attemptCompost(Material material) throws failedCompostException{
+
+        if(((Wood)material).getContaminated() == true){
+            return false;
         }
-        return compostable;
+        else if(((Wood)material).getManufactured() == true){
+            return false;
+        }
+        else return true;
+
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
-        boolean disposable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("manufactured")) {
-                if(f.toString().contains("true")) {
-                    disposable = true;
-                }
-            }
-            else if (f.getName().equals("contaminated")) {
-                if(f.toString().contains("true")) {
-                    disposable = true;
-                }
-            }
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        if(((Wood)material).getContaminated() == true){
+            return true;
         }
-        return disposable;
+        else if(((Wood)material).getManufactured() == true){
+            return true;
+        }
+        else return false;
     }
     //Material superclass methods
 

@@ -118,32 +118,21 @@ public class Food_Waste extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
-        boolean disposable = true;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("isOrganic")) {
-                if(f.toString().contains("false")) {
-                    disposable = true;
-                }
-            }
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        if(((Food_Waste)material).getIsOrganic() == true){
+            return false;
         }
-        return disposable;
+        else return true;
     }
 
     @Override
-    public boolean attemptCompost(Material material, Field[] fields) throws failedCompostException {
-        boolean compostable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("isOrganic")) {
-                if(f.toString().contains("true")) {
-                    compostable = true;
-                }
-            }
+    public boolean attemptCompost(Material material) throws failedCompostException{
+        if(((Food_Waste)material).getIsOrganic() == true){
+            return true;
         }
-        return compostable;
+        else return false;
     }
+    
     //Material superclass methods
 
     @Override

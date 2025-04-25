@@ -96,46 +96,27 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material, Field[] fields) throws failedDonateException {
-        boolean donatable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("harmfulDyes")) {
-                if(f.toString().contains("false")) {
-                    donatable = true;
-                }
-                }
-            }
-        return donatable;
+    public boolean attemptDonate(Material material) throws failedDonateException{
+       if(((Fabric)material).isHarmfulDyed() == false){
+            return true;
+       }
+       else return false;
     }
 
     @Override
-
-    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException {
-        boolean donatable = true;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("harmfulDyes")) {
-                if(f.toString().contains("false")) {
-                    donatable = true;
-                }
-            }
-        }
-        return donatable;
+    public boolean attemptCenter(Material material) throws failedCenterException{
+        if(((Fabric)material).isHarmfulDyed() == false){
+            return true;
+       }
+       else return false;
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException {
-        boolean disposable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("harmfulDyes")) {
-                if(f.toString().contains("true")) {
-                    disposable = true;
-                }
-            }
-        }
-        return disposable;
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        if(((Fabric)material).isHarmfulDyed() == true){
+            return true;
+       }
+       else return false;
     }
 
     //Material superclass methods

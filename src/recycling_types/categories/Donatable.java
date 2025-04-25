@@ -13,7 +13,7 @@ import src.recycling_types.*;
  */
 public interface Donatable {
     
-    public abstract boolean attemptDonate(Material material, Field[] fields) throws failedDonateException;
+    public abstract boolean attemptDonate(Material material) throws failedDonateException;
 
     
 }
