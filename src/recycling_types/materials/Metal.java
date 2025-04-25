@@ -218,7 +218,7 @@ public class Metal extends Material implements Centerable, Disposable {
         if(((Metal)material).getMetalType().equals("Lead")){
             return true;
         }
-        else if(((Metal)material).getMetalType().equals("iron")){
+        else if(((Metal)material).getMetalType().equals("Iron")){
             return true;
         }
         else if(((Metal)material).getMetalType().equals("Titanium")){
