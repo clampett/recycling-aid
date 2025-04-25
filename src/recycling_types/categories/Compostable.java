@@ -14,6 +14,6 @@ import src.customExceptions.failedCompostException;
  */
 public interface Compostable {
     
-    public abstract boolean attemptCompost(Material m, Field[] fields) throws failedCompostException;
+    public abstract boolean attemptCompost(Material m) throws failedCompostException;
 
 }

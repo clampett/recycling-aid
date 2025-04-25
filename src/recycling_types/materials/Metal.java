@@ -213,33 +213,39 @@ public class Metal extends Material implements Centerable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
-        boolean centerable = false;
-        for (Field f : fields) {
-            f.getName();
-            //Aluminum, steel, copper, brass, bronze, tin
-            if (f.getName().equals("type")) {
-                if(f.toString().contains("Aluminum") || f.toString().contains("Steel") || f.toString().contains("Copper") || f.toString().contains("Brass") || f.toString().contains("Bronze") || f.toString().contains("Tin")) {
-                    centerable = true;
-                }
-            }
+    //Aluminum, steel, copper, brass, bronze, and tin can be centered
+    public boolean attemptCenter(Material material) throws failedCenterException{
+        if(((Metal)material).getMetalType().equals("Lead")){
+            return true;
         }
-        return centerable;
+        else if(((Metal)material).getMetalType().equals("iron")){
+            return true;
+        }
+        else if(((Metal)material).getMetalType().equals("Titanium")){
+            return true;
+        }
+        else if(((Metal)material).getMetalType().equals("Nickel")){
+            return true;
+        }
+        else return false;
     }
 
     @Override
-    public boolean attemptDispose(Material mateiral, Field[] fields) throws failedDisposeException{
-        boolean disposable = true;
-        for (Field f : fields) {
-            f.getName();
-            //Aluminum, steel, copper, brass, bronze, tin
-            if (f.getName().equals("type")) {
-                if(f.toString().contains("Aluminum") || f.toString().contains("Steel") || f.toString().contains("Copper") || f.toString().contains("Brass") || f.toString().contains("Bronze") || f.toString().contains("Tin")) {
-                    disposable = false;
-                }
-            }
+    //Aluminum, steel, copper, brass, bronze, tin can be disposed
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        if(((Metal)material).getMetalType().equals("Lead")){
+            return false;
         }
-        return disposable;
+        else if(((Metal)material).getMetalType().equals("iron")){
+            return false;
+        }
+        else if(((Metal)material).getMetalType().equals("Titanium")){
+            return false;
+        }
+        else if(((Metal)material).getMetalType().equals("Nickel")){
+            return false;
+        }
+        else return true;
     }
 
     //Material superclass methods

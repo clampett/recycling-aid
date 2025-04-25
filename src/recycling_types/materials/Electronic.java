@@ -72,36 +72,24 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material, Field[] fields) throws failedDonateException{
+    public boolean attemptDonate(Material material) throws failedDonateException{
         return true; // Example: Always allow donation
     }
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
-        boolean centerable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("hasBattery")) {
-                if(f.toString().contains("false")) {
-                    centerable = true;
-                }
-                }
-            }
-        return centerable;
+    public boolean attemptCenter(Material material) throws failedCenterException{
+        if(((Electronic)material).getHasBattery() == true){
+            return false;
+        }
+        else return true;
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
-        boolean disposable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("hasBattery")) {
-                if(f.toString().contains("true")) {
-                    disposable = true;
-                }
-                }
-            }
-        return disposable;
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        if(((Electronic)material).getHasBattery() == true){
+            return false;
+        }
+        else return true;
     }
 
     //Material superclass methods

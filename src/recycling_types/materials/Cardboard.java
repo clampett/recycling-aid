@@ -69,45 +69,27 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
-        boolean binable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("soiled")) {
-                if(f.toString().contains("false")) {
-                    binable = true;
-                }
-                }
-            }
-        return binable;
+    public boolean attemptBin(Material material) throws failedBinException{
+        if(((Cardboard)material).getIsSoiled() == true){
+            return false;
+        }
+        else return true;
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
-        boolean disposable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("soiled")) {
-                if(f.toString().contains("true")) {
-                    disposable = true;
-                }
-                }
-            }
-        return disposable;
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        if(((Cardboard)material).getIsSoiled() == true){
+            return true;
+        }
+        else return false;
     }
 
     @Override
-    public boolean attemptRecycle(Material material, Field[] fields) throws failedRecycleException{
-        boolean recyclable = false;
-        for (Field f : fields) {
-            f.getName();
-            if (f.getName().equals("soiled")) {
-                if(f.toString().contains("false")) {
-                    recyclable = true;
-                }
-                }
-            }
-        return recyclable;
+    public boolean attemptRecycle(Material material) throws failedRecycleException{
+        if(((Cardboard)material).getIsSoiled() == true){
+            return false;
+        }
+        else return true;
     }
     
     //Material superclass methods

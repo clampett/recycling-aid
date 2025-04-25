@@ -157,45 +157,42 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material, Field[] fields) throws failedBinException{
-        boolean binable = false;
-        for (Field f : fields) {
-            System.out.println(f.getName());
-            if (f.getName().equals("plasticNum")) {
-                if(f.toString().contains("1") || f.toString().contains("2") || f.toString().contains("5") ) {
-                    binable = true;
-                }
-            }
+    //1, 2, and 5 are binnable
+    public boolean attemptBin(Material material) throws failedBinException{
+        if(((Plastic)material).getPlasticType() == plasticType.PP){
+            return true;
         }
-        return binable;
+        else if(((Plastic)material).getPlasticType() == plasticType.PET){
+            return true;
+        }
+        else if(((Plastic)material).getPlasticType() == plasticType.HDPE){
+            return true;
+        }
+        else return false;
     }
 
     @Override
-    public boolean attemptCenter(Material material, Field[] fields) throws failedCenterException{
-        boolean centerable = false;
-        for (Field f : fields) {
-            System.out.println(f.getName());
-            if (f.getName().equals("plasticNum")) {
-                if(f.toString().contains("4") ) {
-                    centerable = true;
-                }
-            }
+    //4 is centerable
+    public boolean attemptCenter(Material material) throws failedCenterException{
+        if(((Plastic)material).getPlasticType() == plasticType.LDPE){
+            return true;
         }
-        return centerable;
+        else return false;
     }
 
     @Override
-    public boolean attemptDispose(Material material, Field[] fields) throws failedDisposeException{
-        boolean disposable = false;
-        for (Field f : fields) {
-            System.out.println(f.getName());
-            if (f.getName().equals("plasticNum")) {
-                if(f.toString().contains("3") || f.toString().contains("6") ||f.toString().contains("7")   ) {
-                    disposable = true;
-                }
-            }
+    //3, 6, and 7 are disposable
+    public boolean attemptDispose(Material material) throws failedDisposeException{
+        if(((Plastic)material).getPlasticType() == plasticType.PVC){
+            return true;
         }
-        return disposable;
+        else if(((Plastic)material).getPlasticType() == plasticType.PS){
+            return true;
+        }
+        else if(((Plastic)material).getPlasticType() == plasticType.OTHER){
+            return true;
+        }
+        else return false;
     }
     
     //Material superclass methods
