@@ -89,7 +89,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
      * Gets whether {@link Fabric} has harmful dyes.
      * @return {@link Fabric} harmfulDyed
      */
-    public boolean isHarmfulDyed(){
+    public boolean isHarmfulDyed() {
         return harmfulDyes;
     }
 

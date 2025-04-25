@@ -46,7 +46,7 @@ public class Glass extends Material implements Binnable, Disposable {
      * Sets whether {@link Glass} is tempered and updates impact score.
      * @param isTempered T/F - is {@link Glass} tempered?
      */
-    public void setTempered(boolean isTempered){
+    public void setTempered(boolean isTempered) {
         this.isTempered = isTempered;
         if(isTempered)
             super.setImpactScore(0.35);

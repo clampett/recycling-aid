@@ -62,26 +62,26 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
     public void setPlasticType(int plasticNum) {
         switch(plasticNum) {
             case 1:
-            this.type = plasticType.PET;
-            break;
+                this.type = plasticType.PET;
+                break;
             case 2:
-            this.type = plasticType.HDPE;
-            break;
+                this.type = plasticType.HDPE;
+                break;
             case 3:
-            this.type = plasticType.PVC;
-            break;
+                this.type = plasticType.PVC;
+                break;
             case 4:
-            this.type = plasticType.LDPE;
-            break;
+                this.type = plasticType.LDPE;
+                break;
             case 5:
-            this.type = plasticType.PP;
-            break;
+                this.type = plasticType.PP;
+                break;
             case 6:
-            this.type = plasticType.PS;
-            break;
+                this.type = plasticType.PS;
+                break;
             case 7:
-            this.type = plasticType.OTHER;
-            break;
+                this.type = plasticType.OTHER;
+                break;
         }
     }
     /**
