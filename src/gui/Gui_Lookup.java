@@ -485,11 +485,12 @@ public class Gui_Lookup {
         title.setFont(Font.font(Gui.TITLE_FONT, 45));
     
         // Radiobuttons
+        List<Class<? extends Material>> materials = Material.createAllMaterials();
         ToggleGroup matGroup = new ToggleGroup();
-        RadioButton[] materialSelectBtns = new RadioButton[Material.ALL_MATERIALS.size()];
+        RadioButton[] materialSelectBtns = new RadioButton[materials.size()];
     
         for (int i = 0; i < materialSelectBtns.length; i++) {
-            materialSelectBtns[i] = new RadioButton(Material.ALL_MATERIALS.get(i).getSimpleName().replaceAll("_", " "));
+            materialSelectBtns[i] = new RadioButton(materials.get(i).getSimpleName().replaceAll("_", " "));
             materialSelectBtns[i].setToggleGroup(matGroup);
             materialSelectBtns[i].setFont(Font.font(Gui.BODY_FONT, 16));
         }

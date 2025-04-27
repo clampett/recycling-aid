@@ -45,11 +45,6 @@ public abstract class Material implements Serializable {
     */
     public static final String[] DISPLAY_HEADERS = {"Name", "Category", "Impact Score", "Special Characteristics", "Possible Items"};
 
-    /**
-     * A {@code List} of all possible {@link Material Materials}.
-     */
-    public static final List<Class<? extends Material>> ALL_MATERIALS = createAllMaterials();
-
     public Material(double impact, Set<String> possibleItems) {
         this.name = this.getClass().getSimpleName().replaceAll("_", " ");
         this.categories = setCategories();
@@ -154,7 +149,7 @@ public abstract class Material implements Serializable {
      * @see src.gui.Gui_Info Gui_Info
      * @see src.gui.Gui_Game Gui_Game
      */
-    private static List<Class<? extends Material>> createAllMaterials() {
+    public static List<Class<? extends Material>> createAllMaterials() {
         List<Class<? extends Material>> materials = new ArrayList<>();
 
         materials.add(Cardboard.class);

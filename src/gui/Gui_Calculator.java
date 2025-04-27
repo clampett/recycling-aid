@@ -171,6 +171,8 @@ public class Gui_Calculator {
      * @param mainStage the main stage from {@link Gui}
      */
     protected static void setUpAddScene(Stage mainStage) {
+        List<Class<? extends Material>> ALL_MATERIALS = Material.createAllMaterials();
+
         //Labels
         Text title = new Text("Add To Database");
 
@@ -178,10 +180,10 @@ public class Gui_Calculator {
 
         //Radiobuttons
         ToggleGroup matGroup = new ToggleGroup();
-        RadioButton[] materialSelectBtns = new RadioButton[Material.ALL_MATERIALS.size()];
+        RadioButton[] materialSelectBtns = new RadioButton[ALL_MATERIALS.size()];
 
         for(int i = 0; i < materialSelectBtns.length; i++) {
-            materialSelectBtns[i] = new RadioButton(Material.ALL_MATERIALS.get(i).getSimpleName().replaceAll("_", " "));
+            materialSelectBtns[i] = new RadioButton(ALL_MATERIALS.get(i).getSimpleName().replaceAll("_", " "));
             materialSelectBtns[i].setToggleGroup(matGroup);
             materialSelectBtns[i].setFont(Font.font(Gui.BODY_FONT, 16));
         }

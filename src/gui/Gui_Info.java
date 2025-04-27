@@ -207,7 +207,7 @@ public class Gui_Info {
     private static String[][] createMaterialData() {
         List<String[]> data = new ArrayList<>();
         List<Material> materials = new ArrayList<>();
-        List<Class<? extends Material>> b = Material.ALL_MATERIALS;
+        List<Class<? extends Material>> b = Material.createAllMaterials();
 
         for(Class<? extends Material> c : b) {
             try {
