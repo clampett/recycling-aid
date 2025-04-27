@@ -1,3 +1,5 @@
+package src;
+
 public class SimulationResult{
     int total, recycled, trashed;
 
