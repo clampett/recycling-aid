@@ -71,6 +71,11 @@ public class Impact_Calculator {
         return allItems;
     }
 
+    
+    public Map<String, Material> getAllItems(){
+        return allItems;
+    }
+
     /**
      * Checks if given item is present in the allItems {@code HashMap}
      * 
