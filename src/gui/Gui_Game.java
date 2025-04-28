@@ -5,61 +5,63 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Date;
+import java.util.List;
 import java.lang.reflect.Field;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import src.customExceptions.failedBinException;
-import src.customExceptions.failedCenterException;
-import src.customExceptions.failedCompostException;
-import src.customExceptions.failedDisposeException;
-import src.customExceptions.failedDonateException;
-import src.recycling_types.Material;
-import src.recycling_types.categories.Binnable;
-import src.recycling_types.categories.Centerable;
-import src.recycling_types.categories.Compostable;
-import src.recycling_types.categories.Disposable;
-import src.recycling_types.categories.Donatable;
-import src.recycling_types.materials.Cardboard;
-import src.recycling_types.materials.Electronic;
-import src.recycling_types.materials.Fabric;
-import src.recycling_types.materials.Food_Waste;
-import src.recycling_types.materials.Glass;
-import src.recycling_types.materials.Metal;
-import src.recycling_types.materials.Paper;
-import src.recycling_types.materials.Plastic;
-import src.recycling_types.materials.Wood;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import src.recycling_types.Material;
+import src.recycling_types.categories.*;
+import src.recycling_types.materials.*;
+import src.customExceptions.*;
 
-
-
+/**
+ * {@link Gui_Game} is apart of Recycling Aid's {@link Gui}.
+ * It creates and handles all fo the {@code Scenes} and logic apart of the 
+ * * game portion of the project. The game itself works like this:
+ * <ol>
+ *      <li>A random {@link src.recycling_types.Material Material} is generated, with random fields.
+ *      <li>The user selects what the category that they think the random Material is apart of.
+ *      <li>Repeat until the user selects out.
+ * </ol>
+ * 
+ * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
+ * @version 4/28/2025
+ */
 public class Gui_Game {
-
-
     // Create buttons as instances
     // Accessible throughout the class
-    private static Button startButton = new Button("Start Game"); // Starts the game
-    private static Button exitButton = new Button("Exit Game"); // Closes the program
+    private static Button startButton = Gui.createBackButton(); // Starts the game
+    private static Button exitButton = Gui.createBackButton(); // Closes the program
     
     private static Button donatableButton = new Button("Donateable"); // Donateable button
     private static Button disposableButton = new Button("Disposeable"); // Disposeable button
     private static Button compostableButton = new Button("Compostable"); // Compostable button
     private static Button centerableButton = new Button("Centerable"); // Centerable button
     private static Button binnableButton = new Button("Binnable"); // Binnable button
-    private static Text materialText = new Text("Material: START GAME"); // Placeholder text
-
+    private static Text materialText = new Text("START GAME"); // Placeholder text
+    private static Text successStatusText = new Text();
 
     private static ArrayList<Button> recycleButtons = new ArrayList<>(Arrays.asList(donatableButton, disposableButton, compostableButton, centerableButton, binnableButton)); // List of all recycle buttons
     private static Material currentMaterial = null; // Current material to be recycled
     private static Class<? extends Material> currentMaterialClass = null;
     private static Field[] currentMaterialFields = null;
 
+    /**
+     * Sets up the game {@code Scene}. When the user selected the start button,
+     * the game starts by generating random {@link src.recycling_types.Material Materials}
+     * and activating the category buttons.
+     * 
+     * @param mainStage the main stage from {@link Gui}
+     * @return Game {@code Scene}
+     */
     protected static Scene setUpGameScene(Stage mainStage) {
         Gui.L.info("Setting up game scene");
 
@@ -67,33 +69,21 @@ public class Gui_Game {
         Text titleText = new Text("Recycling game!");
         titleText.setFont(new Font("Impact", 30));
         titleText.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
-        titleText.setTranslateX(300);
-        titleText.setTranslateY(50);
+
+        Text materialTextI = new Text("MATERIAL: ");
+        materialTextI.setFont(new Font("Impact", 23));
+        materialTextI.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
 
         // Create text that presents the material and its fields
-        materialText.setFont(new Font("Impact", 23));
-
-        materialText.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
-        materialText.setTranslateX(300);
-        materialText.setTranslateY(150);
-        
-        // Create the game scene
-        VBox v = new VBox();
-
-        // Set the size of the Vbox
-        v.setPrefSize(1100,700);
-        v.setStyle(Gui.APP_CSS);
-        v.autosize();
-        v.getChildren().add(titleText);
-        v.getChildren().add(materialText); // Add the material text to the vbox
-        
+        materialText.setFont(new Font(Gui.BODY_FONT, 18));
+     
         // Create text that shows whether a material was succefully recycled when failedException is thrown
-        Text successStatusText = new Text("Recycle Success Status: ");
-        successStatusText.setFont(new Font("Impact", 23));
-        successStatusText.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
-        successStatusText.setTranslateX(300);
-        successStatusText.setTranslateY(350);
-        v.getChildren().add(successStatusText); // Add text to vbox
+        Text successStatusI = new Text("Recycle Success Status: ");
+        successStatusI.setFont(new Font("Impact", 23));
+        successStatusI.setStyle("-fx-fill: white; -fx-stroke: black; -fx-stroke-width: 1;");
+
+        successStatusText.setFont(new Font(Gui.BODY_FONT, 18));
+
 
         // Set button Icons and their sizes
         ImageView donateableIcon = new ImageView("data/images/donatable.png");
@@ -121,16 +111,16 @@ public class Gui_Game {
         binnableIcon.setFitHeight(64);
         binnableButton.setGraphic(binnableIcon);
 
-        // Set button locations and space them out
-        startButton.setTranslateX(0);
-        startButton.setTranslateY(20);
-        exitButton.setTranslateX(1030);
-        exitButton.setTranslateY(0);
 
-        disposableButton.setTranslateY(10);
-        compostableButton.setTranslateY(20);
-        centerableButton.setTranslateY(30);
-        binnableButton.setTranslateY(40);
+        startButton.setText("Start Game");
+        exitButton.setText("Exit Game");
+        startButton.setMinWidth(Gui.BIGGER_BUTTON_WIDTH);
+        exitButton.setMinWidth(Gui.BIGGER_BUTTON_WIDTH);
+
+        recycleButtons.forEach(b -> {
+                                b.setStyle(Gui.BUTTON_CSS);
+                                b.setDisable(true);
+        });
 
         // Give buttons functionality
         startButton.setOnAction(e -> {
@@ -154,7 +144,7 @@ public class Gui_Game {
                     if(((Donatable)currentMaterial).attemptDonate(currentMaterial)) // Attempt to donate the material
                     {
                     Gui.L.info("Material donated successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Donated " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Donated " + currentMaterial.getClass().getSimpleName()); // Update the success status text
 
                     //After successfully donating the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
@@ -164,11 +154,11 @@ public class Gui_Game {
                     }
                 } catch (failedDonateException ex){
                     Gui.L.warning("Failed to donate material: " + ex.getMessage()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Failed to donate " + currentMaterial.getClass().getSimpleName());
+                    successStatusText.setText("Failed to donate " + currentMaterial.getClass().getSimpleName());
                 }
             } else {
                 Gui.L.warning("Material is not donateable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
-                successStatusText.setText("Recycle Success Status: Material is not donateable");
+                successStatusText.setText("Material is not donateable");
             }
             
         });
@@ -181,7 +171,7 @@ public class Gui_Game {
                     if(((Disposable)currentMaterial).attemptDispose(currentMaterial)) // Attempt to dispose the material
                     {
                     Gui.L.info("Material disposed successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Disposed " + currentMaterial.getClass().getSimpleName()); // Update the success status text
 
                     //After successfully disposing the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
@@ -191,12 +181,12 @@ public class Gui_Game {
                     }
                 } catch(failedDisposeException ex){
                     Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Failed to dispose " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Failed to dispose " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             }
             else{
                 Gui.L.warning("Material is not disposable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
-                successStatusText.setText("Recycle Success Status: Material is not disposable");
+                successStatusText.setText("Material is not disposable");
             }
             
         });
@@ -209,7 +199,7 @@ public class Gui_Game {
                     if(((Compostable)currentMaterial).attemptCompost(currentMaterial)) // Attempt to compost the material
                     {
                     Gui.L.info("Material composted successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Composted " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Composted " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                     
                     //After successfully composting the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
@@ -219,11 +209,11 @@ public class Gui_Game {
                     }
                 } catch(failedCompostException ex){
                     Gui.L.warning("Failed to compost material: " + ex.getMessage()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Failed to compost " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Failed to compost " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             } else{
                 Gui.L.warning("Material is not compostable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
-                successStatusText.setText("Recycle Success Status: Material is not compostable");
+                successStatusText.setText("Material is not compostable");
             }
         });
 
@@ -235,7 +225,7 @@ public class Gui_Game {
                     if(((Centerable)currentMaterial).attemptCenter(currentMaterial)) // Attempt to center the material
                     {
                     Gui.L.info("Material centered successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Centered " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                     
                     //After successfully centering the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
@@ -246,11 +236,11 @@ public class Gui_Game {
 
                 } catch(failedCenterException ex){
                     Gui.L.warning("Failed to center material: " + ex.getMessage()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Failed to center " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Failed to center " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             } else{
                 Gui.L.warning("Material is not centerable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
-                successStatusText.setText("Recycle Success Status: Material is not centerable"); // Update the success status text
+                successStatusText.setText("Material is not centerable"); // Update the success status text
             }
             
         });
@@ -263,7 +253,7 @@ public class Gui_Game {
                     if(((Binnable)currentMaterial).attemptBin(currentMaterial))// Attempt to bin the material
                     {
                     Gui.L.info("Material binned successfully: " + currentMaterial.getClass().getSimpleName());
-                    successStatusText.setText("Recycle Success Status: Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Binned " + currentMaterial.getClass().getSimpleName()); // Update the success status text
 
                     //After successfully binning the material, we need to get a new random material
                     currentMaterial = getRandomMaterial(); // Get a new random material
@@ -273,39 +263,61 @@ public class Gui_Game {
                     }
                 } catch(failedBinException ex){
                     Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
+                    successStatusText.setText("Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             
             }else{
                     Gui.L.warning("Material is not binnable: " + currentMaterial.getClass().getSimpleName()); // Log the error message
-                    successStatusText.setText("Recycle Success Status: Material is not binnable"); // Update the success status text
+                    successStatusText.setText("Material is not binnable"); // Update the success status text
             }
             
         });
+        
+        //Layout Managers
+        HBox title = new HBox(titleText);
+        title.setAlignment(Pos.CENTER);
 
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        HBox controls = new HBox(startButton, spacer, exitButton);
+
+        VBox recycleControls = new VBox(10);
+        recycleControls.getChildren().addAll(recycleButtons);
+
+        HBox materialTextBox = new HBox(5, materialTextI, materialText);
+        HBox statusTextBox = new HBox(5, successStatusI, successStatusText);
+
+        VBox texts = new VBox(20, materialTextBox, statusTextBox);
+
+        HBox middle = new HBox(10, recycleControls, texts);
+
+
+        // Create the game scene
+        VBox v = new VBox(10);
+
+        // Set the size of the Vbox
+        v.setPrefSize(1100,700);
+        v.setStyle(Gui.APP_CSS);
+        v.autosize();
 
         // Add buttons to the Vbox
-        v.getChildren().addAll(startButton, exitButton, donatableButton, disposableButton, compostableButton, centerableButton, binnableButton);
-
-        // Disable buttons until the game starts
-        recycleButtons.forEach(b -> b.setDisable(true)); // Disable all recycle buttons
+        v.getChildren().addAll(title, controls, middle);
 
         Scene gameScene = new Scene(v);
         return gameScene;
     }
 
+    /**
+     * Starts up game by generating random {@link src.recycling_types.Material Materials}
+     * and activating the category buttons.
+     */
     private static void startGame(){
         Gui.L.info("Starting game...");
-        // Logic to start the game goes here
 
-        /*
-         * 
-         */
         currentMaterial = getRandomMaterial(); // Get a random material
         randomizeMaterialFields(currentMaterial); // Randomize the material fields
         currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
         
-
         Gui.L.info("Recieved material: " + currentMaterial.getClass().getSimpleName()); // Log the material name
         
         // Disable and enable buttons based on the game state
@@ -313,6 +325,9 @@ public class Gui_Game {
         recycleButtons.forEach(b-> b.setDisable(false)); // Enable all recycle buttons
     }
 
+    /**
+     * Ends game by setting everything to null.
+     */
     private static void endGame(){
         Gui.L.info("Ending game...");
         currentMaterial = null; // Set the current material to null
@@ -320,17 +335,17 @@ public class Gui_Game {
         // Disable and enable buttons based on the game state
         startButton.setDisable(false); // Disable the start button
         recycleButtons.forEach(b -> b.setDisable(true)); // Disable all recycle buttons
-        materialText.setText("Material: START GAME"); // Reset the material text
+        materialText.setText("START GAME"); // Reset the material text
+        successStatusText.setText("");
     }
 
-    /*
+    /**
      * Randomizes the fields of the material based on its type
      * Each randomly selected material for the game has basic, pre selected values for their fields,
      * so this method is meant to authenticate the material and set the fields to random values
      * 
      * @param m the material to randomize
      */
-    
     private static void randomizeMaterialFields(Material m){
         switch(m.getClass().getSimpleName()){
             case "Plastic":
@@ -451,36 +466,20 @@ public class Gui_Game {
     }
     
 
-    /*
+    /**
      * Returns a random material from the list of materials
      * 
      * @return a random material
      */
     private static Material getRandomMaterial(){
-        // Logic to get a random material goes here
-
-        // First we need to get a collection of all Material subclasses
-        // This is done by getting all declared classes of the Material class
-        
-        
         // Create arrayList of all Materials
-        ArrayList<Class<? extends Material>> materialClasses = new ArrayList<>(); // Create an array list to store the material classes
-        materialClasses.add(Cardboard.class); // Add the Cardboard class to the array list
-        materialClasses.add(Electronic.class); // Add the Electronic class to the array list
-        materialClasses.add(Fabric.class); // Add the Fabric class to the array list
-        materialClasses.add(Food_Waste.class); // Add the Food_Waste class to the array list
-        materialClasses.add(Glass.class); // Add the Glass class to the array list
-        materialClasses.add(Metal.class); // Add the Metal class to the array list
-        materialClasses.add(Paper.class); // Add the Paper class to the array list
-        materialClasses.add(Plastic.class); // Add the Plastic class to the array list
-        materialClasses.add(Wood.class); // Add the Wood class to the array list
+        List<Class<? extends Material>> materialClasses = Material.createAllMaterials();
 
         Date d = new Date(); // Get the current date and time
         Random r = new Random(d.getTime());
         int materialsLength = materialClasses.size(); // Get the length of the materials array
         int randomIndex = r.nextInt(materialsLength); // Get a random index from the materials array
         
-
         Class<? extends Material> randomMaterialClass = materialClasses.get(randomIndex); // Get the random material class
 
         Gui.L.info("Random material class selected: " + randomMaterialClass.getSimpleName()); // Log the selected material class
@@ -497,8 +496,4 @@ public class Gui_Game {
             return null; // Return null if there was an error
         }
     }
-    
-
-    
-
 }
