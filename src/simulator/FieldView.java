@@ -1,13 +1,28 @@
-package src.gui;
+package src.simulator;
 
+import javax.swing.JPanel;
+import java.awt.Graphics;
+import java.awt.Color;
+
+/**
+ * {@link FieldView} is a representation of the {@link src.gui.Gui_Simulator Gui_Simulator}.
+ * It displays many {@link TrashItem} to show when an item is recycled properly.
+ * 
+ * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
+ * @version 4/28/2025
+ * @see TrashItem
+ * @see src.gui.Gui_Simulator Gui_Simulator
+ */
 class FieldView extends JPanel {
     private TrashItem[][] field; // 2D array of your "items"
 
     public FieldView(int width, int height) {
         field = new TrashItem[height][width];
-        // Optional: fill field with initial trash/recycled randomly
     }
 
+    /**
+     * Sets the field with {@link TrashItem TrashItems}.
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int cellWidth = getWidth() / field[0].length;
@@ -25,6 +40,4 @@ class FieldView extends JPanel {
             }
         }
     }
-
-    // Add more methods: update field, move items, etc.
 }

@@ -1,8 +1,7 @@
-package src.gui;
+package src.simulator;
 
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -12,9 +11,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import src.SimulationResult;
-
-
+/**
+ * {@link SimulatorViewRecycle} is the {@code awt} display for {@link src.gui.Gui_Simulator Gui_Simulator}.
+ * 
+ * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
+ * @version 4/28/2025
+ * @see src.gui.Gui_Simulator Gui_Simulator
+ * @see FieldView
+ */
 public class SimulatorViewRecycle extends JFrame {
     private SimulationResult result;
     private String selectedEnvironment;
@@ -58,7 +62,9 @@ public class SimulatorViewRecycle extends JFrame {
         timer.start();
     }
 
-    // Inner class: FieldView
+    /**
+     * Inner class for creating a 2D Field
+     */
     private class FieldView extends JPanel {
         private final int GRID_SIZE = 10;
         private int cols, rows;

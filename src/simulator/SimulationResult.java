@@ -1,6 +1,14 @@
-package src;
+package src.simulator;
 
-public class SimulationResult{
+/**
+ * {@link SimulationResult} is a simple class for displaying the results of a 
+ * simulation from {@link src.gui.Gui_Simulator Gui_Simulator}.
+ * 
+ * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
+ * @version 4/28/2025
+ * @see src.gui.Gui_Simulator Gui_Simulator
+ */
+public class SimulationResult {
     int total, recycled, trashed;
 
      public SimulationResult(int total, int recycled, int trashed) {
