@@ -13,19 +13,41 @@ import javafx.stage.*;
 import src.calculator.Impact_Calculator;
 import src.calculator.ItemNotFoundException;
 
+/**
+ * The {@code Gui_Lookup} class is responsible for setting up and managing the GUI for the recycling lookup feature.
+ * It provides an interactive interface for users to determine the recyclability of various items based on their material.
+ * Users can also add new items to the database if they are not found.
+ * 
+ * This class uses JavaFX for the GUI components and interacts with the {@code Impact_Calculator} class to check
+ * item recyclability and manage the database of materials.
+ * Interactive material selection and recyclability guidance
+ * Ability to add new items to the database
+ *
+ * {@code Impact_Calculator} for item lookup and database management</li>
+ * {@code Material} for material definitions</li>
+ * 
+ * @author Andrew Casey, Saadat Emilbekova, Dylan Jablonski, Jason Mele & Will Zakroff
+ * @version 4/12/2025
+ */
 public class Gui_Lookup {
+
+    /**
+     * The {@code Impact_Calculator} instance used for checking item recyclability and managing the database.
+     */
     private static Impact_Calculator ic = new Impact_Calculator();
+
+    // Buttons for various user actions
     private static Button addToDataButton = new Button("Add to database");
     private static Button notFound = new Button("Add to Database");
-    private static Button yesMaterialButton = new Button("Yes"); 
+    private static Button yesMaterialButton = new Button("Yes");
     private static Button noMaterialButton = new Button("No");
-    private static Button cleanButton = new Button("Clean"); 
+    private static Button cleanButton = new Button("Clean");
     private static Button soiledButton = new Button("Soiled");
-    private static Button yesBatteryButton = new Button("Yes"); 
+    private static Button yesBatteryButton = new Button("Yes");
     private static Button noBatteryButton = new Button("No");
-    private static Button yesHarmDyeButton = new Button("Yes"); 
+    private static Button yesHarmDyeButton = new Button("Yes");
     private static Button noHarmDyeButton = new Button("No");
-    private static Button yesBrokenButton = new Button("Yes"); 
+    private static Button yesBrokenButton = new Button("Yes");
     private static Button noBrokenButton = new Button("No");
     private static Button aluminumButton = new Button("Aluminum");
     private static Button brassButton = new Button("Brass");
@@ -37,7 +59,7 @@ public class Gui_Lookup {
     private static Button steelButton = new Button("Steel");
     private static Button tinButton = new Button("Tin");
     private static Button titaniumButton = new Button("Titanium");
-    private static Button yesInkButton = new Button("Yes"); 
+    private static Button yesInkButton = new Button("Yes");
     private static Button noInkButton = new Button("No");
     private static Button p1Button = new Button("1");
     private static Button p2Button = new Button("2");
@@ -47,18 +69,31 @@ public class Gui_Lookup {
     private static Button p6Button = new Button("6");
     private static Button p7Button = new Button("7");
     private static TextField field = new TextField();
-    private static Button yesCoMButton = new Button("Yes"); 
+    private static Button yesCoMButton = new Button("Yes");
     private static Button noCoMButton = new Button("No");
     private static Button exitButton = new Button("Exit Lookup");
     private static Button restartButton = new Button("Restart Lookup");
     private static Button newLookupButton = new Button("Lookup New Item");
+
+    // Text elements for displaying information
     private static Text questionText = new Text("Do you know the material of your item?");
     private static VBox v = new VBox();
     private static Text titleText = new Text("Recycling Lookup!");
     private static Text instructionsText = new Text("");
+
+    // List to store current items being processed
     private static List<String> currentItems = new ArrayList<>(16);
+
+    // Scenes for different stages of the lookup process
     private static Scene addScene;
     private static Scene lookupScene;
+
+    /**
+     * Sets up the lookup scene for the recycling aid application.
+     * 
+     * @param mainStage The primary stage of the application.
+     * @return The {@code Scene} object representing the lookup scene.
+     */
     protected static Scene setUpLookupScene(Stage mainStage) {
         Gui.L.info("Setting up lookup scene (clean version)");
         
@@ -469,16 +504,24 @@ public class Gui_Lookup {
         return lookupScene;
         }
         
+    /**
+     * Restarts the lookup process by resetting the GUI components to their initial state.
+     */
     private static void restart() {
-    Gui.L.info("Restarting Lookup...");
-    v.getChildren().clear(); // Clear all children to avoid duplicates
-    v.getChildren().add(titleText);
-    v.getChildren().add(questionText);
-    v.getChildren().add(instructionsText);
-    v.getChildren().addAll(exitButton, restartButton, yesMaterialButton, noMaterialButton);
-    questionText.setText("Do you know the material of your item?");
+        Gui.L.info("Restarting Lookup...");
+        v.getChildren().clear(); // Clear all children to avoid duplicates
+        v.getChildren().add(titleText);
+        v.getChildren().add(questionText);
+        v.getChildren().add(instructionsText);
+        v.getChildren().addAll(exitButton, restartButton, yesMaterialButton, noMaterialButton);
+        questionText.setText("Do you know the material of your item?");
     }
 
+    /**
+     * Sets up the scene for adding a new item to the database.
+     * 
+     * @param mainStage The primary stage of the application.
+     */
     protected static void setUpAddScene(Stage mainStage) {
         // Labels
         Text title = new Text("Add To Database");
