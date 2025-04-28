@@ -18,9 +18,6 @@ import src.SimulationResult;
 
 public class Gui_Simulator {
 
-    private enum RecyclerType {
-        NEIGHBORHOOD, INDUSTRIAL, SCHOOL
-    }
 
     protected static Scene setUpSimulatorScene(Stage mainStage) {
         VBox box = new VBox(20);
@@ -69,6 +66,14 @@ public class Gui_Simulator {
 
                 resultsArea.setText(result.toString());
                 resultsArea.setVisible(true);
+
+                SimulatorViewRecycle simulatorView = new SimulatorViewRecycle(result, recyclerChoice, days, recyclerCount, fervor);
+            
+
+
+                simulatorView.setVisible(true);
+                
+
             } catch (Exception ex) {
                 resultsArea.setText("Invalid input. Please enter valid numbers for days and recyclers.");
                 resultsArea.setVisible(true);
