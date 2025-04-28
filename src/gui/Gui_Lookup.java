@@ -72,7 +72,7 @@ public class Gui_Lookup {
     private static Button noCoMButton = new Button("No");
     private static Button exitButton = new Button("Exit Lookup");
     private static Button restartButton = new Button("Restart Lookup");
-    private static Button newLookupButton = new Button("Lookup New Item");
+    
 
     // Text elements for displaying information
     private static Text questionText = new Text("Do you know the material of your item?");
@@ -191,14 +191,14 @@ public class Gui_Lookup {
             Gui.L.info("Clean button pressed");
             questionText.setText("The item is recyclable at a bin or a center");
             materialOptionsLayout.getChildren().removeAll(cleanButton, soiledButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         soiledButton.setOnAction(e -> {
             Gui.L.info("Soiled button pressed");
             questionText.setText("The item is disposable in a trash can");
             materialOptionsLayout.getChildren().removeAll(cleanButton, soiledButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         electronicButton.setOnAction(e -> {
@@ -212,14 +212,14 @@ public class Gui_Lookup {
             Gui.L.info("Yes Battery button pressed");
             questionText.setText("The item is donatable at a donation center");
             materialOptionsLayout.getChildren().removeAll(yesBatteryButton, noBatteryButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         noBatteryButton.setOnAction(e -> {
             Gui.L.info("No Battery button pressed");
             questionText.setText("The item is disposable in a trash can, recyclable at a center,\n and donatable at a donation center");
             materialOptionsLayout.getChildren().removeAll(yesBatteryButton, noBatteryButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         fabricButton.setOnAction(e -> {
@@ -233,14 +233,14 @@ public class Gui_Lookup {
             Gui.L.info("Yes Harmful Dye button pressed");
             questionText.setText("The item is disposable in a trash can");
             materialOptionsLayout.getChildren().removeAll(yesHarmDyeButton, noHarmDyeButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         noHarmDyeButton.setOnAction(e -> {
             Gui.L.info("No Harmful Dye button pressed");
             questionText.setText("The item is disposable in a trash can and recyclable at a center");
             materialOptionsLayout.getChildren().removeAll(yesHarmDyeButton, noHarmDyeButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         foodWasteButton.setOnAction(e -> {
@@ -260,14 +260,14 @@ public class Gui_Lookup {
             Gui.L.info("Glass Broken button pressed");
             questionText.setText("The item is disposable in a trash can, but should be marked");
             materialOptionsLayout.getChildren().removeAll(yesBrokenButton, noBrokenButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         noBrokenButton.setOnAction(e -> {
             Gui.L.info("No Glass Broken button pressed");
             questionText.setText("The item is recyclable at a center");
             materialOptionsLayout.getChildren().removeAll(yesBrokenButton, noBrokenButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         metalButton.setOnAction(e -> {
@@ -280,70 +280,68 @@ public class Gui_Lookup {
         aluminumButton.setOnAction(e -> {
             Gui.L.info("Aluminum button pressed");
             questionText.setText("The item is disposable at a trash can or recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         brassButton.setOnAction(e -> {
             Gui.L.info("Brass button pressed");
             questionText.setText("The item is disposable at a trash can or recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         bronzeButton.setOnAction(e -> {
             Gui.L.info("Bronze button pressed");
             questionText.setText("The item is disposable at a trash can or recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         copperButton.setOnAction(e -> {
             Gui.L.info("Copper button pressed");
             questionText.setText("The item is disposable at a trash can or recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         leadButton.setOnAction(e -> {
             Gui.L.info("Lead button pressed");
             questionText.setText("The item is recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         ironButton.setOnAction(e -> {
             Gui.L.info("Iron button pressed");
             questionText.setText("The item is recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         nickelButton.setOnAction(e -> {
             Gui.L.info("Nickel button pressed");
             questionText.setText("The item is recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         steelButton.setOnAction(e -> {
             Gui.L.info("Steel button pressed");
             questionText.setText("The item is disposable at a trash can or recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         tinButton.setOnAction(e -> {
             Gui.L.info("Tin button pressed");
             questionText.setText("The item is disposable at a trash can or recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
         titaniumButton.setOnAction(e -> {
             Gui.L.info("Titanium button pressed");
             questionText.setText("The item is recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(aluminumButton, brassButton, bronzeButton, copperButton, leadButton, ironButton, nickelButton, steelButton, tinButton, titaniumButton);
         });
 
@@ -358,14 +356,14 @@ public class Gui_Lookup {
             Gui.L.info("Ink button pressed");
             questionText.setText("The item is disposable in a trash can and recyclable at a bin");
             materialOptionsLayout.getChildren().removeAll(yesInkButton, noInkButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         noBrokenButton.setOnAction(e -> {
             Gui.L.info("No Ink button pressed");
             questionText.setText("The item is recyclable at a bin, disposable in a trash can, \n and compostable");
             materialOptionsLayout.getChildren().removeAll(yesInkButton, noInkButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         plasticButton.setOnAction(e -> {
@@ -378,49 +376,49 @@ public class Gui_Lookup {
         p1Button.setOnAction(e -> {
             Gui.L.info("Plastic 1 button pressed");
             questionText.setText("The item is recyclable at a bin");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(p1Button, p2Button, p3Button, p4Button, p5Button, p6Button, p7Button);
         });
 
         p2Button.setOnAction(e -> {
             Gui.L.info("Plastic 2 button pressed");
             questionText.setText("The item is recyclable at a bin");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(p1Button, p2Button, p3Button, p4Button, p5Button, p6Button, p7Button);
         });
 
         p3Button.setOnAction(e -> {
             Gui.L.info("Plastic 3 button pressed");
             questionText.setText("The item is disposable at a trash can");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(p1Button, p2Button, p3Button, p4Button, p5Button, p6Button, p7Button);
         });
 
         p4Button.setOnAction(e -> {
             Gui.L.info("Plastic 4 button pressed");
             questionText.setText("The item is recyclable at a center");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(p1Button, p2Button, p3Button, p4Button, p5Button, p6Button, p7Button);
         });
 
         p5Button.setOnAction(e -> {
             Gui.L.info("Plastic 5 button pressed");
             questionText.setText("The item is recyclable at a bin");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(p1Button, p2Button, p3Button, p4Button, p5Button, p6Button, p7Button);
         });
 
         p6Button.setOnAction(e -> {
             Gui.L.info("Plastic 6 button pressed");
             questionText.setText("The item is disposable at a trash can");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(p1Button, p2Button, p3Button, p4Button, p5Button, p6Button, p7Button);
         });
 
         p7Button.setOnAction(e -> {
             Gui.L.info("Plastic 7 button pressed");
             questionText.setText("The item is disposable at a trash can");
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
             materialOptionsLayout.getChildren().removeAll(p1Button, p2Button, p3Button, p4Button, p5Button, p6Button, p7Button);
         });
 
@@ -435,14 +433,14 @@ public class Gui_Lookup {
             Gui.L.info("Contaminated or Manufactored button pressed");
             questionText.setText("The item is disposable in a trash can");
             materialOptionsLayout.getChildren().removeAll(yesCoMButton, noCoMButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
 
         noCoMButton.setOnAction(e -> {
             Gui.L.info("Not Contaminated or Manufactored button pressed");
             questionText.setText("The item is compostable");
             materialOptionsLayout.getChildren().removeAll(yesCoMButton, noCoMButton);
-            materialOptionsLayout.getChildren().add(newLookupButton);
+            
         });
         
         checkButton.setOnAction(e -> {
