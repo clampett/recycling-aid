@@ -30,7 +30,6 @@ import src.calculator.ItemNotFoundException;
  * @version 4/12/2025
  */
 public class Gui_Lookup {
-
     /**
      * The {@code Impact_Calculator} instance used for checking item recyclability and managing the database.
      */
