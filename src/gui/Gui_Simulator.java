@@ -185,14 +185,17 @@ public class Gui_Simulator {
 
         TextField daysField = new TextField();
         daysField.setPromptText("Days to Simulate");
+        daysField.setMaxWidth(Gui.APP_WIDTH);
 
         TextField recyclerCountField = new TextField();
         recyclerCountField.setPromptText("# of Recyclers");
+        recyclerCountField.setMaxWidth(Gui.APP_WIDTH);
 
         Slider fervorSlider = new Slider(0, 1, 0.7);
         fervorSlider.setShowTickLabels(true);
         fervorSlider.setShowTickMarks(true);
         fervorSlider.setMajorTickUnit(0.25);
+        fervorSlider.setMaxWidth(Gui.APP_WIDTH * (3/2));
 
         Button startButton = new Button("Start Simulation");
         startButton.setStyle(Gui.BUTTON_CSS);
@@ -218,12 +221,7 @@ public class Gui_Simulator {
                 resultsArea.setVisible(true);
 
                 SimulatorViewRecycle simulatorView = new SimulatorViewRecycle(result, recyclerChoice, days, recyclerCount, fervor);
-            
-
-
                 simulatorView.setVisible(true);
-                
-
             } catch (Exception ex) {
                 resultsArea.setText("Invalid input. Please enter valid numbers for days and recyclers.");
                 resultsArea.setVisible(true);

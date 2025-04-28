@@ -151,8 +151,6 @@ public class Gui_Lookup {
         Button plasticButton = new Button("Plastic");
         Button woodButton = new Button("Wood");
 
-        
-        
         VBox materialOptionsLayout = new VBox(10, cardboardButton, electronicButton, fabricButton, foodWasteButton, glassButton, metalButton, paperButton, plasticButton, woodButton);
         materialOptionsLayout.setAlignment(Pos.CENTER);
         materialOptionsLayout.setVisible(false);
@@ -472,9 +470,7 @@ public class Gui_Lookup {
                     String newItem = input;
                     instructionsText.setText("Item not found. Would you like to add " + newItem + " to the database?");
                     notFound.setVisible(true);
-                    addToDataButton.setVisible(true);
-    
-                    
+                    addToDataButton.setVisible(true);                
                 }
         });
         
@@ -575,7 +571,4 @@ public class Gui_Lookup {
     
         addScene = new Scene(main);
     }
-    
-    
 }
-

@@ -206,16 +206,10 @@ public class Gui_Info {
      */
     private static String[][] createMaterialData() {
         List<String[]> data = new ArrayList<>();
-        List<Material> materials = new ArrayList<>();
-        List<Class<? extends Material>> b = Material.createAllMaterials();
-
-        for(Class<? extends Material> c : b) {
-            try {
-                materials.add((Material) c.getDeclaredConstructors()[1].newInstance());
-            } catch(Exception e) {
-                Gui.L.severe("Could NOT Create Material - " + e.getMessage());
-            }
-        }
+        List<Material> materials = Loader.deserialize_dir("data/serialized", Gui.L)
+                                   .stream()
+                                   .map(mat -> (Material) mat)
+                                   .toList();
 
         data.add(Material.DISPLAY_HEADERS);
 
