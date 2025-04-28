@@ -1,10 +1,7 @@
 package src.recycling_types.categories;
 
-import java.lang.reflect.Field;
-
-import src.customExceptions.failedRecycleException;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 
 public interface Recyclable {
-    public boolean attemptRecycle(Material m) throws failedRecycleException;
+    public boolean attemptRecycle(Material m) throws failedTrashException;
 }

@@ -2,9 +2,6 @@ package src.recycling_types.categories;
 
 import src.recycling_types.*;
 
-import java.lang.reflect.Field;
-
-import src.customExceptions.failedDisposeException;
 /**
  * 
  * 
@@ -13,5 +10,5 @@ import src.customExceptions.failedDisposeException;
  */
 public interface Disposable {
     
-    public abstract boolean attemptDispose(Material m) throws failedDisposeException;
+    public abstract boolean attemptDispose(Material m) throws failedTrashException;
 }

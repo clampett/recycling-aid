@@ -1,13 +1,10 @@
 package src.recycling_types.materials;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
-import src.customExceptions.failedBinException;
-import src.customExceptions.failedDisposeException;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 import src.recycling_types.categories.*;
 
 /**
@@ -70,7 +67,7 @@ public class Glass extends Material implements Binnable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material) throws failedBinException{
+    public boolean attemptBin(Material material) {
         if(((Glass)material).getIsTempered() == true){
             return false;
         }
@@ -80,7 +77,7 @@ public class Glass extends Material implements Binnable, Disposable {
     }
 
     @Override
-    public boolean attemptDispose(Material material) throws failedDisposeException{
+    public boolean attemptDispose(Material material) {
         if(((Glass)material).getIsTempered() == true){
             return true;
         }

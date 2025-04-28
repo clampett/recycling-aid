@@ -18,9 +18,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import src.recycling_types.Material;
+import src.recycling_types.failedTrashException;
 import src.recycling_types.categories.*;
 import src.recycling_types.materials.*;
-import src.customExceptions.*;
 
 /**
  * {@link Gui_Game} is apart of Recycling Aid's {@link Gui}.
@@ -152,8 +152,8 @@ public class Gui_Game {
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
                     
                     }
-                } catch (failedDonateException ex){
-                    Gui.L.warning("Failed to donate material: " + ex.getMessage()); // Log the error message
+                } catch (failedTrashException ex){
+                    Gui.L.warning("Failed to donate material: " + ex.getMessage(currentMaterial, Donatable.class)); // Log the error message
                     successStatusText.setText("Failed to donate " + currentMaterial.getClass().getSimpleName());
                 }
             } else {
@@ -179,8 +179,8 @@ public class Gui_Game {
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
                     
                     }
-                } catch(failedDisposeException ex){
-                    Gui.L.warning("Failed to dispose material: " + ex.getMessage()); // Log the error message
+                } catch(failedTrashException ex){
+                    Gui.L.warning("Failed to dispose material: " + ex.getMessage(currentMaterial, Disposable.class)); // Log the error message
                     successStatusText.setText("Failed to dispose " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             }
@@ -207,8 +207,8 @@ public class Gui_Game {
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
                     
                     }
-                } catch(failedCompostException ex){
-                    Gui.L.warning("Failed to compost material: " + ex.getMessage()); // Log the error message
+                } catch(failedTrashException ex){
+                    Gui.L.warning("Failed to compost material: " + ex.getMessage(currentMaterial, Compostable.class)); // Log the error message
                     successStatusText.setText("Failed to compost " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             } else{
@@ -234,8 +234,8 @@ public class Gui_Game {
                     
                     }
 
-                } catch(failedCenterException ex){
-                    Gui.L.warning("Failed to center material: " + ex.getMessage()); // Log the error message
+                } catch(failedTrashException ex){
+                    Gui.L.warning("Failed to center material: " + ex.getMessage(currentMaterial, Centerable.class)); // Log the error message
                     successStatusText.setText("Failed to center " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             } else{
@@ -261,8 +261,8 @@ public class Gui_Game {
                     currentMaterialClass = currentMaterial.getClass(); // Get the class of the current material
                     
                     }
-                } catch(failedBinException ex){
-                    Gui.L.warning("Failed to bin material: " + ex.getMessage()); // Log the error message
+                } catch(failedTrashException ex){
+                    Gui.L.warning("Failed to bin material: " + ex.getMessage(currentMaterial, Binnable.class)); // Log the error message
                     successStatusText.setText("Failed to bin " + currentMaterial.getClass().getSimpleName()); // Update the success status text
                 }
             

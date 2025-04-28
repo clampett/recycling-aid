@@ -1,14 +1,10 @@
 package src.recycling_types.materials;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
-import src.customExceptions.failedCompostException;
-import src.customExceptions.failedDisposeException;
-import src.gui.Gui;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 import src.recycling_types.categories.*;
 
 /**
@@ -118,7 +114,7 @@ public class Food_Waste extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptDispose(Material material) throws failedDisposeException{
+    public boolean attemptDispose(Material material) {
         if(((Food_Waste)material).getIsOrganic() == true){
             return false;
         }
@@ -126,7 +122,7 @@ public class Food_Waste extends Material implements Compostable, Disposable {
     }
 
     @Override
-    public boolean attemptCompost(Material material) throws failedCompostException{
+    public boolean attemptCompost(Material material) {
         if(((Food_Waste)material).getIsOrganic() == true){
             return true;
         }

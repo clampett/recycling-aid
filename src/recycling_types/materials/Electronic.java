@@ -3,13 +3,8 @@ package src.recycling_types.materials;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
-import java.lang.reflect.Field;
 
-import src.customExceptions.failedCenterException;
-import src.customExceptions.failedDisposeException;
-import src.customExceptions.failedDonateException;
-import src.gui.Gui;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 import src.recycling_types.categories.*;
 
 /**
@@ -71,12 +66,12 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material) throws failedDonateException{
+    public boolean attemptDonate(Material material) {
         return true; // Example: Always allow donation
     }
 
     @Override
-    public boolean attemptCenter(Material material) throws failedCenterException{
+    public boolean attemptCenter(Material material) {
         if(((Electronic)material).getHasBattery() == true){
             return false;
         }
@@ -84,7 +79,7 @@ public class Electronic extends Material implements Centerable, Donatable, Dispo
     }
 
     @Override
-    public boolean attemptDispose(Material material) throws failedDisposeException{
+    public boolean attemptDispose(Material material) {
         if(((Electronic)material).getHasBattery() == true){
             return false;
         }

@@ -1,14 +1,10 @@
 package src.recycling_types.materials;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
-import src.customExceptions.failedBinException;
-import src.customExceptions.failedCenterException;
-import src.customExceptions.failedDisposeException;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 import src.recycling_types.categories.*;
 
 /**
@@ -158,7 +154,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
 
     @Override
     //1, 2, and 5 are binnable
-    public boolean attemptBin(Material material) throws failedBinException{
+    public boolean attemptBin(Material material) {
         if(((Plastic)material).getPlasticType() == plasticType.PP){
             return true;
         }
@@ -173,7 +169,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
 
     @Override
     //4 is centerable
-    public boolean attemptCenter(Material material) throws failedCenterException{
+    public boolean attemptCenter(Material material) {
         if(((Plastic)material).getPlasticType() == plasticType.LDPE){
             return true;
         }
@@ -182,7 +178,7 @@ public class Plastic extends Material implements Binnable, Centerable, Disposabl
 
     @Override
     //3, 6, and 7 are disposable
-    public boolean attemptDispose(Material material) throws failedDisposeException{
+    public boolean attemptDispose(Material material) {
         if(((Plastic)material).getPlasticType() == plasticType.PVC){
             return true;
         }

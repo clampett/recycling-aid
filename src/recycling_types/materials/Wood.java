@@ -1,13 +1,10 @@
 package src.recycling_types.materials;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
-import src.customExceptions.failedCompostException;
-import src.customExceptions.failedDisposeException;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 import src.recycling_types.categories.*;
 
 /**
@@ -91,7 +88,7 @@ public class Wood extends Material implements Compostable, Disposable {
     //Interface methods
 
     @Override
-    public boolean attemptCompost(Material material) throws failedCompostException{
+    public boolean attemptCompost(Material material) {
 
         if(((Wood)material).getContaminated() == true){
             return false;
@@ -104,7 +101,7 @@ public class Wood extends Material implements Compostable, Disposable {
     }
 
     @Override
-    public boolean attemptDispose(Material material) throws failedDisposeException{
+    public boolean attemptDispose(Material material) {
         if(((Wood)material).getContaminated() == true){
             return true;
         }

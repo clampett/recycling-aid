@@ -1,14 +1,10 @@
 package src.recycling_types.materials;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
-import src.customExceptions.failedCenterException;
-import src.customExceptions.failedDisposeException;
-import src.customExceptions.failedDonateException;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 import src.recycling_types.categories.*;
 
 /**
@@ -96,7 +92,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     //Interface methods
 
     @Override
-    public boolean attemptDonate(Material material) throws failedDonateException{
+    public boolean attemptDonate(Material material) {
        if(((Fabric)material).isHarmfulDyed() == false){
             return true;
        }
@@ -104,7 +100,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     }
 
     @Override
-    public boolean attemptCenter(Material material) throws failedCenterException{
+    public boolean attemptCenter(Material material) {
         if(((Fabric)material).isHarmfulDyed() == false){
             return true;
        }
@@ -112,7 +108,7 @@ public class Fabric extends Material implements Centerable, Donatable, Disposabl
     }
 
     @Override
-    public boolean attemptDispose(Material material) throws failedDisposeException{
+    public boolean attemptDispose(Material material) {
         if(((Fabric)material).isHarmfulDyed() == true){
             return true;
        }

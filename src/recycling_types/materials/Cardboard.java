@@ -1,14 +1,10 @@
 package src.recycling_types.materials;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
-import src.customExceptions.failedBinException;
-import src.customExceptions.failedDisposeException;
-import src.customExceptions.failedRecycleException;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 import src.recycling_types.categories.*;
 
 /**
@@ -69,7 +65,7 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     //Interface methods
 
     @Override
-    public boolean attemptBin(Material material) throws failedBinException{
+    public boolean attemptBin(Material material) {
         if(((Cardboard)material).getIsSoiled() == true){
             return false;
         }
@@ -77,7 +73,7 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     }
 
     @Override
-    public boolean attemptDispose(Material material) throws failedDisposeException{
+    public boolean attemptDispose(Material material) {
         if(((Cardboard)material).getIsSoiled() == true){
             return true;
         }
@@ -85,7 +81,7 @@ public class Cardboard extends Material implements Binnable, Disposable, Recycla
     }
 
     @Override
-    public boolean attemptRecycle(Material material) throws failedRecycleException{
+    public boolean attemptRecycle(Material material) {
         if(((Cardboard)material).getIsSoiled() == true){
             return false;
         }

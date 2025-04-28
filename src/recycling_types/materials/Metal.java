@@ -1,13 +1,10 @@
 package src.recycling_types.materials;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
 
-import src.customExceptions.failedCenterException;
-import src.customExceptions.failedDisposeException;
-import src.recycling_types.Material;
+import src.recycling_types.*;
 import src.recycling_types.categories.*;
 
 /**
@@ -214,7 +211,7 @@ public class Metal extends Material implements Centerable, Disposable {
 
     @Override
     //Aluminum, steel, copper, brass, bronze, and tin can be centered
-    public boolean attemptCenter(Material material) throws failedCenterException{
+    public boolean attemptCenter(Material material) {
         if(((Metal)material).getMetalType().equals("Lead")){
             return true;
         }
@@ -232,7 +229,7 @@ public class Metal extends Material implements Centerable, Disposable {
 
     @Override
     //Aluminum, steel, copper, brass, bronze, tin can be disposed
-    public boolean attemptDispose(Material material) throws failedDisposeException{
+    public boolean attemptDispose(Material material) {
         if(((Metal)material).getMetalType().equals("Lead")){
             return false;
         }
