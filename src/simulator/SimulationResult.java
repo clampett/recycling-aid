@@ -9,17 +9,31 @@ package src.simulator;
  * @see src.gui.Gui_Simulator Gui_Simulator
  */
 public class SimulationResult {
-    int total, recycled, trashed;
+    private int totalCount, recycledCount, trashedCount;
 
-     public SimulationResult(int total, int recycled, int trashed) {
-        this.total = total;
-        this.recycled = recycled;
-        this.trashed = trashed;
+     public SimulationResult(int totalCount, int recycledCount, int trashedCount) {
+        this.totalCount = totalCount;
+        this.recycledCount = recycledCount;
+        this.trashedCount = trashedCount;
     }
 
+
+    public int getRecycledCount()
+    {
+        return recycledCount;
+    }
+
+    public int getTotalCount()
+    {
+        return totalCount;
+    }
+    public int getTrashedCount()
+    {
+        return trashedCount;
+    }
     @Override
     public String toString() {
-        double recycleRate = (total == 0) ? 0 : (double) recycled / total * 100.0;
-        return String.format("Simulation Complete!\nTotal Materials: %d\nRecycled: %d\nTrashed: %d\nRecycle Rate: %.2f%%", total, recycled, trashed, recycleRate);
+        double recycleRate = (totalCount == 0) ? 0 : (double) recycledCount / totalCount * 100.0;
+        return String.format("Simulation Complete!\nTotal Materials: %d\nRecycled: %d\nTrashed: %d\nRecycle Rate: %.2f%%", totalCount, recycledCount, trashedCount, recycleRate);
     }
 }

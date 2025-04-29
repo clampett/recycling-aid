@@ -1,15 +1,20 @@
 package src.simulator;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
 
 /**
  * {@link SimulatorViewRecycle} is the {@code awt} display for {@link src.gui.Gui_Simulator Gui_Simulator}.
@@ -28,9 +33,11 @@ public class SimulatorViewRecycle extends JFrame {
     private static final Color RECYCLED_COLOR = Color.green;
     private static final Color TRASH_COLOR = Color.orange;
     private static final Color EMPTY_COLOR = Color.white;
+    
 
     private FieldView fieldView;
     private Timer timer;
+    private JLabel stepLabel;
 
     public SimulatorViewRecycle(SimulationResult result, String selectedEnvironment, int selectedDays, int selectedRecycleCount, double fervor) {
         this.result = result;
@@ -38,15 +45,19 @@ public class SimulatorViewRecycle extends JFrame {
         this.selectedDays = selectedDays;
         this.selectedRecycleCount = selectedRecycleCount;
         this.fervor = fervor;
+        
 
         setTitle("Recycle Simulator");
         setSize(600, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         setLocation(100, 50);
 
-        fieldView = new FieldView(50, 50); // (width, height) or (cols, rows)
+        fieldView = new FieldView(50, 50); 
+        stepLabel = new JLabel("Step 0 of " + (selectedDays * 10) + " (Day 0 of " + selectedDays + ")");
+        stepLabel.setHorizontalAlignment(JLabel.CENTER);
         Container contents = getContentPane();
         contents.add(fieldView, BorderLayout.CENTER);
+        contents.add(stepLabel, BorderLayout.SOUTH);
         setVisible(true);
 
         timer = new Timer(100, new ActionListener() {
@@ -66,31 +77,46 @@ public class SimulatorViewRecycle extends JFrame {
      * Inner class for creating a 2D Field
      */
     private class FieldView extends JPanel {
+        int recycledCount = result.getRecycledCount();
+        int trashedCount = result.getTrashedCount();
+        int totalMateerials = result.getTotalCount();
         private final int GRID_SIZE = 10;
         private int cols, rows;
         private int[][] field;
         private int stepsCompleted = 0;
+        
 
         public FieldView(int cols, int rows) {
             this.cols = cols;
             this.rows = rows;
             field = new int[rows][cols];
 
+            int totalSpots = rows * cols;
+            int neededSpots = recycledCount + trashedCount;
+            if (neededSpots > totalSpots) {
+                throw new IllegalArgumentException("Grid is too small for the number of recycled and trashed items.");
+            }
           
+            List<Point> allPositions = new ArrayList<>();
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < cols; col++) {
-                    double rand = Math.random();
-                    if (rand < fervor) {
-                        field[row][col] = 2; // Recycled or green
-                    } else if (rand < fervor + 0.1) {
-                        field[row][col] = 1; // Trash or orange
-                    } else {
-                        field[row][col] = 0; // Empty or white
-                    }
+                    allPositions.add(new Point(row, col));
                 }
+            }
+            Collections.shuffle(allPositions);
+            
+
+            for (int i = 0; i < recycledCount; i++) {
+                Point p = allPositions.get(i);
+                field[p.x][p.y] = 2;
+            }
+            for (int i = recycledCount; i < recycledCount + trashedCount; i++) {
+                Point p = allPositions.get(i);
+                field[p.x][p.y] = 1;
             }
         }
 
+        
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -133,6 +159,12 @@ public class SimulatorViewRecycle extends JFrame {
                     }
                 }
                 stepsCompleted++;
+                int currentDay = stepsCompleted / 10 + 1;
+                if (currentDay > selectedDays) currentDay = selectedDays;
+
+                stepLabel.setText("Step " + stepsCompleted + " of " + (selectedDays * 10) + " (Day " + currentDay + " of " + selectedDays + ")");
+
+                
                 repaint();
                 
             }
