@@ -86,6 +86,7 @@ public abstract class Material implements Serializable {
     public String displayPossibleItems() {
         Set<String> cleanedPossibleItems = 
         possibleItems.stream()
+                     .filter(item -> item != null && !item.isEmpty()) // filter out nulls and empty strings
                      .map(item -> 
                         item.substring(0,1).toUpperCase() + item.substring(1))
                      .collect(Collectors.toSet());

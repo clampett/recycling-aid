@@ -36,57 +36,27 @@ public class Gui_Lookup {
     private static Impact_Calculator ic = new Impact_Calculator();
 
     // Buttons for various user actions
-    private static Button addToDataButton = new Button("Add to database");
-    private static Button notFound = new Button("Add to Database");
-    private static Button yesMaterialButton = new Button("Yes");
-    private static Button noMaterialButton = new Button("No");
-    private static Button cleanButton = new Button("Clean");
-    private static Button soiledButton = new Button("Soiled");
-    private static Button yesBatteryButton = new Button("Yes");
-    private static Button noBatteryButton = new Button("No");
-    private static Button yesHarmDyeButton = new Button("Yes");
-    private static Button noHarmDyeButton = new Button("No");
-    private static Button yesBrokenButton = new Button("Yes");
-    private static Button noBrokenButton = new Button("No");
-    private static Button aluminumButton = new Button("Aluminum");
-    private static Button brassButton = new Button("Brass");
-    private static Button bronzeButton = new Button("Bronze");
-    private static Button copperButton = new Button("Copper");
-    private static Button leadButton = new Button("Lead");
-    private static Button ironButton = new Button("Iron");
-    private static Button nickelButton = new Button("Nickel");
-    private static Button steelButton = new Button("Steel");
-    private static Button tinButton = new Button("Tin");
-    private static Button titaniumButton = new Button("Titanium");
-    private static Button yesInkButton = new Button("Yes");
-    private static Button noInkButton = new Button("No");
-    private static Button p1Button = new Button("1");
-    private static Button p2Button = new Button("2");
-    private static Button p3Button = new Button("3");
-    private static Button p4Button = new Button("4");
-    private static Button p5Button = new Button("5");
-    private static Button p6Button = new Button("6");
-    private static Button p7Button = new Button("7");
-    private static TextField field = new TextField();
     private static Button yesCoMButton = new Button("Yes");
     private static Button noCoMButton = new Button("No");
     private static Button exitButton = new Button("Exit Lookup");
     private static Button restartButton = new Button("Restart Lookup");
+    private static Button yesMaterialButton = new Button("Yes");
+    private static Button noMaterialButton = new Button("No");
     
-
+    
     // Text elements for displaying information
     private static Text questionText = new Text("Do you know the material of your item?");
     private static VBox v = new VBox();
     private static Text titleText = new Text("Recycling Lookup!");
     private static Text instructionsText = new Text("");
-
+    
     // List to store current items being processed
     private static List<String> currentItems = new ArrayList<>(16);
-
+    
     // Scenes for different stages of the lookup process
     private static Scene addScene;
     private static Scene lookupScene;
-
+    
     /**
      * Sets up the lookup scene for the recycling aid application.
      * 
@@ -94,6 +64,35 @@ public class Gui_Lookup {
      * @return The {@code Scene} object representing the lookup scene.
      */
     protected static Scene setUpLookupScene(Stage mainStage) {
+        Button addToDataButton = new Button("Add to database");
+        Button notFound = new Button("Add to Database");
+        Button cleanButton = new Button("Clean");
+        Button soiledButton = new Button("Soiled");
+        Button yesBatteryButton = new Button("Yes");
+        Button noBatteryButton = new Button("No");
+        Button yesHarmDyeButton = new Button("Yes");
+        Button noHarmDyeButton = new Button("No");
+        Button yesBrokenButton = new Button("Yes");
+        Button noBrokenButton = new Button("No");
+        Button aluminumButton = new Button("Aluminum");
+        Button brassButton = new Button("Brass");
+        Button bronzeButton = new Button("Bronze");
+        Button copperButton = new Button("Copper");
+        Button leadButton = new Button("Lead");
+        Button ironButton = new Button("Iron");
+        Button nickelButton = new Button("Nickel");
+        Button steelButton = new Button("Steel");
+        Button tinButton = new Button("Tin");
+        Button titaniumButton = new Button("Titanium");
+        Button yesInkButton = new Button("Yes");
+        Button noInkButton = new Button("No");
+        Button p1Button = new Button("1");
+        Button p2Button = new Button("2");
+        Button p3Button = new Button("3");
+        Button p4Button = new Button("4");
+        Button p5Button = new Button("5");
+        Button p6Button = new Button("6");
+        Button p7Button = new Button("7");
         Gui.L.info("Setting up lookup scene (clean version)");
         
         // --- Create Layout Root ---
@@ -173,7 +172,7 @@ public class Gui_Lookup {
         });
 
         addToDataButton.setOnAction(e -> {
-            currentItems.add(field.getText().toLowerCase());
+            currentItems.add(itemField.getText().toLowerCase());
             setUpAddScene(mainStage);
             mainStage.setScene(addScene);
         });
@@ -493,7 +492,7 @@ public class Gui_Lookup {
             bottomButtons
         );
         
-        lookupScene = new Scene(lookupLayout, 500, 750);  // Make sure it's initialized here
+        lookupScene = new Scene(lookupLayout, 750, 750);  // Make sure it's initialized here
         return lookupScene;
         }
         
