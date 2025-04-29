@@ -20,6 +20,7 @@ public class RecycleDriver {
      * @param args CLI arguments
      */
     public static void main(String[] args) {
+        //resetSerialized();
         Gui.main(args, L);
     }
 

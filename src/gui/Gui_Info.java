@@ -51,12 +51,7 @@ public class Gui_Info {
         next.setStyle(Gui.BUTTON_CSS);
 
         back.setOnAction(e -> mainStage.setScene(Gui.titleScene));
-        next.setOnAction(e -> {
-            if(materialInfoScene == null)
-                materialInfoScene = setUpInfoSceneII(mainStage);
-                
-            mainStage.setScene(materialInfoScene);
-        });
+        next.setOnAction(e -> mainStage.setScene(materialInfoScene));
 
         //Layouts
         Region leftSpacer = new Region();
@@ -207,9 +202,9 @@ public class Gui_Info {
     private static String[][] createMaterialData() {
         List<String[]> data = new ArrayList<>();
         List<Material> materials = Loader.deserialize_dir("data/serialized", Gui.L)
-                                   .stream()
-                                   .map(mat -> (Material) mat)
-                                   .toList();
+                                         .stream()
+                                         .map(mat -> (Material) mat)
+                                         .toList();
 
         data.add(Material.DISPLAY_HEADERS);
 
